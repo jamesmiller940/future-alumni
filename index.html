@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Kunshan 2045: The Human Advantage</title>
+    <style>
+        :root {
+            --primary-blue: #00539b; /* Duke Blue */
+            --accent-gold: #e8aa00; /* DKU Gold */
+            --dark-bg: #0a0e14;
+            --card-bg: #16212e;
+            --text-light: #e0e6ed;
+            --neon-glow: 0 0 10px rgba(0, 83, 155, 0.5);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #game-container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--neon-glow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        h1 { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; }
+        .subtitle { font-style: italic; color: #8899ac; margin-bottom: 2rem; }
+
+        .hidden { display: none; }
+
+        .btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn:hover { background: #003d73; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .btn:disabled { background: #334; cursor: not-allowed; }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .char-card {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border: 1px solid var(--primary-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .char-card:hover { background: rgba(0, 83, 155, 0.2); border-color: var(--accent-gold); }
+
+        .skill-list { text-align: left; display: inline-block; margin: 20px 0; }
+        .skill-item { margin: 10px 0; cursor: pointer; display: block; padding: 5px; }
+
+        .feedback { font-weight: bold; margin-top: 15px; height: 20px; }
+        .reveal-box { background: rgba(232, 170, 0, 0.1); padding: 20px; border-radius: 10px; margin-top: 20px; text-align: left; line-height: 1.6; }
+
+        .progress-bar { height: 5px; background: #333; margin-bottom: 20px; position: relative; }
+        .progress-fill { height: 100%; background: var(--accent-gold); width: 0%; transition: 0.5s; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+
+    <div id="start-screen">
+        <h1>Neo-Kunshan 2045</h1>
+        <p class="subtitle">The Singularity has arrived. Automation is total. Only the Human Advantage remains.</p>
+        <p>Your humanities degree is your most powerful tool in the hyper-digital age. Meet the alumni who lead the world.</p>
+        <button class="btn" onclick="startGame()">Enter the Future</button>
+    </div>
+
+    <div id="selection-screen" class="hidden">
+        <h2>Choose a Mentor</h2>
+        <p>Select an alumnus to learn how their DKU degree shaped their career.</p>
+        <div id="char-options" class="character-grid"></div>
+    </div>
+
+    <div id="stage1" class="hidden">
+        <h2 id="s1-job-title">Job Title</h2>
+        <p id="s1-description"></p>
+        <p><strong>Identify the 3 core humanities skills this role requires:</strong></p>
+        <div id="skill-options" class="skill-list"></div>
+        <div id="s1-feedback" class="feedback"></div>
+        <button id="s1-next" class="btn hidden" onclick="toStage2()">Analyze Background</button>
+    </div>
+
+    <div id="stage2" class="hidden">
+        <h2>The Academic Root</h2>
+        <p>Based on these skills, what did this Alumnus major in at Duke Kunshan University?</p>
+        <div id="major-options"></div>
+        <div id="s2-feedback" class="feedback"></div>
+        <button id="s2-next" class="btn hidden" onclick="toStage3()">Reveal the Connection</button>
+    </div>
+
+    <div id="stage3" class="hidden">
+        <h2 id="s3-heading">The Connection Revealed</h2>
+        <div id="reveal-content" class="reveal-box"></div>
+        <button class="btn" onclick="location.reload()">Meet Another Alumnus</button>
+    </div>
+</div>
+
+<script>
+    const alumni = [
+        { name: "Elena Rossi", job: "AI Personality Architect", desc: "I design the unique behavioral traits and moral codes for personal AI companions.", skills: ["Ethical Reasoning", "Narrative Voice", "Empathy Mapping"], major: "Philosophy", reveal: "At DKU, I studied Virtue Ethics. While engineers build the brain, I build the character. My degree taught me that an AI without a moral compass is just a machine." },
+        { name: "Zhang Wei", job: "Algorithm Exorcist", desc: "I audit and remediate systemic bias in automated decision-making systems used by the government.", skills: ["Historical Pattern Recognition", "Critical Discourse Analysis", "Archival Research"], major: "History", reveal: "I use archival research methods learned at DKU to trace how 20th-century social prejudices are 'ghosted' into 2045 code. I fix the future by understanding the past." },
+        { name: "Sarah Jenkins", job: "Digital Afterlife Curator", desc: "I manage the digital personas and legacies of the deceased for grieving families.", skills: ["Liturgy Analysis", "Bereavement Theory", "Comparative Theology"], major: "Religious Studies", reveal: "Technology can upload memories, but it can't provide peace. My DKU degree in Religious Studies helps me ensure digital legacies respect the sacred rituals of the family." },
+        { name: "Li Xia", job: "Virtual World Mythologist", desc: "I create the deep lore, languages, and religious systems for massive VR civilizations.", skills: ["Comparative Mythology", "Philology", "World-Building"], major: "Literature", reveal: "The engineers build the graphics; I build the meaning. My study of epic poetry at DKU allows me to create worlds that humans actually want to inhabit." },
+        { name: "Marcus Thorne", job: "Neural Privacy Ethicist", desc: "I protect the 'sanctity of thought' in a world where brain-computer interfaces are standard.", skills: ["Ontological Analysis", "Legal Theory", "Philosophy of Mind"], major: "Philosophy", reveal: "My DKU Philosophy degree helps me define the boundaries of the 'Self.' I use those concepts to write the laws that prevent corporations from harvesting your dreams." },
+        { name: "Chen Yu", job: "Rewilding Historian", desc: "I consult on ecosystem restoration by researching land use from centuries ago.", skills: ["Paleography", "Historical Ecology", "Classical Chinese"], major: "Global China Studies", reveal: "By reading 400-year-old local gazetteers at DKU, I discovered irrigation techniques that help us restore the Yangtze delta today without using electricity." },
+        { name: "Amara Okafor", job: "Climate Migration Mediator", desc: "I facilitate the cultural integration of displaced populations into new host regions.", skills: ["Intercultural Hermeneutics", "Conflict Resolution", "Ethnography"], major: "Global China Studies", reveal: "Technical solutions aren't enough for migration. My DKU training helps me translate values between cultures, preventing social friction during mass movement." },
+        { name: "Wang Fang", job: "Interspecies Interpreter", desc: "I use AI-augmented linguistics to represent the interests of animals in legal courts.", skills: ["Environmental Philosophy", "Semantics", "Animal Ethics"], major: "Philosophy", reveal: "AI translates the data, but my Philosophy training allows me to argue for the 'Legal Personhood' of nature. I turn bio-signals into moral arguments." },
+        { name: "Julian Van der Berg", job: "Post-Anthropocene Urban Planner", desc: "I design cities that prioritize symbiotic relationships between humans and non-humans.", skills: ["Urban Aesthetics", "Systems Thinking", "World History"], major: "History", reveal: "I don't use new templates; I adapt historical successes in resource management from ancient civilizations I studied at DKU into futuristic urban designs." },
+        { name: "Zhao Min", job: "Synthetic Biology Ethicist", desc: "I decide the moral status of lab-grown life forms and de-extinct species.", skills: ["Bioethics", "Teleological Reasoning", "Social Impact"], major: "Philosophy", reveal: "Science gave us the power to create life; my DKU Philosophy degree gives us the wisdom to handle it. I navigate the gray zones biology cannot compute." },
+        { name: "Clara Dupont", job: "Nostalgia Designer", desc: "I create bespoke 'analog' experiences like physical books and non-digital spaces.", skills: ["Material Culture", "Sensory Design", "Art History"], major: "Literature", reveal: "In a digital world, the physical is a luxury. My DKU Literature major taught me how humans find meaning in the tactile beauty of books and handwritten letters." },
+        { name: "Liu Kai", job: "Cross-Cultural Arbitrator", desc: "I resolve international disputes arising from deep-seated historical grievances.", skills: ["Intellectual History", "Global Ethics", "Negotiation"], major: "Global China Studies", reveal: "I solve billion-dollar trade wars by identifying the historical narratives driving the conflict. I see the roots of a dispute, not just the symptoms." },
+        { name: "Aria Sato", job: "Human-Machine Liaison", desc: "I manage the social dynamics in workplaces shared by humans and humanoid robots.", skills: ["Political Theory", "Labor History", "Empathy"], major: "Philosophy", reveal: "My political theory classes at DKU prepared me to protect human dignity in a hyper-automated workplace. I ensure technology serves people, not the other way around." },
+        { name: "Sun Ye", job: "Corporate Philosopher", desc: "I guide company 'purpose' beyond profit to ensure it contributes to human flourishing.", skills: ["Socratic Questioning", "Moral Frameworks", "Organizational Ethics"], major: "Philosophy", reveal: "I shifted my company from 'Profit-at-all-Costs' to 'Human-First Economics' by applying the moral theories I first debated in my DKU classrooms." },
+        { name: "Diego Morales", job: "Metaverse Genealogist", desc: "I track the evolution of digital subcultures and internet folk religions.", skills: ["Digital Ethnography", "Semiotics", "Cultural History"], major: "History", reveal: "I treat the internet as an archaeological site. My DKU History degree taught me to map the evolution of ideas, helping governments understand social shifts." },
+        { name: "Lin Xi", job: "Digital Wellness Counselor", desc: "I help individuals find presence in a world where physical reality is optional.", skills: ["Contemplative Practice", "Phenomenology", "Religious Ritual"], major: "Religious Studies", reveal: "I use Buddhist meditation techniques I studied at DKU to treat 'Metaverse Burnout.' I teach people how to find their 'Self' in a sea of digital noise." },
+        { name: "Beatrice Hall", job: "Longevity Narrative Therapist", desc: "I assist people living 150+ years in re-authoring their life stories.", skills: ["Narrative Theory", "Literary Analysis", "Identity Synthesis"], major: "Literature", reveal: "A long life without a story is just noise. I use narrative structures from epic novels to help my super-aged patients find new 'plot twists' for their second century." },
+        { name: "Gao Rong", job: "Bio-Hacking Regulatory Advisor", desc: "I advise on the cultural and social implications of human enhancement.", skills: ["Ontology", "Law & Technology", "Body Sociology"], major: "Philosophy", reveal: "I define the legal line between 'enhancement' and 'erasure of the self.' My DKU Philosophy of Mind courses are the foundation of my regulatory work." },
+        { name: "Sasha Volkov", job: "Memetic Epidemiologist", desc: "I track and 'vaccinate' against dangerous ideological misinformation.", skills: ["Linguistics", "Intellectual History", "Semiotic Analysis"], major: "History", reveal: "I recognize propaganda patterns from the 20th century in today's memes. My DKU History degree helps me stop lies before they destabilize society." },
+        { name: "Wu Jun", job: "Meaning Architect", desc: "I design community structures and rites of passage for a post-work society.", skills: ["Social Ontology", "Ritual Design", "Anthropology"], major: "Global China Studies", reveal: "In a world without jobs, how do we define worth? I use my DKU training to create new social rituals that give people purpose beyond a paycheck." }
+    ];
+
+    const distractorSkills = ["Python Scripting", "Quantum Encryption", "SQL Management", "Circuit Design", "Financial Modeling", "Organic Chemistry", "Mechanical Engineering", "Network Security"];
+    const majors = ["History", "Philosophy", "Literature", "Religious Studies", "Global China Studies"];
+
+    let selectedChar = null;
+    let selectedSkills = [];
+
+    function startGame() {
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('selection-screen').classList.remove('hidden');
+        document.getElementById('progress').style.width = '20%';
+        
+        const randomChars = alumni.sort(() => 0.5 - Math.random()).slice(0, 4);
+        const grid = document.getElementById('char-options');
+        grid.innerHTML = '';
+        
+        randomChars.forEach(char => {
+            const card = document.createElement('div');
+            card.className = 'char-card';
+            card.innerHTML = `<h3>${char.name}</h3><p>${char.job}</p>`;
+            card.onclick = () => selectCharacter(char);
+            grid.appendChild(card);
+        });
+    }
+
+    function selectCharacter(char) {
+        selectedChar = char;
+        document.getElementById('selection-screen').classList.add('hidden');
+        document.getElementById('stage1').classList.remove('hidden');
+        document.getElementById('progress').style.width = '40%';
+        
+        document.getElementById('s1-job-title').innerText = char.job;
+        document.getElementById('s1-description').innerText = char.desc;
+        
+        const skillOpts = document.getElementById('skill-options');
+        skillOpts.innerHTML = '';
+        selectedSkills = [];
+
+        const allSkills = [...char.skills, ...distractorSkills.sort(() => 0.5 - Math.random()).slice(0, 3)].sort(() => 0.5 - Math.random());
+        
+        allSkills.forEach(skill => {
+            const label = document.createElement('label');
+            label.className = 'skill-item';
+            label.innerHTML = `<input type="checkbox" value="${skill}" onchange="checkSkills(this)"> ${skill}`;
+            skillOpts.appendChild(label);
+        });
+    }
+
+    function checkSkills(checkbox) {
+        if(checkbox.checked) selectedSkills.push(checkbox.value);
+        else selectedSkills = selectedSkills.filter(s => s !== checkbox.value);
+
+        const feedback = document.getElementById('s1-feedback');
+        if(selectedSkills.length === 3) {
+            const correct = selectedSkills.every(s => selectedChar.skills.includes(s));
+            if(correct) {
+                feedback.innerText = "Excellent. You recognize the human element.";
+                feedback.style.color = "var(--accent-gold)";
+                document.getElementById('s1-next').classList.remove('hidden');
+            } else {
+                feedback.innerText = "Incorrect. Those are technical or mismatched skills.";
+                feedback.style.color = "#ff4444";
+            }
+        } else {
+            feedback.innerText = "";
+        }
+    }
+
+    function toStage2() {
+        document.getElementById('stage1').classList.add('hidden');
+        document.getElementById('stage2').classList.remove('hidden');
+        document.getElementById('progress').style.width = '70%';
+
+        const majorOpts = document.getElementById('major-options');
+        majorOpts.innerHTML = '';
+        majors.forEach(major => {
+            const btn = document.createElement('button');
+            btn.className = 'btn';
+            btn.innerText = major;
+            btn.onclick = () => checkMajor(major);
+            majorOpts.appendChild(btn);
+        });
+    }
+
+    function checkMajor(major) {
+        const feedback = document.getElementById('s2-feedback');
+        if(major === selectedChar.major) {
+            feedback.innerText = "Correct! The DKU connection is clear.";
+            feedback.style.color = "var(--accent-gold)";
+            document.getElementById('s2-next').classList.remove('hidden');
+        } else {
+            feedback.innerText = "Try again. Think about the core training required.";
+            feedback.style.color = "#ff4444";
+        }
+    }
+
+    function toStage3() {
+        document.getElementById('stage2').classList.add('hidden');
+        document.getElementById('stage3').classList.remove('hidden');
+        document.getElementById('progress').style.width = '100%';
+
+        document.getElementById('s3-heading').innerText = `${selectedChar.name}: A Letter to the Class of 2028`;
+        document.getElementById('reveal-content').innerHTML = `
+            <p><strong>DKU Major:</strong> ${selectedChar.major}</p>
+            <p>${selectedChar.reveal}</p>
+            <hr style="border:0; border-top:1px solid var(--accent-gold)">
+            <p><em>"Your humanities degree isn't just a major; it's an operating system for the future. While others learn to use the machines, you are learning to lead the humans who build them. See you in 2045."</em></p>
+        `;
+    }
+</script>
+
+</body>
+</html>
