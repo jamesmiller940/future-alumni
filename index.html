@@ -6,16 +6,16 @@
     <title>Neo-Kunshan 2045: The Human Advantage</title>
     <style>
         :root {
-            --primary-blue: #00539b; /* Duke Blue */
-            --accent-gold: #e8aa00; /* DKU Gold */
+            --primary-blue: #00539b;
+            --accent-gold: #e8aa00;
             --dark-bg: #0a0e14;
             --card-bg: #16212e;
             --text-light: #e0e6ed;
-            --neon-glow: 0 0 10px rgba(0, 83, 155, 0.5);
+            --neon-glow: 0 0 15px rgba(0, 83, 155, 0.4);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Optima', 'Segoe UI', sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-light);
             margin: 0;
@@ -23,66 +23,83 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         #game-container {
-            width: 90%;
-            max-width: 800px;
+            width: 95%;
+            max-width: 900px;
             background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
+            padding: 2.5rem;
+            border-radius: 20px;
             box-shadow: var(--neon-glow);
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
-        h1 { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 2px; }
-        .subtitle { font-style: italic; color: #8899ac; margin-bottom: 2rem; }
+        /* Avatar Sprite System */
+        .avatar-frame {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            border: 3px solid var(--accent-gold);
+            border-radius: 50%;
+            overflow: hidden;
+            background-image: url('avatars.png'); /* Ensure your image is named this */
+            background-size: 500% 400%; /* 5 columns, 4 rows */
+            box-shadow: 0 0 20px rgba(232, 170, 0, 0.3);
+        }
 
+        h1 { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem;}
+        .subtitle { color: #8899ac; margin-bottom: 2rem; font-style: italic; }
         .hidden { display: none; }
 
         .btn {
             background: var(--primary-blue);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 28px;
             margin: 10px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
             font-size: 1rem;
+            font-weight: bold;
         }
 
-        .btn:hover { background: #003d73; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .btn:disabled { background: #334; cursor: not-allowed; }
+        .btn:hover { background: #003d73; transform: scale(1.05); }
 
         .character-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
         }
 
         .char-card {
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
             border: 1px solid var(--primary-blue);
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .char-card:hover { background: rgba(0, 83, 155, 0.2); border-color: var(--accent-gold); }
+        .char-card:hover { border-color: var(--accent-gold); background: rgba(0, 83, 155, 0.15); }
 
-        .skill-list { text-align: left; display: inline-block; margin: 20px 0; }
-        .skill-item { margin: 10px 0; cursor: pointer; display: block; padding: 5px; }
+        .rich-description {
+            text-align: left;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-left: 4px solid var(--accent-gold);
+            margin: 20px 0;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
 
-        .feedback { font-weight: bold; margin-top: 15px; height: 20px; }
-        .reveal-box { background: rgba(232, 170, 0, 0.1); padding: 20px; border-radius: 10px; margin-top: 20px; text-align: left; line-height: 1.6; }
-
-        .progress-bar { height: 5px; background: #333; margin-bottom: 20px; position: relative; }
-        .progress-fill { height: 100%; background: var(--accent-gold); width: 0%; transition: 0.5s; }
+        .skill-list { text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .feedback { font-weight: bold; margin: 20px 0; min-height: 24px; }
+        
+        .progress-bar { height: 6px; background: #222; margin-bottom: 30px; border-radius: 3px; }
+        .progress-fill { height: 100%; background: var(--accent-gold); width: 0%; transition: 0.8s; border-radius: 3px; }
     </style>
 </head>
 <body>
@@ -92,66 +109,227 @@
 
     <div id="start-screen">
         <h1>Neo-Kunshan 2045</h1>
-        <p class="subtitle">The Singularity has arrived. Automation is total. Only the Human Advantage remains.</p>
-        <p>Your humanities degree is your most powerful tool in the hyper-digital age. Meet the alumni who lead the world.</p>
-        <button class="btn" onclick="startGame()">Enter the Future</button>
+        <p class="subtitle">A Humanities Journey into the Heart of the Future</p>
+        <p>Automation has taken the 'how.' You are here to master the 'why.'</p>
+        <button class="btn" onclick="startGame()">Begin the Interview</button>
     </div>
 
     <div id="selection-screen" class="hidden">
-        <h2>Choose a Mentor</h2>
-        <p>Select an alumnus to learn how their DKU degree shaped their career.</p>
+        <h2>Select a Potential Mentor</h2>
         <div id="char-options" class="character-grid"></div>
     </div>
 
     <div id="stage1" class="hidden">
-        <h2 id="s1-job-title">Job Title</h2>
-        <p id="s1-description"></p>
+        <div id="s1-avatar" class="avatar-frame"></div>
+        <h2 id="s1-name"></h2>
+        <h3 id="s1-job" style="color: var(--accent-gold)"></h3>
+        <div id="s1-rich-desc" class="rich-description"></div>
         <p><strong>Identify the 3 core humanities skills this role requires:</strong></p>
         <div id="skill-options" class="skill-list"></div>
         <div id="s1-feedback" class="feedback"></div>
-        <button id="s1-next" class="btn hidden" onclick="toStage2()">Analyze Background</button>
+        <button id="s1-next" class="btn hidden" onclick="toStage2()">Analyze DKU Background</button>
     </div>
 
     <div id="stage2" class="hidden">
         <h2>The Academic Root</h2>
-        <p>Based on these skills, what did this Alumnus major in at Duke Kunshan University?</p>
+        <p>Which DKU Humanities major prepared this Alumnus for this specific future?</p>
         <div id="major-options"></div>
         <div id="s2-feedback" class="feedback"></div>
         <button id="s2-next" class="btn hidden" onclick="toStage3()">Reveal the Connection</button>
     </div>
 
     <div id="stage3" class="hidden">
-        <h2 id="s3-heading">The Connection Revealed</h2>
-        <div id="reveal-content" class="reveal-box"></div>
-        <button class="btn" onclick="location.reload()">Meet Another Alumnus</button>
+        <h2>The Connection</h2>
+        <div id="reveal-content" style="text-align: left; line-height: 1.8; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px;"></div>
+        <button class="btn" onclick="location.reload()">Meet Another Mentor</button>
     </div>
 </div>
 
 <script>
     const alumni = [
-        { name: "Elena Rossi", job: "AI Personality Architect", desc: "I design the unique behavioral traits and moral codes for personal AI companions.", skills: ["Ethical Reasoning", "Narrative Voice", "Empathy Mapping"], major: "Philosophy", reveal: "At DKU, I studied Virtue Ethics. While engineers build the brain, I build the character. My degree taught me that an AI without a moral compass is just a machine." },
-        { name: "Zhang Wei", job: "Algorithm Exorcist", desc: "I audit and remediate systemic bias in automated decision-making systems used by the government.", skills: ["Historical Pattern Recognition", "Critical Discourse Analysis", "Archival Research"], major: "History", reveal: "I use archival research methods learned at DKU to trace how 20th-century social prejudices are 'ghosted' into 2045 code. I fix the future by understanding the past." },
-        { name: "Sarah Jenkins", job: "Digital Afterlife Curator", desc: "I manage the digital personas and legacies of the deceased for grieving families.", skills: ["Liturgy Analysis", "Bereavement Theory", "Comparative Theology"], major: "Religious Studies", reveal: "Technology can upload memories, but it can't provide peace. My DKU degree in Religious Studies helps me ensure digital legacies respect the sacred rituals of the family." },
-        { name: "Li Xia", job: "Virtual World Mythologist", desc: "I create the deep lore, languages, and religious systems for massive VR civilizations.", skills: ["Comparative Mythology", "Philology", "World-Building"], major: "Literature", reveal: "The engineers build the graphics; I build the meaning. My study of epic poetry at DKU allows me to create worlds that humans actually want to inhabit." },
-        { name: "Marcus Thorne", job: "Neural Privacy Ethicist", desc: "I protect the 'sanctity of thought' in a world where brain-computer interfaces are standard.", skills: ["Ontological Analysis", "Legal Theory", "Philosophy of Mind"], major: "Philosophy", reveal: "My DKU Philosophy degree helps me define the boundaries of the 'Self.' I use those concepts to write the laws that prevent corporations from harvesting your dreams." },
-        { name: "Chen Yu", job: "Rewilding Historian", desc: "I consult on ecosystem restoration by researching land use from centuries ago.", skills: ["Paleography", "Historical Ecology", "Classical Chinese"], major: "Global China Studies", reveal: "By reading 400-year-old local gazetteers at DKU, I discovered irrigation techniques that help us restore the Yangtze delta today without using electricity." },
-        { name: "Amara Okafor", job: "Climate Migration Mediator", desc: "I facilitate the cultural integration of displaced populations into new host regions.", skills: ["Intercultural Hermeneutics", "Conflict Resolution", "Ethnography"], major: "Global China Studies", reveal: "Technical solutions aren't enough for migration. My DKU training helps me translate values between cultures, preventing social friction during mass movement." },
-        { name: "Wang Fang", job: "Interspecies Interpreter", desc: "I use AI-augmented linguistics to represent the interests of animals in legal courts.", skills: ["Environmental Philosophy", "Semantics", "Animal Ethics"], major: "Philosophy", reveal: "AI translates the data, but my Philosophy training allows me to argue for the 'Legal Personhood' of nature. I turn bio-signals into moral arguments." },
-        { name: "Julian Van der Berg", job: "Post-Anthropocene Urban Planner", desc: "I design cities that prioritize symbiotic relationships between humans and non-humans.", skills: ["Urban Aesthetics", "Systems Thinking", "World History"], major: "History", reveal: "I don't use new templates; I adapt historical successes in resource management from ancient civilizations I studied at DKU into futuristic urban designs." },
-        { name: "Zhao Min", job: "Synthetic Biology Ethicist", desc: "I decide the moral status of lab-grown life forms and de-extinct species.", skills: ["Bioethics", "Teleological Reasoning", "Social Impact"], major: "Philosophy", reveal: "Science gave us the power to create life; my DKU Philosophy degree gives us the wisdom to handle it. I navigate the gray zones biology cannot compute." },
-        { name: "Clara Dupont", job: "Nostalgia Designer", desc: "I create bespoke 'analog' experiences like physical books and non-digital spaces.", skills: ["Material Culture", "Sensory Design", "Art History"], major: "Literature", reveal: "In a digital world, the physical is a luxury. My DKU Literature major taught me how humans find meaning in the tactile beauty of books and handwritten letters." },
-        { name: "Liu Kai", job: "Cross-Cultural Arbitrator", desc: "I resolve international disputes arising from deep-seated historical grievances.", skills: ["Intellectual History", "Global Ethics", "Negotiation"], major: "Global China Studies", reveal: "I solve billion-dollar trade wars by identifying the historical narratives driving the conflict. I see the roots of a dispute, not just the symptoms." },
-        { name: "Aria Sato", job: "Human-Machine Liaison", desc: "I manage the social dynamics in workplaces shared by humans and humanoid robots.", skills: ["Political Theory", "Labor History", "Empathy"], major: "Philosophy", reveal: "My political theory classes at DKU prepared me to protect human dignity in a hyper-automated workplace. I ensure technology serves people, not the other way around." },
-        { name: "Sun Ye", job: "Corporate Philosopher", desc: "I guide company 'purpose' beyond profit to ensure it contributes to human flourishing.", skills: ["Socratic Questioning", "Moral Frameworks", "Organizational Ethics"], major: "Philosophy", reveal: "I shifted my company from 'Profit-at-all-Costs' to 'Human-First Economics' by applying the moral theories I first debated in my DKU classrooms." },
-        { name: "Diego Morales", job: "Metaverse Genealogist", desc: "I track the evolution of digital subcultures and internet folk religions.", skills: ["Digital Ethnography", "Semiotics", "Cultural History"], major: "History", reveal: "I treat the internet as an archaeological site. My DKU History degree taught me to map the evolution of ideas, helping governments understand social shifts." },
-        { name: "Lin Xi", job: "Digital Wellness Counselor", desc: "I help individuals find presence in a world where physical reality is optional.", skills: ["Contemplative Practice", "Phenomenology", "Religious Ritual"], major: "Religious Studies", reveal: "I use Buddhist meditation techniques I studied at DKU to treat 'Metaverse Burnout.' I teach people how to find their 'Self' in a sea of digital noise." },
-        { name: "Beatrice Hall", job: "Longevity Narrative Therapist", desc: "I assist people living 150+ years in re-authoring their life stories.", skills: ["Narrative Theory", "Literary Analysis", "Identity Synthesis"], major: "Literature", reveal: "A long life without a story is just noise. I use narrative structures from epic novels to help my super-aged patients find new 'plot twists' for their second century." },
-        { name: "Gao Rong", job: "Bio-Hacking Regulatory Advisor", desc: "I advise on the cultural and social implications of human enhancement.", skills: ["Ontology", "Law & Technology", "Body Sociology"], major: "Philosophy", reveal: "I define the legal line between 'enhancement' and 'erasure of the self.' My DKU Philosophy of Mind courses are the foundation of my regulatory work." },
-        { name: "Sasha Volkov", job: "Memetic Epidemiologist", desc: "I track and 'vaccinate' against dangerous ideological misinformation.", skills: ["Linguistics", "Intellectual History", "Semiotic Analysis"], major: "History", reveal: "I recognize propaganda patterns from the 20th century in today's memes. My DKU History degree helps me stop lies before they destabilize society." },
-        { name: "Wu Jun", job: "Meaning Architect", desc: "I design community structures and rites of passage for a post-work society.", skills: ["Social Ontology", "Ritual Design", "Anthropology"], major: "Global China Studies", reveal: "In a world without jobs, how do we define worth? I use my DKU training to create new social rituals that give people purpose beyond a paycheck." }
+        { 
+            name: "Elena Rossi", 
+            job: "AI Personality Architect", 
+            sprite: {col: 0, row: 0},
+            richDesc: "Elena designs the psychological foundations and moral decision-making frameworks for high-level autonomous systems. Beyond simple coding, she utilizes her training to ensure that personal assistant AIs possess a consistent 'character' that can navigate complex human social nuances and ethical dilemmas. Her work ensures that as AI becomes more pervasive, it remains empathetic, culturally sensitive, and aligned with humanistic values.",
+            skills: ["Ethical Reasoning", "Narrative Voice", "Empathy Mapping"], 
+            major: "Philosophy", 
+            reveal: "At DKU, I studied Virtue Ethics. While engineers build the brain, I build the character. My degree taught me that an AI without a moral compass is just a machine." 
+        },
+        { 
+            name: "Zhang Wei", 
+            job: "Algorithm Exorcist", 
+            sprite: {col: 1, row: 0},
+            richDesc: "Zhang Wei serves as a digital auditor, specialized in identifying and neutralizing 'ghosts' of systemic bias embedded in large-scale data models. He applies research techniques to trace how historical prejudices—such as redlining or gender discrimination—have been inadvertently encoded into modern algorithms. By understanding the historical context of data, he prevents autonomous systems from automating and amplifying past injustices.",
+            skills: ["Historical Pattern Recognition", "Critical Discourse Analysis", "Archival Research"], 
+            major: "History", 
+            reveal: "I use archival research methods learned at DKU to trace how 20th-century social prejudices are 'ghosted' into 2045 code. I fix the future by understanding the past." 
+        },
+        { 
+            name: "Sarah Jenkins", 
+            job: "Digital Afterlife Curator", 
+            sprite: {col: 2, row: 0},
+            richDesc: "Sarah manages the digital remains and AI-simulated personas of the deceased, a role that blends data management with deep empathy. She ensures that the 'digital twin' of a loved one adheres to the specific mourning rituals, theological beliefs, and spiritual legacy of the family. Her job is to facilitate a healthy relationship between the living and the digital echoes of the dead, preserving human sanctity in the cloud.",
+            skills: ["Liturgy Analysis", "Bereavement Theory", "Comparative Theology"], 
+            major: "Religious Studies", 
+            reveal: "Technology can upload memories, but it can't provide peace. My DKU degree in Religious Studies helps me ensure digital legacies respect the sacred rituals of the family." 
+        },
+        { 
+            name: "Li Xia", 
+            job: "Virtual World Mythologist", 
+            sprite: {col: 3, row: 0},
+            richDesc: "Li Xia is the creative visionary behind the foundational lore of massive, immersive VR civilizations. While engineers build the physics of these worlds, Li Xia uses her skills to construct deep histories, linguistic structures, and mythological systems that give these virtual spaces a sense of weight and 'truth.' She ensures that users feel a deep narrative connection to their digital environments, making virtual life as meaningful as the physical world.",
+            skills: ["Comparative Mythology", "Philology", "World-Building"], 
+            major: "Literature", 
+            reveal: "The engineers build the graphics; I build the meaning. My study of epic poetry at DKU allows me to create worlds that humans actually want to inhabit." 
+        },
+        { 
+            name: "Marcus Thorne", 
+            job: "Neural Privacy Ethicist", 
+            sprite: {col: 4, row: 0},
+            richDesc: "Marcus works at the intersection of neuroscience and law, drafting the ethical boundaries for brain-computer interface (BCI) technologies. His training is critical for defining the 'sanctity of thought' and individual agency in a world where thoughts can be harvested as data. He acts as a guardian of the human self, ensuring that cognitive enhancements do not come at the cost of personal autonomy or mental privacy.",
+            skills: ["Ontological Analysis", "Legal Theory", "Philosophy of Mind"], 
+            major: "Philosophy", 
+            reveal: "My DKU Philosophy degree helps me define the boundaries of the 'Self.' I use those concepts to write the laws that prevent corporations from harvesting your dreams." 
+        },
+        { 
+            name: "Chen Yu", 
+            job: "Rewilding Historian", 
+            sprite: {col: 0, row: 1},
+            richDesc: "Chen Yu provides the ecological blueprints for large-scale environmental restoration projects by studying how land was managed centuries ago. He translates pre-modern local gazetteers and ancient maps to identify lost biodiversity patterns and sustainable irrigation techniques. His work proves that the solutions to 2045's environmental crises are often hidden in the archival records of the past.",
+            skills: ["Paleography", "Historical Ecology", "Classical Chinese"], 
+            major: "Global China Studies", 
+            reveal: "By reading 400-year-old local gazetteers at DKU, I discovered irrigation techniques that help us restore the Yangtze delta today without using electricity." 
+        },
+        { 
+            name: "Amara Okafor", 
+            job: "Climate Migration Mediator", 
+            sprite: {col: 1, row: 1},
+            richDesc: "Amara facilitates the peaceful integration of populations displaced by environmental upheaval into new host communities. Her background allows her to perform 'cultural translation,' mediating disputes that arise from differing religious, social, or historical worldviews. She uses the humanities to prevent 'culture clash' and build social cohesion in a world defined by geographic displacement.",
+            skills: ["Intercultural Hermeneutics", "Conflict Resolution", "Ethnography"], 
+            major: "Global China Studies", 
+            reveal: "Technical solutions aren't enough for migration. My DKU training helps me translate values between cultures, preventing social friction during mass movement." 
+        },
+        { 
+            name: "Wang Fang", 
+            job: "Interspecies Interpreter", 
+            sprite: {col: 2, row: 1},
+            richDesc: "Wang Fang uses AI-driven translation tools to mediate conflicts between human infrastructure and local wildlife populations. Her role goes beyond data; she utilizes philosophy to advocate for the 'legal personhood' of non-human entities and ecosystems. By arguing for the moral rights of the natural world in courtrooms, she ensures that human expansion does not come at the cost of the planetary web of life.",
+            skills: ["Environmental Philosophy", "Semantics", "Animal Ethics"], 
+            major: "Philosophy", 
+            reveal: "AI translates the data, but my Philosophy training allows me to argue for the 'Legal Personhood' of nature. I turn bio-signals into moral arguments." 
+        },
+        { 
+            name: "Julian Van der Berg", 
+            job: "Post-Anthropocene Urban Planner", 
+            sprite: {col: 3, row: 1},
+            richDesc: "Julian designs cities that function as symbiotic ecosystems where humans and nature are non-hierarchical co-habitants. He draws inspiration from ancient urban designs—like the water-management systems of Mesopotamia—and adapts them for a carbon-neutral future. He treats urban planning as a historical dialogue, ensuring that the cities of 2045 are resilient, sustainable, and aesthetically human-centric.",
+            skills: ["Urban Aesthetics", "Systems Thinking", "World History"], 
+            major: "History", 
+            reveal: "I don't use new templates; I adapt historical successes in resource management from ancient civilizations I studied at DKU into futuristic urban designs." 
+        },
+        { 
+            name: "Zhao Min", 
+            job: "Synthetic Biology Ethicist", 
+            sprite: {col: 4, row: 1},
+            richDesc: "Zhao Min chairs the ethics boards that decide which extinct species should be 'de-extinct' and which synthetic life forms are allowed to be released into the wild. She assesses the 'teleological purpose' of new life, weighing the ecological benefits against the moral risks of 'playing God.' Her work ensures that the power of biotechnology is guided by human wisdom rather than just commercial potential.",
+            skills: ["Bioethics", "Teleological Reasoning", "Social Impact"], 
+            major: "Philosophy", 
+            reveal: "Science gave us the power to create life; my DKU Philosophy degree gives us the wisdom to handle it. I navigate the gray zones biology cannot compute." 
+        },
+        { 
+            name: "Clara Dupont", 
+            job: "Nostalgia Designer", 
+            sprite: {col: 0, row: 2},
+            richDesc: "Clara designs 'analog sanctuaries'—physical spaces and experiences that are entirely free from digital intrusion. She recreates the tactile, sensory beauty of the pre-digital era, from scent-infused libraries to bespoke hand-written correspondence services. Her job is to provide 'digital detox' for a hyper-connected society, reminding people of the unique value of the physical, the slow, and the tangible.",
+            skills: ["Material Culture", "Sensory Design", "Art History"], 
+            major: "Literature", 
+            reveal: "In a digital world, the physical is a luxury. My DKU Literature major taught me how humans find meaning in the tactile beauty of books and handwritten letters." 
+        },
+        { 
+            name: "Liu Kai", 
+            job: "Cross-Cultural Arbitrator", 
+            sprite: {col: 1, row: 2},
+            richDesc: "Liu Kai resolves international disputes that traditional diplomacy fails to settle, specifically those rooted in historical trauma or religious misunderstanding. His background provide him with a 'dual vision,' allowing him to bridge the gap between Western political logic and Chinese traditional values. He uses intellectual history to identify the 'root narratives' of a conflict, finding paths to peace through shared cultural heritage.",
+            skills: ["Intellectual History", "Global Ethics", "Negotiation"], 
+            major: "Global China Studies", 
+            reveal: "I solve billion-dollar trade wars by identifying the historical narratives driving the conflict. I see the roots of a dispute, not just the symptoms." 
+        },
+        { 
+            name: "Aria Sato", 
+            job: "Human-Machine Liaison", 
+            sprite: {col: 2, row: 2},
+            richDesc: "Aria manages the social dynamics of 'mixed' workplaces where humans and humanoid robots work side-by-side. She drafts the rights and social contracts that ensure human dignity is maintained in a hyper-automated economy. She acts as an advocate for the human spirit, preventing alienation and ensuring that technology enhances the human work experience rather than devaluing it.",
+            skills: ["Political Theory", "Labor History", "Empathy"], 
+            major: "Philosophy", 
+            reveal: "My political theory classes at DKU prepared me to protect human dignity in a hyper-automated workplace. I ensure technology serves people, not the other way around." 
+        },
+        { 
+            name: "Sun Ye", 
+            job: "Corporate Philosopher", 
+            sprite: {col: 3, row: 2},
+            richDesc: "Sun Ye serves in the C-suite of major tech conglomerates, not to manage finances, but to manage 'Purpose.' He uses moral frameworking to help leadership define their company's existential mission in society. By shifting corporate focus from quarterly profits to long-term 'human flourishing,' he ensures that the most powerful entities on earth are guided by a coherent moral compass.",
+            skills: ["Socratic Questioning", "Moral Frameworks", "Organizational Ethics"], 
+            major: "Philosophy", 
+            reveal: "I shifted my company from 'Profit-at-all-Costs' to 'Human-First Economics' by applying the moral theories I first debated in my DKU classrooms." 
+        },
+        { 
+            name: "Diego Morales", 
+            job: "Metaverse Genealogist", 
+            sprite: {col: 4, row: 2},
+            richDesc: "Diego tracks the evolution and ancestry of digital subcultures, internet-native religions, and viral ideologies. His background allows him to treat the metaverse as an archaeological site, tracing the 'descent' of modern memes back to their 20th-century socio-political roots. His research helps governments and brands understand the shifting sands of digital identity and prevents the spread of radicalizing ideas.",
+            skills: ["Digital Ethnography", "Semiotics", "Cultural History"], 
+            major: "History", 
+            reveal: "I treat the internet as an archaeological site. My DKU History degree taught me to map the evolution of ideas, helping governments understand social shifts." 
+        },
+        { 
+            name: "Lin Xi", 
+            job: "Digital Wellness Counselor", 
+            sprite: {col: 0, row: 3},
+            richDesc: "Lin Xi treats patients suffering from 'reality disassociation' and digital burnout using contemplative techniques. She adapts ancient practices and mindfulness rituals to help people ground themselves in their physical bodies after spending too much time in the Metaverse. Her work is essential for maintaining psychological health in a world where the boundary between physical and virtual reality has vanished.",
+            skills: ["Contemplative Practice", "Phenomenology", "Religious Ritual"], 
+            major: "Religious Studies", 
+            reveal: "I use Buddhist meditation techniques I studied at DKU to treat 'Metaverse Burnout.' I teach people how to find their 'Self' in a sea of digital noise." 
+        },
+        { 
+            name: "Beatrice Hall", 
+            job: "Longevity Narrative Therapist", 
+            sprite: {col: 1, row: 3},
+            richDesc: "Beatrice works with the 'super-aged' who struggle with boredom and a loss of identity. She helps these patients 're-author' their lives, identifying new 'plot arcs' and themes for their second century of existence. She treats a human life as a long-form novel, ensuring that every chapter remains meaningful and connected to a larger sense of self.",
+            skills: ["Narrative Theory", "Literary Analysis", "Identity Synthesis"], 
+            major: "Literature", 
+            reveal: "A long life without a story is just noise. I use narrative structures from epic novels to help my super-aged patients find new 'plot twists' for their second century." 
+        },
+        { 
+            name: "Gao Rong", 
+            job: "Bio-Hacking Regulatory Advisor", 
+            sprite: {col: 2, row: 3},
+            richDesc: "Gao Rong advises on the legality and ethics of cognitive and physical human enhancements. Her training helps her navigate the fine line between 'medical improvement' and the loss of 'human essence.' She ensures that as we upgrade our bodies with cybernetics and neural links, we do not regulate away the very vulnerabilities and traits that make us human.",
+            skills: ["Ontology", "Law & Technology", "Body Sociology"], 
+            major: "Philosophy", 
+            reveal: "I define the legal line between 'enhancement' and 'erasure of the self.' My DKU Philosophy of Mind courses are the foundation of my regulatory work." 
+        },
+        { 
+            name: "Sasha Volkov", 
+            job: "Memetic Epidemiologist", 
+            sprite: {col: 3, row: 3},
+            richDesc: "Sasha tracks the spread of dangerous misinformation and psychological manipulation campaigns. By applying intellectual history, he identifies the historical propaganda patterns used in modern 'fake news.' He acts as a social immune system, building 'narrative vaccines' that help the public recognize and resist ideological infection.",
+            skills: ["Linguistics", "Intellectual History", "Semiotic Analysis"], 
+            major: "History", 
+            reveal: "I recognize propaganda patterns from the 20th century in today's memes. My DKU History degree helps me stop lies before they destabilize society." 
+        },
+        { 
+            name: "Wu Jun", 
+            job: "Meaning Architect", 
+            sprite: {col: 4, row: 3},
+            richDesc: "In a 'post-work' society, Wu Jun designs the structures that provide people with a sense of purpose. He creates new community rituals, artistic rites of passage, and social status systems that are not based on money or labor. He is the architect of a new social fabric, ensuring that leisure leads to human excellence rather than stagnation.",
+            skills: ["Social Ontology", "Ritual Design", "Anthropology"], 
+            major: "Global China Studies", 
+            reveal: "In a world without jobs, how do we define worth? I use my DKU training to create new social rituals that give people purpose beyond a paycheck." 
+        }
     ];
 
-    const distractorSkills = ["Python Scripting", "Quantum Encryption", "SQL Management", "Circuit Design", "Financial Modeling", "Organic Chemistry", "Mechanical Engineering", "Network Security"];
+    const distractorSkills = ["Python Scripting", "Quantum Encryption", "Cloud Engineering", "SQL Management", "Circuit Design", "Financial Modeling", "Organic Chemistry", "Mechanical Engineering", "Network Security", "Biotech Hardware"];
     const majors = ["History", "Philosophy", "Literature", "Religious Studies", "Global China Studies"];
 
     let selectedChar = null;
@@ -181,8 +359,13 @@
         document.getElementById('stage1').classList.remove('hidden');
         document.getElementById('progress').style.width = '40%';
         
-        document.getElementById('s1-job-title').innerText = char.job;
-        document.getElementById('s1-description').innerText = char.desc;
+        // Update Sprite
+        const avatar = document.getElementById('s1-avatar');
+        avatar.style.backgroundPosition = `${char.sprite.col * 25}% ${char.sprite.row * 33.33}%`;
+
+        document.getElementById('s1-name').innerText = char.name;
+        document.getElementById('s1-job').innerText = char.job;
+        document.getElementById('s1-rich-desc').innerText = char.richDesc;
         
         const skillOpts = document.getElementById('skill-options');
         skillOpts.innerHTML = '';
@@ -192,7 +375,7 @@
         
         allSkills.forEach(skill => {
             const label = document.createElement('label');
-            label.className = 'skill-item';
+            label.style.display = "block";
             label.innerHTML = `<input type="checkbox" value="${skill}" onchange="checkSkills(this)"> ${skill}`;
             skillOpts.appendChild(label);
         });
@@ -206,16 +389,14 @@
         if(selectedSkills.length === 3) {
             const correct = selectedSkills.every(s => selectedChar.skills.includes(s));
             if(correct) {
-                feedback.innerText = "Excellent. You recognize the human element.";
+                feedback.innerText = "✓ Skills Authenticated. Analyzing academic history...";
                 feedback.style.color = "var(--accent-gold)";
                 document.getElementById('s1-next').classList.remove('hidden');
             } else {
-                feedback.innerText = "Incorrect. Those are technical or mismatched skills.";
+                feedback.innerText = "✗ Skill Mismatch. Re-read the job profile.";
                 feedback.style.color = "#ff4444";
             }
-        } else {
-            feedback.innerText = "";
-        }
+        } else { feedback.innerText = ""; }
     }
 
     function toStage2() {
@@ -237,11 +418,11 @@
     function checkMajor(major) {
         const feedback = document.getElementById('s2-feedback');
         if(major === selectedChar.major) {
-            feedback.innerText = "Correct! The DKU connection is clear.";
+            feedback.innerText = "✓ Major Confirmed. Accessing personal retrospective...";
             feedback.style.color = "var(--accent-gold)";
             document.getElementById('s2-next').classList.remove('hidden');
         } else {
-            feedback.innerText = "Try again. Think about the core training required.";
+            feedback.innerText = "✗ Incorrect major for this career path.";
             feedback.style.color = "#ff4444";
         }
     }
@@ -251,12 +432,14 @@
         document.getElementById('stage3').classList.remove('hidden');
         document.getElementById('progress').style.width = '100%';
 
-        document.getElementById('s3-heading').innerText = `${selectedChar.name}: A Letter to the Class of 2028`;
         document.getElementById('reveal-content').innerHTML = `
-            <p><strong>DKU Major:</strong> ${selectedChar.major}</p>
+            <p style="font-size: 1.2rem; border-bottom: 1px solid #334; padding-bottom: 10px; margin-bottom: 20px;">
+                <strong>${selectedChar.name}</strong> — B.A. in ${selectedChar.major} (DKU Alumnus)
+            </p>
             <p>${selectedChar.reveal}</p>
-            <hr style="border:0; border-top:1px solid var(--accent-gold)">
-            <p><em>"Your humanities degree isn't just a major; it's an operating system for the future. While others learn to use the machines, you are learning to lead the humans who build them. See you in 2045."</em></p>
+            <p style="margin-top: 20px; font-style: italic; color: #8899ac;">
+                "In 2045, your humanities training is the ultimate insurance policy against automation. While machines compute, you will provide the conscience, the context, and the connection."
+            </p>
         `;
     }
 </script>
