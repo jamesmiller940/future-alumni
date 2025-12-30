@@ -3,383 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DKU Alumni 2045: The Human Advantage</title>
+    <title>Neo-Kunshan 2045 | The Human Advantage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-blue: #00539b;
-            --accent-gold: #e8aa00;
-            --dark-bg: #0a0e14;
-            --card-bg: #16212e;
-            --text-light: #e0e6ed;
-            --neon-glow: 0 0 15px rgba(0, 83, 155, 0.4);
+        :root { 
+            --dku-blue: #003087; --dku-gold: #E2AD35; --dark-bg: #05080a; 
+            --card-bg: #0f172a; --text-light: #f8fafc; --text-dim: #94a3b8;
         }
-
-        body {
-            font-family: 'Optima', 'Segoe UI', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        #game-container {
-            width: 95%;
-            max-width: 900px;
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: var(--neon-glow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            max-height: 95vh;
-            overflow-y: auto;
-        }
-
-        .avatar-frame {
-            width: 180px; height: 180px; margin: 0 auto 20px;
-            border: 3px solid var(--accent-gold); border-radius: 50%;
-            overflow: hidden; background-image: url('avatars.png');
-            background-size: 500% 400%; box-shadow: 0 0 20px rgba(232, 170, 0, 0.3);
-        }
-
-        .preview-container { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
-        .preview-icon {
-            width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--primary-blue);
-            background-image: url('avatars.png'); background-size: 500% 400%;
-            filter: grayscale(80%) brightness(0.8);
-        }
-
-        h1 { color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; }
-        .hidden { display: none; }
-
-        .btn {
-            background: var(--primary-blue); color: white; border: none; padding: 14px 28px;
-            margin: 10px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: bold;
-        }
-        .btn:hover { background: #003d73; transform: scale(1.05); }
-
-        .char-card {
-            background: rgba(255,255,255,0.03); padding: 20px; border: 1px solid var(--primary-blue);
-            border-radius: 12px; cursor: pointer; transition: 0.3s; margin-bottom: 10px; text-align: left;
-        }
-        .char-card:hover { border-color: var(--accent-gold); background: rgba(0, 83, 155, 0.15); }
-
-        .rich-description {
-            text-align: left; background: rgba(0,0,0,0.3); padding: 20px;
-            border-left: 4px solid var(--accent-gold); margin: 20px 0; line-height: 1.6;
-        }
-
-        .skill-list { text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: var(--text-light); margin: 0; display: flex; justify-content: center; min-height: 100vh; line-height: 1.6; }
+        #app-container { width: 95%; max-width: 1000px; background: var(--card-bg); padding: 40px; border-radius: 4px; border-top: 8px solid var(--dku-blue); box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 40px 0; }
         
-        .trajectory-box {
-            background: rgba(0, 83, 155, 0.1); border: 1px dashed var(--accent-gold);
-            padding: 15px; margin: 15px 0; font-size: 0.95rem; text-align: left;
-        }
+        h1, h2, h3 { font-family: 'Crimson Pro', serif; color: var(--dku-gold); text-align: center; }
+        h1 { font-size: 3rem; margin: 0; letter-spacing: -1px; }
+        .tagline { text-align: center; font-size: 0.8rem; letter-spacing: 4px; color: var(--text-dim); text-transform: uppercase; margin: 10px 0 30px; }
+        
+        .screen { display: none; animation: fadeIn 0.5s ease forwards; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        #certificate {
-            background: #fff; color: #333; padding: 50px; border: 15px double var(--primary-blue);
-            font-family: 'Georgia', serif; position: relative; margin-top: 20px; box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        .alumni-sprite { 
+            background-image: url('c.jpg'); 
+            background-size: 600% 400%; /* 6 columns, 4 rows */
+            background-repeat: no-repeat;
+            filter: grayscale(30%);
+            transition: 0.3s ease;
         }
+        .photo-frame { width: 100%; height: 280px; border-bottom: 3px solid var(--dku-blue); }
+        .char-card:hover .alumni-sprite { filter: grayscale(0%); border-bottom-color: var(--dku-gold); }
+        .large-photo { width: 300px; height: 300px; margin: 0 auto 25px; border: 2px solid var(--dku-gold); }
+        
+        .btn { background: var(--dku-blue); color: white; border: none; padding: 18px 30px; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; width: 100%; transition: 0.3s; margin-top: 20px; border-radius: 2px; }
+        .btn:hover:not(:disabled) { background: #002366; }
+        .btn:disabled { background: #1e293b; color: #475569; cursor: not-allowed; }
+        
+        .character-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .char-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; text-align: left; overflow: hidden; }
+        .char-card:hover { border-color: var(--dku-gold); transform: translateY(-5px); }
+        .char-info { padding: 20px; }
+        
+        .skill-btn { display: block; width: 100%; padding: 18px; margin: 12px 0; background: transparent; border: 1px solid #334155; color: var(--text-light); text-align: left; cursor: pointer; font-size: 0.95rem; line-height: 1.4; transition: 0.2s; }
+        .skill-btn.selected { border-color: var(--dku-gold); background: rgba(226, 173, 53, 0.1); }
+        
+        .letter-box { background: #fffdf9; color: #1a1a1a; padding: 60px; font-family: 'Crimson Pro', serif; font-size: 1.25rem; line-height: 1.7; border: 1px solid #d4d4d4; box-shadow: 0 10px 40px rgba(0,0,0,0.3); position: relative; }
+        .letter-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: var(--dku-blue); }
+        .signature { margin-top: 40px; font-style: italic; font-weight: 600; color: var(--dku-blue); }
+        .progress-indicator { text-align: center; font-size: 0.7rem; color: var(--dku-gold); margin-bottom: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+
+        @media (max-width: 600px) { .character-grid { grid-template-columns: 1fr; } .letter-box { padding: 30px; } }
     </style>
 </head>
 <body>
 
-<div id="game-container">
-    <div id="start-screen">
-        <h1>DKU Alumni 2045</h1>
-        <div class="preview-container">
-            <div class="preview-icon" style="background-position: 0% 0%;"></div>
-            <div class="preview-icon" style="background-position: 25% 0%;"></div>
-            <div class="preview-icon" style="background-position: 75% 0%;"></div>
-            <div class="preview-icon" style="background-position: 25% 25%;"></div>
+<div id="app-container">
+    <div id="start-screen" class="screen active">
+        <h1>NEO-KUNSHAN 2045</h1>
+        <div class="tagline">The Human Advantage Project</div>
+        <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 4px; margin-bottom: 30px;">
+            <p>Welcome to the year 2045. In a world of total automation, the only scarce resource is the navigation of meaning. To proceed, you must consult with <strong>three distinct mentors</strong> to understand how their DKU mode of inquiry shaped their career journey.</p>
         </div>
-        <p>Automation has taken the 'how.' You are here to master the 'why.' Learn how humanities majors prepare you for jobs and careers that do not even exist today. Meet three future alumni to receive a letter from 2045</p>
-        <button class="btn" onclick="startGame()">Enter the Future</button>
+        <button class="btn" onclick="showSelection()">Begin Network Connection</button>
     </div>
 
-    <div id="selection-screen" class="hidden">
-        <h2 id="selection-header">Choose Your Mentor</h2>
-        <div id="char-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"></div>
+    <div id="selection-screen" class="screen">
+        <div class="progress-indicator">Inquiry Progress: <span id="mentors-met-count">0</span> / 3</div>
+        <h2>Select a Mentor</h2>
+        <div id="char-grid" class="character-grid"></div>
     </div>
 
-    <div id="stage1" class="hidden">
-        <div id="s1-avatar" class="avatar-frame"></div>
-        <h2 id="s1-name"></h2>
-        <div id="s1-rich-desc" class="rich-description"></div>
-        <div id="skill-options" class="skill-list"></div>
-        <div id="s1-feedback" style="height: 30px; margin-bottom: 10px; font-weight: bold;"></div>
-        <button id="s1-next" class="btn hidden" onclick="toStage2()">Analyze Background</button>
+    <div id="mentor-screen" class="screen">
+        <div id="mentor-photo" class="alumni-sprite large-photo"></div>
+        <h2 id="job-title" style="color: var(--dku-gold); margin-bottom: 5px; margin-top: 0; text-align: center;"></h2>
+        <p id="job-desc" style="color: #94a3b8; font-style: italic; margin-bottom: 30px; text-align: center;"></p>
+        <p><strong>Identify the 3 methodological pillars required for this role:</strong></p>
+        <div id="skill-options"></div>
+        <button id="verify-skills-btn" class="btn" onclick="verifySkills()" disabled>Verify Methodology</button>
     </div>
 
-    <div id="stage2" class="hidden">
-        <h2>The Foundation</h2>
-        <p>Identify the DKU major that paved this career path.</p>
-        <div id="major-options"></div>
-        <div id="s2-feedback" style="height: 30px; margin: 20px 0; font-weight: bold;"></div>
-        <button id="s2-next" class="btn hidden" onclick="toStage3()">Reveal History</button>
+    <div id="major-screen" class="screen">
+        <h2>The Academic Root</h2>
+        <p style="text-align: center; color: var(--text-dim);">Which disciplinary lens provides the foundation for this expertise?</p>
+        <div id="major-options" class="character-grid"></div>
     </div>
 
-    <div id="stage3" class="hidden">
-        <h2>Career Retrospective</h2>
-        <div id="reveal-content"></div>
-        <button class="btn" onclick="showCertificate()">Generate Credential</button>
+    <div id="reveal-screen" class="screen">
+        <div id="reveal-photo" class="alumni-sprite large-photo"></div>
+        <h2 id="reveal-name" style="color: var(--dku-gold); margin: 0;"></h2>
+        <div id="reveal-content" style="background: rgba(0,0,0,0.3); padding: 40px; margin-top:20px; font-family: 'Crimson Pro'; font-size: 1.3rem;"></div>
+        <button id="next-mentor-btn" class="btn" onclick="showSelection()">Seek Next Mentor</button>
+        <button id="final-choice-btn" class="btn hidden" onclick="showFinalChoice()">Initialize Career Pathway Analysis</button>
     </div>
 
-    <div id="final-screen" class="hidden">
-        <div id="certificate">
-            <h1 style="color: var(--primary-blue); font-size: 2rem; margin-top: 0;">Certificate of Human Excellence</h1>
-            <p>DUKE KUNSHAN UNIVERSITY | 2045</p>
-            <hr style="border: 1px solid #ddd; margin: 20px 0;">
-            <p>Bearer is hereby designated as</p>
-            <h2 id="cert-title" style="margin: 20px 0; color: #b58900; font-style: italic;"></h2>
-            <p>Through the discipline of</p>
-            <h3 id="cert-major" style="text-decoration: underline;"></h3>
-            <p style="margin-top: 40px; font-size: 0.8rem;">Issued in Kunshan: Dec 2045 | Cognitive Immunity Verified</p>
-        </div>
-        <button id="loop-btn" class="btn" onclick="resetForNext()"></button>
+    <div id="choice-screen" class="screen">
+        <h2>Whom Will You Follow?</h2>
+        <div id="choice-grid" class="character-grid"></div>
     </div>
 
-    <div id="victory-screen" class="hidden">
-        <h1 style="color: var(--accent-gold);">GRADUATION COMPLETE</h1>
-        <p>You have explored the breadth of a humanities-led economy.</p>
-        <p>Before you return to 2025, receive one final transmission from the future.</p>
-        
-        <button id="letter-btn" class="btn" style="background: var(--accent-gold); color: black; font-size: 1.1rem;" onclick="showRandomLetter()">Read a Letter from 2045</button>
-        
-        <div id="final-letter-container" class="hidden rich-description" style="margin-top: 30px; border-color: var(--primary-blue);">
-             <h3 id="letter-sender" style="color: var(--primary-blue);"></h3>
-             <div id="letter-body" style="font-family: 'Georgia', serif;"></div>
-        </div>
-
-        <button class="btn" style="margin-top: 40px; background: #334;" onclick="location.reload()">Return to Present Day</button>
+    <div id="letter-screen" class="screen">
+        <div class="letter-box" id="letter-content"></div>
+        <button class="btn" onclick="location.reload()">Return to 2025</button>
     </div>
 </div>
 
 <script>
-    // Expanded Character Data with Letters
     const alumni = [
-        { 
-            name: "Elena Rossi", job: "AI Personality Architect", sprite: {col: 0, row: 0}, major: "Philosophy", skills: ["Ethical Reasoning", "Narrative Voice", "Empathy Mapping"], richDesc: "Elena designs the moral decision-making frameworks for autonomous systems.", trajectory: "I started in UX research. When the 2035 'Sentience Act' passed, companies needed philosophers to build 'moral' machines.", reveal: "In 2045, coding is automated. Character is not.",
-            futureLetter: "<p>Dear Student, I know you are sitting in your dorm right now wondering if studying Virtue Ethics is a waste of time when your roommate is learning quantum computing. I had the same doubts. But let me tell you from 2045: the computing part got easy. The hard part is teaching a machine *why* it shouldn't manipulate a vulnerable user.</p><p>My job didn't exist when I was at DKU. I invented it by applying Aristotelian concepts of character to neural networks. Every day, I use the critical thinking skills I honed in Philosophy seminars to ensure that the AIs running our hospitals and homes don't develop sociopathic tendencies. The engineers build the engine; I build the driver's conscience.</p><p>Don't drop that philosophy course. The future doesn't need more coders; it needs people who understand what it means to be human. Stick with it, and I’ll see you in the future.</p>"
-        },
-        { 
-            name: "Zhang Wei", job: "Algorithm Exorcist", sprite: {col: 1, row: 0}, major: "History", skills: ["Historical Pattern Recognition", "Critical Discourse Analysis", "Archival Research"], richDesc: "Zhang Wei audits high-stakes AI systems to identify and remove systemic biases encoded from historical data models.", trajectory: "During the 2032 'Global Bias Crisis,' I proved an AI was discriminating using 1980s data. My archival skills saved the day.", reveal: "History is the blueprint of the future. I fix it by exorcising the prejudices of the past.",
-            futureLetter: "<p>To a future historian: You are probably tired of people asking, 'What are you going to do with a history degree, teach?' They think history is about memorizing dates. In 2045, we know that history is the study of data patterns over time. The biggest threat we face isn't rogue AI; it's AI that perfectly repeats the mistakes of the 20th century because it was trained on biased historical data.</p><p>My job is to dive into the archives of human behavior and find the roots of systemic prejudice before they get hardcoded into our infrastructure. When a banking AI denies loans based on zip codes that were segregated fifty years ago, I'm the one who recognizes the pattern. I don't just study the past; I use it to debug the future.</p><p>Your ability to synthesize complex historical narratives is a superpower in the age of big data. Keep reading those primary sources. The future needs people who remember.</p>"
-        },
-        { 
-            name: "Sarah Jenkins", job: "Digital Afterlife Curator", sprite: {col: 2, row: 0}, major: "Religious Studies", skills: ["Liturgy Analysis", "Bereavement Theory", "Comparative Theology"], richDesc: "Sarah manages AI simulations of the deceased, ensuring they honor the theological beliefs and spiritual legacy of grieving families.", trajectory: "Families were traumatized by 'robotic' AI replicas. My Religious Studies major allowed me to bridge technology and sanctity.", reveal: "I am the guardian of the sacred in a digital age.",
-            futureLetter: "<p>Dear Student, you are studying Religious Studies in an increasingly secular, technological world. It might feel counterintuitive. But in 2045, technology has conquered death—sort of. We can upload memories and simulate personalities, but we soon realized that data isn't the same as a soul. The engineers couldn't code for grief.</p><p>My work at DKU in comparative theology and ritual studies became the foundation for the Digital Afterlife industry. I help design digital spaces for mourning that respect diverse cultural and spiritual traditions. When a family wants to interact with a simulation of their grandmother, I ensure the experience honors her specific beliefs, rather than just being a generic chatbot. </p><p>We live in an era of miracles, but we still need guides for the sacred. Your understanding of human belief is the bridge between cold technology and the human heart. Don't lose faith in your path.</p>"
-        },
-        { 
-            name: "Li Xia", job: "Virtual World Mythologist", sprite: {col: 3, row: 0}, major: "Literature", skills: ["Comparative Mythology", "Philology", "World-Building"], richDesc: "Li Xia constructs the deep lore, histories, and mythic systems that make virtual civilizations feel authentic.", trajectory: "As the Metaverse grew, people tired of 'shallow' worlds. I used my study of Epic Poetry at DKU to build civilizations with lore.", reveal: "Engineers build the walls; I build the stories that make people want to stay.",
-            futureLetter: "<p>To the aspiring writer at DKU: You are probably worried that AI can write poetry and novels now. It can. But AI cannot create *meaning*. It can mimic form, but it cannot build the deep, resonant mythologies that sustain human communities over time. That is still our job.</p><p>In the Metaverse, we can render photorealistic cities in seconds. But nobody wants to live in an empty shell. I use the structures of epic literature and comparative mythology I learned at DKU to build the foundational lore—the religions, the histories, the taboos—of virtual civilizations. I provide the narrative glue that turns a digital space into a home for millions.</p><p>The medium has changed from paper to pixels, but the human need for a unifying story has not. Keep studying the classics; they are the blueprints for the virtual realities of tomorrow.</p>"
-        },
-        { 
-            name: "Marcus Thorne", job: "Neural Privacy Ethicist", sprite: {col: 4, row: 0}, major: "Philosophy", skills: ["Ontological Analysis", "Legal Theory", "Philosophy of Mind"], richDesc: "Marcus protects the 'sanctity of thought,' drafting laws that prevent corporations from harvesting subconscious data.", trajectory: "During the 2036 'Neural-Link' boom, companies tried to trademark subconscious reactions. My Philosophy background gave me the logic to fight back.", reveal: "My degree protects the boundary of the human mind.",
-            futureLetter: "<p>Dear Philosopher, you are wrestling with abstract concepts like ontology and the nature of consciousness. It probably feels very distant from the 'real world' job market. Let me assure you, in 2045, those abstractions are the front lines of the most important legal battles on Earth.</p><p>When brain-computer interfaces became common, we faced a crisis: if a machine can read your subconscious thoughts, who owns that data? The engineers didn't know. The MBAs didn't care. It fell to those of us trained in the Philosophy of Mind to define the legal boundaries of the 'Self.' Every day, I use the rigorous logic I learned at DKU to draft regulations that keep your private thoughts private.</p><p>Your ability to define abstract concepts is not an academic exercise; it is a vital defense mechanism for humanity. Sharpen your mind. We need you.</p>"
-        },
-        // ... (Continuing with 15 more letters based on previous descriptions) ...
-        { 
-            name: "Chen Yu", job: "Rewilding Historian", sprite: {col: 0, row: 1}, major: "Global China Studies", skills: ["Paleography", "Historical Ecology", "Classical Chinese"], richDesc: "Chen Yu researches ancient land-management records to provide blueprints for modern ecological restoration.", trajectory: "My DKU training allowed me to read ancient gazetteers and revive 'Ancestral Tech' for restoration.", reveal: "The solutions to the 2045 climate crisis were written in 1545.",
-            futureLetter: "<p>To the GCS student: You are studying classical texts and historical geography while the world burns outside. It feels disconnected. But in 2045, we realized that high-tech geo-engineering was failing. To save the future environment, we had to look to China's past.</p><p>My job involves reading 500-year-old local gazetteers (fangzhi) to understand how ecosystems functioned before industrial damage. I translate ancient agricultural wisdom into modern ecological blueprints. The ability to read classical Chinese and understand pre-modern history, which I gained at DKU, is now a critical tool for planetary survival.</p><p>Do not discount the value of old knowledge. The archives hold the keys to our ecological future. Keep digging.</p>"
-        },
-        { 
-            name: "Amara Okafor", job: "Climate Migration Mediator", sprite: {col: 1, row: 1}, major: "Global China Studies", skills: ["Intercultural Hermeneutics", "Conflict Resolution", "Ethnography"], richDesc: "Amara facilitates the integration of displaced populations into new host communities through cultural translation.", trajectory: "My GCS degree taught me to bridge worldviews, preventing culture clash in mass movement.", reveal: "You can move people with ships; you integrate them with stories.",
-            futureLetter: "<p>Dear Student, right now you are learning to navigate the complex intersection of Chinese and Western cultures at DKU. You might wonder how this applies to a career. In 2045, we live in an era of mass climate displacement. Moving millions of people is a logistical challenge, but integrating them is a cultural crisis.</p><p>My training in Global China Studies gave me the tools of intercultural hermeneutics—the ability to interpret and translate deep-seated values between radically different groups. When I mediate between a displaced island population and their new host country, I am not just translating language; I am translating meaning, preventing conflict before it starts.</p><p>Your cross-cultural fluency is not just a soft skill; it is the essential diplomatic tool of the mid-21st century. The world needs translators of culture more than ever.</p>"
-        },
-        { 
-            name: "Wang Fang", job: "Interspecies Interpreter", sprite: {col: 2, row: 1}, major: "Philosophy", skills: ["Environmental Philosophy", "Semantics", "Animal Ethics"], richDesc: "Wang Fang uses AI tools and ethics to represent the interests of animals and ecosystems in legal courts.", trajectory: "AI gave us whale song data; my philosophy background gave me the logic to argue for whale 'rights.'", reveal: "Science gave us the microphone; philosophy gave us the courage to listen.",
-            futureLetter: "<p>Dear Philosopher, you are studying environmental ethics and questioning the human-centric view of the universe. Good. In 2045, AI finally allowed us to decode the complex communication patterns of whales, elephants, and forests. But data is not empathy.</p><p>The raw data of a whale song doesn't tell you if that whale has legal rights. My job is to take that AI translation and filter it through rigorous ethical frameworks to represent non-human interests in court. My background in environmental philosophy at DKU allows me to build the legal arguments for the personhood of nature, ensuring we don't bulldoze sentient ecosystems.</p><p>Technology can give nature a voice, but it takes a humanities scholar to ensure that voice is actually heard. Keep challenging the status quo.</p>"
-        },
-        { 
-            name: "Julian Van der Berg", job: "Post-Anthropocene Urban Planner", sprite: {col: 3, row: 1}, major: "History", skills: ["Urban Aesthetics", "Systems Thinking", "World History"], richDesc: "Julian designs cities as living ecosystems, drawing inspiration from ancient resilient urban layouts.", trajectory: "I designed urban hybrids based on ancient capitals. My cities survived the 2039 super-storms perfectly.", reveal: "I build for the next thousand years by looking at the last thousand.",
-            futureLetter: "<p>To the historian interested in the future: You might think urban planning is for engineers and architects. But in the 2030s, we realized our high-tech 'smart cities' were brittle. They broke under environmental stress. To build resilient cities for 2045, I had to look backward.</p><p>My History degree at DKU allowed me to study how ancient civilizations in Mesopotamia, the Indus Valley, and China managed water and resources for millennia without electricity. I adapt those deep historical patterns into futuristic urban designs. I don't just look at engineering specs; I look at the long timeline of human habitation.</p><p>A city without a sense of history is doomed to be destroyed by it. Your ability to see time as a continuum is vital for designing the spaces of tomorrow.</p>"
-        },
-        { 
-            name: "Zhao Min", job: "Synthetic Biology Ethicist", sprite: {col: 4, row: 1}, major: "Philosophy", skills: ["Bioethics", "Teleological Reasoning", "Social Impact"], richDesc: "Zhao Min chairs the ethics boards deciding which extinct species to bring back and the safety of synthetic life forms.", trajectory: "When the first mammoth was revived in 2033, I led the moral debate. I framed 'de-extinction' as a duty, not an experiment.", reveal: "Science is the weapon; philosophy is the aim.",
-            futureLetter: "<p>Dear Student, you are grappling with bioethics and teleology. In the labs down the hall, they are learning to edit genomes. Right now, those seem like separate worlds. In 2045, they are the same world. When we gained the power to revive extinct species and create entirely synthetic life, we faced a paralysis of choice.</p><p>Science could tell us *how* to bring back a passenger pigeon, but it couldn't tell us if we *should*, or what its purpose would be in a changed world. My job as chair of the Synthetic Life Board is to apply rigorous philosophical inquiry to these god-like powers. I ensure that our biotechnological prowess is guided by wisdom, not just capability.</p><p>Do not cede the future to the technicians. The most powerful technology on earth requires the deepest moral reasoning. That is your job.</p>"
-        },
-        { 
-            name: "Clara Dupont", job: "Nostalgia Designer", sprite: {col: 0, row: 2}, major: "Literature", skills: ["Material Culture", "Sensory Design", "Art History"], richDesc: "Clara designs physical 'analog sanctuaries' free from digital intrusion for a tech-weary public seeking tactile reality.", trajectory: "In 2035, people snapped against digital life. I used Material Culture studies to open 'Paper & Ink' spas.", reveal: "I sell the human touch that machines can't replicate.",
-            futureLetter: "<p>To the student of Literature and Art History: You love the smell of old books and the texture of paint. In a world racing toward total digitization, you might feel obsolete. You are not. In 2045, the digital world is overwhelmingly loud, bright, and inescapable. The ultimate luxury is now 'The Real.'</p><p>My study of Material Culture at DKU taught me how humans derive meaning from physical objects. I use that knowledge to design high-end 'analog sanctuaries'—spaces where neural links are blocked, and people pay a premium to handle physical books, write letters with ink, and experience unmediated reality. </p><p>You are studying the things that humans will miss the most in the future. The more virtual our lives become, the more valuable your understanding of the physical world will be.</p>"
-        },
-        { 
-            name: "Liu Kai", job: "Cross-Cultural Arbitrator", sprite: {col: 1, row: 2}, major: "Global China Studies", skills: ["Intellectual History", "Global Ethics", "Negotiation"], richDesc: "Liu Kai resolves global tensions by addressing the cultural memory and historical trauma driving modern disputes.", trajectory: "I ended a 2038 Trade War by addressing historical dignity rather than just money. My GCS degree gave me the dual vision required.", reveal: "You can't solve history with a one-year trade deal.",
-            futureLetter: "<p>Dear GCS Student, you are learning to see the world through multiple lenses simultaneously. This feels academically rigorous now, but in 2045, it is a survival skill. Modern international conflicts are rarely about what they seem on the surface; they are almost always rooted in deep historical traumas and diverging cultural narratives.</p><p>While traditional diplomats analyze economic data, I use my DKU training in Intellectual History to analyze the stories nations tell about themselves. I resolve billion-dollar disputes not by arguing over tariffs, but by addressing the underlying 'historical dignity' of the parties involved. I find the shared narrative that allows both sides to move forward.</p><p>Your ability to synthesize Eastern and Western intellectual traditions is the ultimate diplomatic tool. Stick with it; the world needs bridge-builders.</p>"
-        },
-        { 
-            name: "Aria Sato", job: "Human-Machine Liaison", sprite: {col: 2, row: 2}, major: "Philosophy", skills: ["Political Theory", "Labor History", "Empathy"], richDesc: "Aria manages social dynamics in workplaces where humans and robots work together, ensuring human dignity is protected.", trajectory: "My political theory background helped me rewrite labor charters to protect human dignity in the 'Symbiotic Workplace.'", reveal: "I ensure the machine serves the human.",
-            futureLetter: "<p>Dear Philosopher, you are studying political theory and the history of labor movements. It seems like knowledge for a bygone era. Yet, in 2045, I work on factory floors where 90% of the labor is done by autonomous robots. The crisis we face isn't production; it's meaning and dignity for the remaining 10% of human workers.</p><p>The concepts of the 'social contract' and human rights I studied at DKU are what I use daily to structure the 'Symbiotic Workplace.' I ensure that automation protocols are designed to enhance human capability, not degrade it. I am the advocate for the human spirit in a highly mechanized environment.</p><p>Technology changes how we work, but it doesn't change the fundamental needs of the worker. You are the future guardian of human worth in the economy.</p>"
-        },
-        { 
-            name: "Sun Ye", job: "Corporate Philosopher", sprite: {col: 3, row: 2}, major: "Philosophy", skills: ["Socratic Questioning", "Moral Frameworks", "Organizational Ethics"], richDesc: "Sun Ye helps tech giants define their moral purpose, ensuring they contribute to human flourishing beyond profit.", trajectory: "I stopped a dangerous product launch in 2034 using Socratic questioning. Now I'm in the C-suite defining purpose.", reveal: "My degree provides the 'why' for the corporate 'how'.",
-            futureLetter: "<p>To the Philosophy student: You are training in rigorous logic and ethical frameworking. You might think the corporate world only cares about coders and MBAs. But in 2045, AI can optimize for efficiency better than any human. What AI cannot do is define 'Purpose.'</p><p>My job in the C-suite of a major tech conglomerate is to define the 'why' behind our massive operations. I use Socratic questioning to challenge assumptions and deploy ethical frameworks—from Confucianism to Utilitarianism—to ensure our technology serves human flourishing, not just the bottom line. When an algorithm is incredible at maximizing the wrong thing, I am the one who pivots the strategy.</p><p>In an age of hyper-efficiency, clarity of moral thought is the rarest and most valuable corporate asset. Your training is essential leadership preparation.</p>"
-        },
-        { 
-            name: "Diego Morales", job: "Metaverse Genealogist", sprite: {col: 4, row: 2}, major: "History", skills: ["Digital Ethnography", "Semiotics", "Cultural History"], richDesc: "Diego maps the ancestry of digital ideologies to help governments understand and prevent radicalization in the Metaverse.", trajectory: "I saved an election by proving a new digital cult was using 1920s propaganda techniques. I treat the internet as an archaeological site.", reveal: "I trace the lineage of memes to protect the truth.",
-            futureLetter: "<p>Dear Historian, you are studying the past in a world obsessed with the future. But the faster things change, the more the old patterns repeat. In 2045, the internet moves so quickly that last year feels like ancient history. The digital world is a chaotic swirl of fleeting movements and ideologies.</p><p>My job is to treat the Metaverse as an archaeological site. I use the historical methods I learned at DKU to map the ancestry of digital subcultures and memes. I help society understand where radical online movements come from by tracing their lineage back to historical precedents. I provide the context that the algorithm deletes.</p><p>You are learning the skills to document and understand the fastest-moving history humanity has ever known. Don't let anyone tell you history is about the past; it's the only way to understand the present.</p>"
-        },
-        { 
-            name: "Lin Xi", job: "Digital Wellness Counselor", sprite: {col: 0, row: 3}, major: "Religious Studies", skills: ["Contemplative Practice", "Phenomenology", "Religious Ritual"], richDesc: "Lin Xi uses ancient contemplative practices to treat 'Reality Disassociation' caused by excessive time in VR.", trajectory: "When 'Meta-Burnout' became a crisis, I adapted Buddhist rituals into 'Digital Fasting' protocols, a national health standard.", reveal: "The physical moment is our only anchor. I help people find home.",
-            futureLetter: "<p>Dear Student of Religion, you are studying ancient texts and contemplative practices while your peers study data science. You are on the right track. In 2045, we have infinite digital distraction. We can live entirely in virtual worlds. The result has been a massive crisis of 'Reality Disassociation' and spiritual sickness.</p><p>My work utilizes the deep understanding of mindfulness, ritual, and phenomenology I gained at DKU. I design 'Digital Fasting' protocols and secular contemplative spaces that help people reconnect with their physical bodies and the present moment. In an age of artificial experience, the ability to teach 'presence' is the most valuable healthcare skill there is.</p><p>You are studying the technologies of the human soul. They are more necessary now than ever before.</p>"
-        },
-        { 
-            name: "Beatrice Hall", job: "Longevity Narrative Therapist", sprite: {col: 1, row: 3}, major: "Literature", skills: ["Narrative Theory", "Literary Analysis", "Identity Synthesis"], richDesc: "Beatrice helps people living past 150 're-author' their life stories to avoid the psychological stagnation of extreme longevity.", trajectory: "I used my study of the Long Novel to help patients treat their life like an epic with new chapters, curing the 'Boredom of Life.'", reveal: "I help people write their next chapter.",
-            futureLetter: "<p>To the Literature major: You are analyzing plot structures, character arcs, and themes. You love stories. In 2045, medical science has extended the human lifespan dramatically. Many people will live past 150. But science didn't figure out how to make those extra decades *meaningful*.</p><p>My patients are 130 years old and suffering from existential boredom. Their life story feels 'finished.' I use narrative theory—the very skills you are learning right now—to help them 're-author' their identity, finding new themes and plot twists for their second century of life. I treat a human existence as a long-form novel that needs editing and continuation.</p><p>You aren't just studying books; you are studying the structure of human meaning. As long as humans live, they will need stories to make sense of it all.</p>"
-        },
-        { 
-            name: "Gao Rong", job: "Bio-Hacking Regulatory Advisor", sprite: {col: 2, row: 3}, major: "Philosophy", skills: ["Ontology", "Law & Technology", "Body Sociology"], richDesc: "Gao Rong drafts ethical standards for cybernetic enhancements to ensure human identity is protected as we merge with machines.", trajectory: "I drafted the 'Human Baseline Act' in 2038 to stop the erasure of the self. I'm now a lead advisor to the WHO.", reveal: "My degree protects the boundary of the self.",
-            futureLetter: "<p>Dear Philosopher, you are studying ontology and the philosophy of mind, asking 'What is a self?' In 2045, this is no longer a dorm-room debate; it is a massive regulatory question. We can upgrade our memories with chips and replace our limbs with superior robotics.</p><p>My job is to advise governments on where the line is drawn. At what point in upgrading yourself do you cease to be 'you'? My background in philosophy at DKU allows me to navigate these complex questions of identity, ensuring that as we enhance the human body, we don't erase the human essence. </p><p>The engineers are building the upgrades. We need you to write the user manual for being human in a post-biological age.</p>"
-        },
-        { 
-            name: "Sasha Volkov", job: "Memetic Epidemiologist", sprite: {col: 3, row: 3}, major: "History", skills: ["Linguistics", "Intellectual History", "Semiotic Analysis"], richDesc: "Sasha tracks the linguistic roots of misinformation to build narrative vaccines against ideological infection.", trajectory: "In 2036, I used DKU History training to prove a massive disinformation campaign was recycled 20th-century propaganda.", reveal: "If you know history, you are immune to lies.",
-            futureLetter: "<p>Dear Historian, you are studying intellectual history and linguistics. You know that ideas have power. In 2045, information moves instantly, and dangerous ideologies spread like biological viruses through global networks. We call them 'memetic plagues.'</p><p>My job is to track these information viruses. Because of my history training at DKU, I know that there are very few truly new lies. When a toxic narrative starts spreading, I analyze its linguistic roots and identify its historical ancestor—usually some form of old propaganda. I use that knowledge to build 'narrative vaccines' to inoculate the public. </p><p>You are training to be the immune system of the information age. Your ability to recognize the patterns of the past is the ultimate defense against manipulation in the future.</p>"
-        },
-        { 
-            name: "Wu Jun", job: "Meaning Architect", sprite: {col: 4, row: 3}, major: "Global China Studies", skills: ["Social Ontology", "Ritual Design", "Anthropology"], richDesc: "Wu Jun creates community structures and rites of passage for a post-work society defined by universal basic income.", trajectory: "When work disappeared in 2040, I used Cultural History to design new festivals that give people status and purpose.", reveal: "I help a world without jobs find its soul.",
-            futureLetter: "<p>Dear GCS Student, you are studying anthropology, sociology, and culture. You are learning what makes societies function. In 2045, robots do almost all traditional labor. Universal Basic Income provides for our needs. The great crisis we face isn't poverty; it's a crisis of meaning.</p><p>Without jobs, how do people define their worth? My job is to design the answer. I use my interdisciplinary training to create new community structures, artistic rites of passage, and social rituals that give people a sense of achievement and connection outside of economic output. I am an architect of social meaning.</p><p>A job is what you do for money. A purpose is what you do for your soul. Your degree is preparing you to help a post-work world find its soul.</p>"
-        }
+        // QPE (3)
+        { spr: "0% 0%", name: "Dr. Aris Thorne", job: "Synthetic Market Regulator", major: "QPE", skills: ["Modeling stochastic variables.", "Applying game-theory.", "Designing equilibrium equations."], reveal: "I use math to manage the behavior of abundance.", letter: "At DKU, I learned that data is dead without a model. I used QPE to bridge finance and behavioral science, eventually regulating the first automated markets." },
+        { spr: "20% 0%", name: "Liam Sterling", job: "Labor Dividend Analyst", major: "QPE", skills: ["Modeling welfare dividends.", "Simulating tax equilibria.", "Analyzing productivity shifts."], reveal: "I model the transition to a choice-based labor economy.", letter: "My path went from investment banking to public policy. QPE allowed me to solve the math of the 'Leisure Dividend' for the automated class." },
+        { spr: "40% 0%", name: "Aria Vance", job: "Orbital Logistics Designer", major: "QPE", skills: ["Optimizing trade-loops.", "Modeling supply volatility.", "Designing fiscal policies."], reveal: "I solve the variables of interplanetary trade.", letter: "Logistics in 2045 isn't just shipping; it's the math of orbit and value. QPE gave me the predictive tools to manage the Lunar-Earth trade route." },
+
+        // HISTORY (3)
+        { spr: "60% 0%", name: "Amina Okoro", job: "Memory Conservationist", major: "History", skills: ["Tracing temporal causality.", "Applying historical contingency.", "Synthesizing primary sources."], reveal: "I protect the human story from being overwritten by code.", letter: "In the 2030s, we lost our digital roots. My History degree made me a 'Detective of Continuity,' preserving the causality of our shared past." },
+        { spr: "80% 0%", name: "Felix Thorne", job: "Ecology Historian", major: "History", skills: ["Reconstructing landscapes.", "Analyzing archival land-use.", "Tracing rewilding patterns."], reveal: "I use archives to heal the planet's biology.", letter: "I spend my days in 400-year-old gazetteers. By understanding how the land was used before the industrial age, I'm rewilding the Yangtze delta." },
+        { spr: "100% 0%", name: "Thomas Beckett", job: "Digital Diplomat", major: "History", skills: ["Applying treaty structures.", "Tracing power-balance theory.", "Analyzing precedent."], reveal: "I use human precedent to slow down AI conflicts.", letter: "Diplomacy in 2045 is too fast for humans. I use history to provide 'Precedent-as-a-Service,' giving leaders the context to avoid ancient mistakes." },
+
+        // LITERATURE (3)
+        { spr: "0% 33.3%", name: "Julian Vane", job: "Reality Narrative Engineer", major: "Literature", skills: ["Interpreting complex metaphors.", "Analyzing narrative interiority.", "Decoding symbolic needs."], reveal: "I build the myths that sustain our virtual lives.", letter: "I started in gaming, but realized VR needed soul. My Literature degree helped me build worlds where metaphors are more real than pixels." },
+        { spr: "20% 33.3%", name: "Claire Dupont", job: "Neuro-Fiction Critic", major: "Literature", skills: ["Analyzing narrative reception.", "Critiquing simulated interiority.", "Decoding literary tropes."], reveal: "I analyze how digital stories impact the psyche.", letter: "As stories moved directly into the brain, we needed critics to protect our empathy. I use my training to ensure narratives remain human." },
+        { spr: "40% 33.3%", name: "Sasha Grey", job: "Lyric Programmer", major: "Literature", skills: ["Applying rhetorical devices.", "Structuring narrative loops.", "Synthesizing poetic prosody."], reveal: "I teach machines the syntax of the soul.", letter: "I don't code logic; I code affect. My study of poetry at DKU allowed me to design therapy-bots that actually understand human longing." },
+
+        // GCS (3)
+        { spr: "60% 33.3%", name: "Zhang Wei", job: "Continuity Strategist", major: "GCS", skills: ["Synthesizing governance models.", "Analyzing ethical contexts.", "Evaluating civilizational continuity."], reveal: "I bridge 3,000 years of wisdom with Martian survival.", letter: "I brought Confucian ethics to the Mars colonies. My GCS degree proved that civilizational continuity is our strongest planetary asset." },
+        { spr: "80% 33.3%", name: "Maya El-Amin", job: "Civilizational Forecaster", major: "GCS", skills: ["Applying long-durée models.", "Predicting phase-shifts.", "Mapping continuities."], reveal: "I use Sinology to map the future of the Colonies.", letter: "China's history of managing vast geography is the blueprint for space. I use the GCS lens to forecast how our new colonies will evolve." },
+        { spr: "100% 33.3%", name: "Lin Xiao", job: "Moral Branding Strategist", major: "GCS", skills: ["Analyzing market continuities.", "Synthesizing tech branding.", "Evaluating cross-cultural trust."], reveal: "I align tech with the ethics of the Asian market.", letter: "I help global firms navigate the 'Mandate of Tech.' My GCS training allows me to align synthetic innovation with deeply rooted cultural values." },
+
+        // RELPHIL (3)
+        { spr: "0% 66.6%", name: "Siddharth Rao", job: "Cognitive Bio-Ethicist", major: "Philosophy & Religion", skills: ["Applying first-principles.", "Questioning soul-necessity.", "Debating ethical boundaries."], reveal: "I define the rights of the non-biological soul.", letter: "When we uploaded the first mind, I was the only one asking 'Why?' My Philosophy degree gave me the tools to write the Sentience Bill of Rights." },
+        { spr: "20% 66.6%", name: "Sofia Castillo", job: "Ontological Security Officer", major: "Philosophy & Religion", skills: ["Evaluating metaphysical consistency.", "Debating the ethics of simulation.", "Analyzing existential risk."], reveal: "I anchor the public in a world of simulation.", letter: "I protect people from losing their sense of reality. My training in Philosophy acts as the existential anchor for a society in flux." },
+        { spr: "40% 66.6%", name: "Zane Malik", job: "Ethics Steward", major: "Philosophy & Religion", skills: ["Interpreting sacred traditions.", "Analyzing value frameworks.", "Applying moral logic."], reveal: "I ensure synthetic lives respect sacred traditions.", letter: "I mediate between AI and faith. My degree in Religion helped me integrate new intelligences into our oldest spiritual frameworks." },
+
+        // PPE (3)
+        { spr: "60% 66.6%", name: "Elena Rossi", job: "Policy Architect", major: "PPE", skills: ["Evaluating institutional friction.", "Analyzing social contracts.", "Critiquing power dynamics."], reveal: "I navigate power between Earth and the Colonies.", letter: "My PPE degree taught me that power is the constant variable. I design the laws that keep the Solar System from descending into chaos." },
+        { spr: "80% 66.6%", name: "Hiroshi Sato", job: "Sovereignty Jurist", major: "PPE", skills: ["Analyzing sovereignty.", "Adjudicating liability.", "Redrafting social contracts."], reveal: "I protect the sovereignty of the digital mind.", letter: "I moved from maritime law to neuro-law. I protect your right to own your thoughts in a world where data is everything." },
+        { spr: "100% 66.6%", name: "Dr. Maya Jung", job: "Resource Diplomat", major: "PPE", skills: ["Evaluating market access.", "Analyzing political leverage.", "Designing trade frameworks."], reveal: "I manage the politics of post-scarcity wealth.", letter: "Wealth in 2045 isn't money; it's access. I use my PPE background to negotiate fair access to the fusion-grid for smaller nations." },
+
+        // SOCIOLOGY (3)
+        { spr: "0% 100%", name: "Dr. Leo Chen", job: "Solidarity Designer", major: "Sociology", skills: ["Decoding structural forces.", "Analyzing social hierarchies.", "Investigating labor structures."], reveal: "I am the architect of non-physical social trust.", letter: "When physical neighborhoods died, I built digital ones. My Sociology degree helped me design trust where there is no proximity." },
+        { spr: "20% 100%", name: "Dr. Kenji Wu", job: "Hierarchical Auditor", major: "Sociology", skills: ["Auditing class-stratification.", "Identifying systemic bias.", "Modeling social mobility."], reveal: "I dismantle bias in the central algorithm.", letter: "I audit the code that manages our lives. My Sociology training allows me to see the hidden biases that engineers often miss." },
+        { spr: "40% 100%", name: "Sarah Vance", job: "Network Sociologist", major: "Sociology", skills: ["Analyzing group dynamics.", "Mapping influence nodes.", "Evaluating collective agency."], reveal: "I study the power of the crowd in 2045.", letter: "I analyze how digital movements form. Sociology taught me that even in a world of machines, the collective human will is the true driver." },
+
+        // ANTHROPOLOGY (3)
+        { spr: "60% 100%", name: "Nara Kim", job: "Habitat Ethnographer", major: "Anthropology", skills: ["Thick-description observations.", "Uncovering symbolic meaning.", "Analyzing kinship systems."], reveal: "I document the new rituals of the space age.", letter: "Technology isn't culture. My Anthropology degree helped me re-establish rituals for birth and mourning on the Moon." },
+        { spr: "80% 100%", name: "Amara Okonkwo", job: "Intercultural Translator", major: "Anthropology", skills: ["Mediating culture shock.", "Analyzing non-terrestrial kinship.", "Mapping symbolic dialects."], reveal: "I bridge the gap between Earth and Mars-born.", letter: "I translate meaning, not words. I help Earth-bound families understand the radically different lives of their Martian children." },
+        { spr: "100% 100%", name: "Dr. Julian Sky", job: "Ritual Architect", major: "Anthropology", skills: ["Designing communal symbols.", "Analyzing lived experience.", "Evaluating symbolic capital."], reveal: "I design ceremonies for a post-biological era.", letter: "Even in 2045, we need to feel 'part of something.' I use my training to design the new ceremonies that anchor our digital lives." }
     ];
 
-    const distractorSkills = ["Python Scripting", "Cloud Architecture", "SQL Management", "Linear Algebra", "Circuit Design", "Financial Modeling", "Organic Chemistry"];
-    const majors = ["History", "Philosophy", "Literature", "Religious Studies", "Global China Studies"];
-    
-    let selectedChar = null;
-    let mentorsMet = 0;
+    const distractorSkills = ["Optimizing neural-link latency.", "Debugging drone firmware.", "Calculating server heat.", "Managing logistics.", "Synthesizing carbon-allotropes."];
+    let metAlumni = [];
+    let currentMentor = null;
+    let selectedSkills = [];
 
-    function startGame() {
-        document.getElementById('start-screen').classList.add('hidden');
-        document.getElementById('selection-screen').classList.remove('hidden');
-        const randomChars = alumni.sort(() => 0.5 - Math.random()).slice(0, 4);
-        const grid = document.getElementById('char-options');
+    function showSelection() {
+        switchScreen('start-screen', 'selection-screen');
+        switchScreen('reveal-screen', 'selection-screen');
+        document.getElementById('mentors-met-count').innerText = metAlumni.length;
+        const grid = document.getElementById('char-grid');
         grid.innerHTML = '';
-        randomChars.forEach(char => {
+        const available = alumni.filter(a => !metAlumni.includes(a));
+        shuffle(available).slice(0, 4).forEach(mentor => {
             const card = document.createElement('div');
             card.className = 'char-card';
-            card.innerHTML = `<h3>${char.name}</h3><p>${char.job}</p>`;
-            card.onclick = () => selectCharacter(char);
+            card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${mentor.spr}"></div>
+                             <div class="char-info"><h3>${mentor.name}</h3><p style="color:var(--dku-gold)">${mentor.job}</p></div>`;
+            card.onclick = () => loadMentor(mentor);
             grid.appendChild(card);
         });
     }
 
-    function selectCharacter(char) {
-        selectedChar = char;
-        document.getElementById('selection-screen').classList.add('hidden');
-        document.getElementById('stage1').classList.remove('hidden');
-        const avatar = document.getElementById('s1-avatar');
-        avatar.style.backgroundPosition = `${char.sprite.col * 25}% ${char.sprite.row * 33.33}%`;
-        document.getElementById('s1-name').innerText = char.name;
-        document.getElementById('s1-rich-desc').innerText = char.richDesc;
-        const skillOpts = document.getElementById('skill-options');
-        skillOpts.innerHTML = '';
+    function loadMentor(mentor) {
+        currentMentor = mentor;
         selectedSkills = [];
-        const allSkills = [...char.skills, ...distractorSkills.sort(() => 0.5 - Math.random()).slice(0, 3)].sort(() => 0.5 - Math.random());
-        allSkills.forEach(skill => {
-            const label = document.createElement('label');
-            label.style.display = "block";
-            label.innerHTML = `<input type="checkbox" value="${skill}" onchange="checkSkills(this)"> ${skill}`;
-            skillOpts.appendChild(label);
-        });
-        document.getElementById('s1-next').classList.add('hidden');
-        document.getElementById('s1-feedback').innerText = "";
-    }
-
-    function checkSkills(checkbox) {
-        if(checkbox.checked) selectedSkills.push(checkbox.value);
-        else selectedSkills = selectedSkills.filter(s => s !== checkbox.value);
-        const feedback = document.getElementById('s1-feedback');
-        if(selectedSkills.length === 3) {
-            const correct = selectedSkills.every(s => selectedChar.skills.includes(s));
-            if(correct) {
-                feedback.innerText = "✓ Skills Authenticated.";
-                feedback.style.color = "var(--accent-gold)";
-                document.getElementById('s1-next').classList.remove('hidden');
-            } else {
-                feedback.innerText = "✗ Mismatch found. Re-read the profile.";
-                feedback.style.color = "#ff4444";
-            }
-        } else { feedback.innerText = ""; }
-    }
-
-    function toStage2() {
-        document.getElementById('stage1').classList.add('hidden');
-        document.getElementById('stage2').classList.remove('hidden');
-        const mOpts = document.getElementById('major-options');
-        mOpts.innerHTML = '';
-        majors.forEach(m => {
-            const b = document.createElement('button');
-            b.className = 'btn';
-            b.innerText = m;
-            b.onclick = () => {
-                if(m === selectedChar.major) {
-                    document.getElementById('s2-feedback').innerText = "✓ Foundation Verified.";
-                    document.getElementById('s2-feedback').style.color = "var(--accent-gold)";
-                    document.getElementById('s2-next').classList.remove('hidden');
-                } else {
-                    document.getElementById('s2-feedback').innerText = "✗ Incorrect major.";
-                    document.getElementById('s2-feedback').style.color = "#ff4444";
-                }
+        switchScreen('selection-screen', 'mentor-screen');
+        document.getElementById('job-title').innerText = mentor.job;
+        document.getElementById('job-desc').innerText = "Inquiry Lead, Class of 2045";
+        document.getElementById('mentor-photo').style.backgroundPosition = mentor.spr;
+        const options = shuffle([...mentor.skills, ...shuffle(distractorSkills).slice(0, 2)]);
+        const grid = document.getElementById('skill-options');
+        grid.innerHTML = '';
+        options.forEach(skill => {
+            const btn = document.createElement('button');
+            btn.className = 'skill-btn';
+            btn.innerText = skill;
+            btn.onclick = () => {
+                if (selectedSkills.includes(skill)) { selectedSkills = selectedSkills.filter(s => s !== skill); btn.classList.remove('selected'); }
+                else if (selectedSkills.length < 3) { selectedSkills.push(skill); btn.classList.add('selected'); }
+                document.getElementById('verify-skills-btn').disabled = (selectedSkills.length !== 3);
             };
-            mOpts.appendChild(b);
+            grid.appendChild(btn);
         });
-        document.getElementById('s2-next').classList.add('hidden');
-        document.getElementById('s2-feedback').innerText = "";
     }
 
-    function toStage3() {
-        document.getElementById('stage2').classList.add('hidden');
-        document.getElementById('stage3').classList.remove('hidden');
-        document.getElementById('reveal-content').innerHTML = `
-            <div class="trajectory-box"><strong>Career Trajectory:</strong> ${selectedChar.trajectory}</div>
-            <p><strong>Retrospective:</strong> ${selectedChar.reveal}</p>
+    function verifySkills() {
+        if (selectedSkills.every(s => currentMentor.skills.includes(s))) { switchScreen('mentor-screen', 'major-screen'); loadMajors(); } 
+        else { alert("Inconsistent methodology detected."); }
+    }
+
+    function loadMajors() {
+        const grid = document.getElementById('major-options');
+        grid.innerHTML = '';
+        const uniqueMajors = ["QPE", "History", "Literature", "GCS", "Philosophy & Religion", "PPE", "Sociology", "Anthropology"];
+        shuffle(uniqueMajors).forEach(major => {
+            const btn = document.createElement('div');
+            btn.className = 'char-card'; btn.style.padding = '20px'; btn.innerText = major;
+            btn.onclick = () => {
+                if (major === currentMentor.major) {
+                    metAlumni.push(currentMentor);
+                    switchScreen('major-screen', 'reveal-screen');
+                    document.getElementById('reveal-name').innerText = currentMentor.name;
+                    document.getElementById('reveal-photo').style.backgroundPosition = currentMentor.spr;
+                    document.getElementById('reveal-content').innerText = currentMentor.reveal;
+                    if (metAlumni.length === 3) {
+                        document.getElementById('next-mentor-btn').classList.add('hidden');
+                        document.getElementById('final-choice-btn').classList.remove('hidden');
+                    }
+                } else { alert("Incorrect academic root."); }
+            };
+            grid.appendChild(btn);
+        });
+    }
+
+    function showFinalChoice() {
+        switchScreen('reveal-screen', 'choice-screen');
+        const grid = document.getElementById('choice-grid');
+        grid.innerHTML = '';
+        metAlumni.forEach(alumnus => {
+            const card = document.createElement('div');
+            card.className = 'char-card';
+            card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${alumnus.spr}"></div>
+                             <div class="char-info"><h3>${alumnus.name}</h3><p>${alumnus.major}</p></div>`;
+            card.onclick = () => displayLetter(alumnus);
+            grid.appendChild(card);
+        });
+    }
+
+    function displayLetter(alumnus) {
+        switchScreen('choice-screen', 'letter-screen');
+        document.getElementById('letter-content').innerHTML = `
+            <p style="font-weight:700;">Subject: Methodological Reflection – 2025 to 2045</p>
+            <p>From: ${alumnus.name}, DKU Class of 2025/26</p>
+            <hr style="border:0; border-top:1px solid #ddd; margin: 20px 0;">
+            <p>${alumnus.letter}</p>
+            <p class="signature">Yours in Inquiry,<br>${alumnus.name}</p>
         `;
     }
 
-    function showCertificate() {
-        mentorsMet++;
-        document.getElementById('stage3').classList.add('hidden');
-        document.getElementById('final-screen').classList.remove('hidden');
-        
-        let pathway = {
-            "Philosophy": "The Ethicist's Vanguard",
-            "History": "The Chronos Sentinel",
-            "Literature": "The Narrative Architect",
-            "Global China Studies": "The Civilizational Bridge",
-            "Religious Studies": "The Spiritual Curator"
-        }[selectedChar.major];
-
-        document.getElementById('cert-title').innerText = pathway;
-        document.getElementById('cert-major').innerText = selectedChar.major;
-        
-        const loopBtn = document.getElementById('loop-btn');
-        if(mentorsMet >= 3) {
-            loopBtn.innerText = "Complete Graduation";
-            loopBtn.onclick = () => {
-                document.getElementById('final-screen').classList.add('hidden');
-                document.getElementById('victory-screen').classList.remove('hidden');
-            };
-        } else {
-            loopBtn.innerText = `Meet Next Mentor (${3 - mentorsMet} to Graduate)`;
-            loopBtn.onclick = resetForNext;
-        }
+    function switchScreen(from, to) {
+        document.getElementById(from).classList.remove('active');
+        document.getElementById(to).classList.add('active');
+        window.scrollTo(0, 0);
     }
-
-    function resetForNext() {
-        document.getElementById('final-screen').classList.add('hidden');
-        document.getElementById('selection-header').innerText = `Mentor ${mentorsMet + 1} of 3`;
-        startGame();
-    }
-
-    function showRandomLetter() {
-        document.getElementById('letter-btn').classList.add('hidden');
-        const randomAlum = alumni[Math.floor(Math.random() * alumni.length)];
-        document.getElementById('letter-sender').innerText = `Incoming Transmission: ${randomAlum.name} // ${randomAlum.job}`;
-        document.getElementById('letter-body').innerHTML = randomAlum.futureLetter;
-        document.getElementById('final-letter-container').classList.remove('hidden');
-    }
+    function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
 </script>
 </body>
 </html>
