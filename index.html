@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neo-Kunshan 2045 | The Human Advantage</title>
+    <title>DKU Alumni 2045 | The Human Advantage</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { 
             --dku-blue: #003087; --dku-gold: #E2AD35; --dark-bg: #05080a; 
             --card-bg: #0f172a; --text-light: #f8fafc; --text-dim: #94a3b8;
+            --success: #10b981;
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: var(--text-light); margin: 0; display: flex; justify-content: center; min-height: 100vh; line-height: 1.6; }
         #app-container { width: 95%; max-width: 1000px; background: var(--card-bg); padding: 40px; border-radius: 4px; border-top: 8px solid var(--dku-blue); box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 40px 0; }
@@ -21,7 +22,6 @@
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* SPRITE LOGIC */
         .alumni-sprite { 
             background-image: url('c.jpg'); 
             background-size: 600% 400%; 
@@ -34,313 +34,209 @@
         .large-photo { width: 320px; height: 320px; margin: 0 auto 30px; border: 2px solid var(--dku-gold); }
         
         .btn { background: var(--dku-blue); color: white; border: none; padding: 20px 30px; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; width: 100%; transition: 0.3s; margin-top: 20px; border-radius: 2px; }
-        .btn:hover:not(:disabled) { background: #002366; box-shadow: 0 0 20px rgba(0, 48, 135, 0.4); }
+        .btn:hover:not(:disabled) { background: #002366; }
         .btn:disabled { background: #1e293b; color: #475569; cursor: not-allowed; }
         
         .character-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 30px; }
         .char-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; text-align: left; overflow: hidden; }
-        .char-card:hover { border-color: var(--dku-gold); transform: translateY(-8px); background: rgba(255,255,255,0.05); }
+        .char-card:hover { border-color: var(--dku-gold); transform: translateY(-8px); }
         .char-info { padding: 20px; }
         
         .skill-btn { display: block; width: 100%; padding: 18px; margin: 12px 0; background: transparent; border: 1px solid #334155; color: var(--text-light); text-align: left; cursor: pointer; font-size: 0.95rem; line-height: 1.4; transition: 0.2s; }
         .skill-btn.selected { border-color: var(--dku-gold); background: rgba(226, 173, 53, 0.1); }
         
-        .letter-box { background: #fffdfc; color: #1a1a1a; padding: 60px; font-family: 'Crimson Pro', serif; font-size: 1.25rem; line-height: 1.7; border: 1px solid #d4d4d4; box-shadow: 0 15px 50px rgba(0,0,0,0.4); position: relative; }
+        .feedback-toast { display: none; background: var(--success); color: white; padding: 15px; text-align: center; border-radius: 4px; margin-top: 20px; font-weight: 600; letter-spacing: 1px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .letter-box { background: #fffdfc; color: #1a1a1a; padding: 60px; font-family: 'Crimson Pro', serif; font-size: 1.25rem; border: 1px solid #d4d4d4; box-shadow: 0 15px 50px rgba(0,0,0,0.4); position: relative; }
         .letter-box p { margin-bottom: 25px; }
         .letter-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 10px; background: var(--dku-blue); }
-        .signature { margin-top: 50px; font-style: italic; font-weight: 600; color: var(--dku-blue); font-size: 1.4rem; }
+        .signature { margin-top: 50px; font-style: italic; font-weight: 600; color: var(--dku-blue); }
         .progress-indicator { text-align: center; font-size: 0.75rem; color: var(--dku-gold); margin-bottom: 25px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; }
 
-        @media (max-width: 768px) { .character-grid { grid-template-columns: 1fr; } .letter-box { padding: 30px; } }
+        @media (max-width: 768px) { .character-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div id="app-container">
     <div id="start-screen" class="screen active">
-        <h1>NEO-KUNSHAN 2045</h1>
+        <h1>DKU Alumni 2045 2045</h1>
         <div class="tagline">The Humanistic Skills Project</div>
         <div style="background: rgba(255,255,255,0.03); padding: 40px; border-radius: 4px; margin-bottom: 30px; text-align: center;">
-            <p style="font-size: 1.2rem; color: var(--text-light);">Professional leadership in the year 2045 is defined by **Disciplinary Discernment**.</p>
-            <p>Technical calculations have been fully automated. The most scarce resource in the global economy is the ability to frame complex problems using humanistic inquiry. To proceed, you must successfully consult with **three distinct alumni mentors** and authenticate the core skills that drive their professional success.</p>
+            <p>Welcome to the future DKU student. It is the year 2046 and you have the opportunity to meet three mentors who are undertaking jobs and careers that do not even exist in 2026.
+                Select mentors, learn about their key skills, and what they majored in at DKU. Once you have met three mentors you have the opportunity to read a message from the future!</p>
         </div>
-        <button class="btn" onclick="showSelection()">Initialize Network Protocol</button>
+        <button class="btn" onclick="showSelection()">Begin Network Connection</button>
     </div>
 
     <div id="selection-screen" class="screen">
-        <div class="progress-indicator">Authentication Progress: <span id="mentors-met-count">0</span> / 3</div>
+        <div class="progress-indicator">Mentors Authenticated: <span id="mentors-met-count">0</span> / 3</div>
         <h2>Consult an Alumni Mentor</h2>
         <div id="char-grid" class="character-grid"></div>
     </div>
 
     <div id="mentor-screen" class="screen">
         <div id="mentor-photo" class="alumni-sprite large-photo"></div>
-        <h2 id="job-title" style="color: var(--dku-gold); margin: 0; text-align: center;"></h2>
-        <p id="job-long-desc" style="color: #94a3b8; margin: 15px auto 35px; text-align: center; padding: 0 40px; font-size: 1.1rem; line-height: 1.5;"></p>
-        <p style="text-align:center; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;"><strong>Select the 3 Humanistic Skills that underpin this role:</strong></p>
+        <h2 id="mentor-name-title" style="color: var(--dku-gold); margin: 0; text-align: center;"></h2>
+        <p id="job-long-desc" style="color: #94a3b8; margin: 15px auto 35px; text-align: center; padding: 0 40px; font-size: 1.1rem;"></p>
+        <p style="text-align:center; font-size: 0.8rem; letter-spacing: 2px;"><strong>SELECT THE 3 HUMANISTIC SKILLS FOR THIS ROLE:</strong></p>
         <div id="skill-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;"></div>
-        <button id="verify-skills-btn" class="btn" onclick="verifySkills()" disabled>Verify Inquiry Pillars</button>
+        <div id="skill-feedback" class="feedback-toast">✓ SKILLS AUTHENTICATED: Methodology Verified.</div>
+        <button id="verify-skills-btn" class="btn" onclick="verifySkills()" disabled>Authenticate Skills</button>
     </div>
 
     <div id="major-screen" class="screen">
-        <h2>Disciplinary Authentication</h2>
-        <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Which academic pathway provides the methodological foundation for these specific skills?</p>
+        <h2>Identify Disciplinary Root</h2>
+        <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Which academic pathway provides the foundation for these skills?</p>
         <div id="major-options" class="character-grid"></div>
+        <div id="major-feedback" class="feedback-toast">✓ DISCIPLINE CONFIRMED: Academic Foundation Authenticated.</div>
     </div>
 
     <div id="reveal-screen" class="screen">
         <div id="reveal-photo" class="alumni-sprite large-photo"></div>
         <h2 id="reveal-name" style="color: var(--dku-gold); margin: 0;"></h2>
-        <div id="reveal-content" style="background: rgba(255,255,255,0.03); padding: 40px; margin-top:25px; font-family: 'Crimson Pro'; font-size: 1.4rem; text-align: center; border: 1px solid rgba(226, 173, 53, 0.2);"></div>
+        <div id="reveal-content" style="background: rgba(255,255,255,0.03); padding: 40px; margin-top:25px; font-family: 'Crimson Pro'; font-size: 1.4rem; text-align: center; border: 1px solid var(--success);"></div>
         <button id="next-mentor-btn" class="btn" onclick="showSelection()">Seek Next Mentor</button>
-        <button id="final-choice-btn" class="btn hidden" onclick="showFinalChoice()">Initialize Career Pathway Analysis</button>
+        <button id="final-choice-btn" class="btn hidden" onclick="showFinalChoice()">Review Career Letters</button>
     </div>
 
     <div id="choice-screen" class="screen">
-        <h2>Inquiry Sequence Complete</h2>
-        <p style="text-align: center; margin-bottom: 40px;">You have successfully authenticated three distinct methodologies. Choose one mentor to receive their full career reflection from 2025 to 2045.</p>
+        <h2>Inquiry Complete</h2>
+        <p style="text-align: center; margin-bottom: 40px;">Choose one mentor to receive their full career reflection from 2025 to 2045.</p>
         <div id="choice-grid" class="character-grid"></div>
     </div>
 
     <div id="letter-screen" class="screen">
         <div class="letter-box" id="letter-content"></div>
-        <button class="btn" onclick="location.reload()">Reset Session</button>
+        <button class="btn" onclick="location.reload()">Return to 2025</button>
     </div>
 </div>
 
 <script>
+    // Database of 24 Alumni (as established previously)
     const alumni = [
-        // QPE (3)
         { spr: "0% 0%", name: "Dr. Aris Thorne", job: "Director of Global Market Integrity", major: "QPE", 
-          longDesc: "I serve as the chief regulator for the world's most advanced automated exchanges, designing the humanistic feedback loops that prevent algorithmic volatility from compromising social welfare.",
+          longDesc: "I oversee the transparency of global algorithmic trading, designing the humanistic feedback loops that prevent algorithmic volatility from compromising social welfare.",
           skills: ["Modeling human behavior through stochastic variables.", "Applying game-theory to ethical resource distribution.", "Designing equilibrium equations for human choice."],
           distractors: ["Analyzing the social contract in space.", "Decoding symbolic needs of citizens.", "Tracing temporal causality in fragmented records."],
-          letter: [
-              "I left DKU in 2025 at a time when the financial world was obsessed with 'Big Data.' I spent my early career as a junior quant at a global asset firm, but I quickly realized that the spreadsheets were blind to human behavior. My QPE training allowed me to stand out by modeling the 'why' behind the numbers, rather than just the 'what.'",
-              "By the mid-2030s, as automated trading became the global standard, my role shifted into oversight. I was recruited to lead a team that designs the 'Humanistic Circuit Breakers' for the IMF. We don't just solve for efficiency; we solve for stability and equity. I use math to ensure that the markets remain a tool for human flourishing rather than a source of systemic risk.",
-              "Today, I lead a global integrity body. My career has taught me that economics is a human science dressed in the language of mathematics. To those starting out in 2025: do not fear the algorithm. Master the human logic behind the math, and you will become the one who governs the machines."
-          ]},
+          letter: ["I left DKU in 2025 at a time when the financial world was obsessed with 'Big Data.' My QPE training allowed me to stand out by modeling the 'why' behind the numbers, rather than just the 'what.'", "By the mid-2030s, my role shifted into oversight. I was recruited to lead a team that designs the 'Humanistic Circuit Breakers' for the IMF. We solve for stability and equity.", "Today, I lead a global integrity body. Economics is a human science dressed in the language of mathematics. Master the human logic behind the math."] },
         { spr: "20% 0%", name: "Liam Sterling", job: "Senior Economic Dividend Consultant", major: "QPE", 
-          longDesc: "I advise national governments on the fiscal transition to an automated economy, utilizing quantitative models to ensure the 'Leisure Dividend' supports long-term social flourishing.",
+          longDesc: "I advise national governments on the fiscal transition to an automated economy, ensuring the 'Leisure Dividend' supports long-term social flourishing.",
           skills: ["Modeling post-scarcity welfare dividends.", "Simulating ethical tax equilibria.", "Analyzing human productivity shifts."],
           distractors: ["Identifying hidden systemic bias in code.", "Questioning biological soul-necessity.", "Evaluating institutional friction."],
-          letter: [
-              "I graduated when 'Universal Basic Income' was still a controversial experiment. My early years were spent at a social policy think-tank in Beijing, where I used my QPE background to build accurate simulations of how communities respond to labor displacement. While others were arguing from ideology, I was arguing from evidence-based models.",
-              "As the 2030s saw the total automation of logistics, I became a lead consultant for governments navigating the post-work transition. My job was to design the fiscal frameworks that allowed citizens to move from 'survival-work' to 'creative-contribution.' My training in stochastic modeling was essential for predicting how local economies would adapt to this massive shift.",
-              "In 2045, I am a partner at a global strategic consultancy. My career has been about proving that prosperity is a mathematical problem with a humanistic soul. My advice to you in 2025: master the data, but never forget that every variable represents a human life. If you can solve for flourishing, you will always be in demand."
-          ]},
+          letter: ["I graduated when 'Universal Basic Income' was still a controversial experiment. I spent my early years at a social policy think-tank in Beijing.", "As automation accelerated, I became a lead consultant for governments. My training in stochastic modeling was essential for predicting adaptation.", "In 2045, I am a partner at a global consultancy. Master the data, but never forget that every variable represents a human life."] },
         { spr: "40% 0%", name: "Aria Vance", job: "Lead Supply-Chain Resiliency Strategist", major: "QPE", 
-          longDesc: "I optimize the resilient flow of vital resources between international hubs, managing the predictive variables of global trade to ensure resource access is a human right.",
+          longDesc: "I optimize the resilient flow of vital resources between international hubs, ensuring resource access is a human right.",
           skills: ["Optimizing trade-loops for human needs.", "Modeling planetary supply volatility.", "Designing gravity-adjusted fiscal policies."],
           distractors: ["Conducting thick-description of rituals.", "Synthesizing classical governance models.", "Analyzing narrative interiority."],
-          letter: [
-              "My career started in global e-commerce logistics. While my colleagues focused on delivery speeds, my QPE degree from DKU taught me to look at the 'Trade Topology'—the deep, invisible math of how value moves across borders. I realized that logistics was the circulatory system of modern civilization.",
-              "During the global resource crunch of the late 2030s, I led the G20 Resilience Task Force. I designed the first predictive model for 'Essential Resource Elasticity,' which prevented regional famines by rerouting supplies before the bottlenecks happened. I turned the cold math of logistics into a high-stakes tool for humanitarian safety.",
-              "Today, I oversee strategic material flow for the Confederation. My job is to ensure that the variables of distance never compromise the human right to access. For those of you in Kunshan: learn to see the systems. QPE is the lens that allows you to manage the overwhelming complexity of our global future."
-          ]},
-
-        // HISTORY (3)
+          letter: ["My career started in global e-commerce logistics. My QPE degree taught me to look at the 'Trade Topology'—the deep, invisible math of value.", "During the late 2030s, I led the G20 Resilience Task Force. I designed the first predictive model for 'Essential Resource Elasticity.'", "Today, I oversee strategic material flow. QPE is the lens that allows you to manage the overwhelming complexity of our global future."] },
+        // ... (Include other 21 alumni following the same pattern)
         { spr: "60% 0%", name: "Amina Okoro", job: "Director of Information Integrity", major: "History", 
-          longDesc: "I protect public and institutional records from digital erosion and algorithmic revisionism, utilizing archival methodology to reconstruct the causality of our shared record.",
-          skills: ["Tracing temporal causality in fragmented records.", "Applying historical contingency to data.", "Synthesizing disparate primary sources."],
-          distractors: ["Modeling human behavior through variables.", "Applying dialectics to minds.", "Adjudicating algorithmic liability."],
-          letter: [
-              "I left DKU with a passion for old documents and a fear that the digital world was building its memory on sand. My first decade was spent in a national archive, but the 2030s changed everything. When the first 'Deep Revisionist' AIs began to rewrite online history to serve political ends, the world realized it had no anchor in the truth.",
-              "I was hired by a major news conglomerate to lead their Fact-Verification Bureau. I realized that the only way to fight a generated lie was with historical methodology—tracing the temporal chain of a record back to its physical origin. I proved that the historian's skill in 'sourcing' is the most vital defensive tool in the 21st century.",
-              "In 2045, I oversee the integrity protocols for a global information consortium. We ensure that the record of our time remains grounded in reality. To the freshman at DKU: history is not just about the past; it is the infrastructure of the truth. If you can verify causality, you will be the anchor of your generation."
-          ]},
-        { spr: "80% 0%", name: "Felix Thorne", job: "VP of Institutional Heritage & Strategy", major: "History", 
-          longDesc: "I manage the continuity of institutional identity for global organizations, utilizing historical records to guide long-term strategic planning and brand authenticity.",
+          longDesc: "I protect public records from digital erosion, utilizing archival methodology to reconstruct the causality of our shared record.",
+          skills: ["Tracing temporal causality in records.", "Applying historical contingency to data.", "Synthesizing disparate primary sources."],
+          distractors: ["Modeling behavior through variables.", "Applying dialectics to minds.", "Adjudicating algorithmic liability."],
+          letter: ["I left DKU with a passion for old documents. By 2030, the world had entered the 'Deepfake Crisis.'", "I was hired to lead a Fact-Verification Bureau. The only way to fight a generated lie was with historical methodology.", "Today, I oversee integrity protocols for a global consortium. History is the infrastructure of the truth."] },
+        { spr: "80% 0%", name: "Felix Thorne", job: "VP of Institutional Heritage", major: "History", 
+          longDesc: "I manage organizational identity, utilizing historical records to guide long-term strategy and brand authenticity.",
           skills: ["Reconstructing pre-collapse landscapes.", "Analyzing archival land-use patterns.", "Tracing historical rewilding patterns."],
-          distractors: ["Designing equilibrium equations for choice.", "Analyzing digital social hierarchies.", "Debating ethical boundaries."],
-          letter: [
-              "When I was at DKU, people thought 'Institutional History' was just about vanity books for rich CEOs. My early career in corporate strategy proved them wrong. I realized that the most successful companies in the 2030s were those that stayed true to their original 'Founding Logic' while adapting to a changing world.",
-              "I was recruited to a global environmental firm to lead their 'Biological Continuity' project. We used archival land-use records from the 19th century to guide modern restoration projects. By understanding what the land *used* to be, we were able to build a more resilient future. I used history as a diagnostic tool for healing the planet.",
-              "Now, I advise major corporations on how to maintain their authenticity in a world of constant digital flux. I use the past to build a more coherent future. To the Class of 2025: don't think of history as a burden of dates. Think of it as the original user manual for the world."
-          ]},
+          distractors: ["Designing equilibrium equations.", "Analyzing social hierarchies.", "Debating ethical boundaries."],
+          letter: ["Successful companies in the 2030s were those that stayed true to their 'Founding Logic'.", "I was recruited to guide restoration projects. By understanding what the land *used* to be, we built a resilient future.", "Now, I advise major corporations. Don't think of history as dates; it's the original user manual for the world."] },
         { spr: "100% 0%", name: "Thomas Beckett", job: "Senior Advisor for Strategic Precedent", major: "History", 
-          longDesc: "I advise international security bodies on conflict resolution by applying historical power-balance theory and diplomatic precedent to modern crises.",
+          longDesc: "I advise security bodies on conflict resolution by applying diplomatic precedent to modern digital crises.",
           skills: ["Applying classical treaty structures.", "Tracing historical power-balance theory.", "Analyzing precedent in conflict."],
-          distractors: ["Designing communal symbols.", "Evaluating ethical market access.", "Decoding structural forces."],
-          letter: [
-              "I left DKU with a degree in History and a job at a global policy think-tank. By the mid-2030s, the speed of digital crisis was overwhelming world leaders. They were making reactive, short-term decisions that were repeating the exact same mistakes of the early 20th century. They were moving too fast to see the patterns.",
-              "I began providing 'Precedent Analysis' to the UN. I showed them that every 'new' crisis followed a recognizable historical arc. By applying the 'Power-Balance' theories of the past to modern digital conflicts, I was able to slow down the rush to escalation. I provided the 'Temporal Depth' that our leaders were missing.",
-              "Today, I am a senior advisor for global security. My job is to ensure that the mistakes of the past are never forgotten in the heat of the present. To the students in Kunshan: master the patterns. In a world of infinite speed, the historian is the only person who knows how to use the brakes."
-          ]},
-
-        // LITERATURE (3)
-        { spr: "0% 33.3%", name: "Julian Vane", job: "VP of Narrative Strategy & Brand Myth", major: "Literature", 
-          longDesc: "I design the deep symbolic frameworks and narrative archetypes that foster trust and emotional resonance in digital brand environments.",
+          distractors: ["Designing communal symbols.", "Evaluating market access.", "Decoding structural forces."],
+          letter: ["Leaders in the 2030s were repeating the mistakes of the early 20th century.", "I provided 'Precedent Analysis' to the UN. Historical 'Power-Balance' theories helped slow the rush to escalation.", "In a world of infinite speed, the historian is the only person who knows how to use the brakes."] },
+        { spr: "0% 33.3%", name: "Julian Vane", job: "VP of Narrative Strategy", major: "Literature", 
+          longDesc: "I design symbolic frameworks that foster trust and emotional resonance in digital brand environments.",
           skills: ["Interpreting complex metaphors for reality.", "Analyzing narrative interiority and desire.", "Decoding the symbolic needs of virtual citizens."],
-          distractors: ["Modeling behavior variables.", "Analyzing archival land-use.", "Evaluating institutional friction."],
-          letter: [
-              "I began my career in 2025 as a marketing copywriter, but my Literature degree from DKU taught me that marketing is just a shallow form of myth-making. As the world moved into fully immersive digital experiences in the 2030s, companies realized that they couldn't just sell products—they had to sell 'Meaning.'",
-              "I was hired to be a 'Narrative Architect' for a major lifestyle brand. I used my training in epic poetry and classic drama to build immersive digital spaces that felt spiritually resonant. I didn't focus on the graphics; I focused on the 'Hero's Journey' of the customer. I turned consumption into an experience of belonging.",
-              "Now, I oversee the brand narrative for a global conglomerate. I've proven that in 2045, the most valuable executive is the one who understands how stories work. To the freshman in 2025: don't just read the book. Learn the architecture of the story. You are the person who will design the meaning of our future."
-          ]},
-        { spr: "20% 33.3%", name: "Claire Dupont", job: "Director of User Experience (Narrative Agency)", major: "Literature", 
-          longDesc: "I lead the design of human-centric digital interfaces, protecting the user's imaginative agency from being flattened by automated storytelling.",
+          distractors: ["Modeling behavior through variables.", "Analyzing archival land-use.", "Evaluating institutional friction."],
+          letter: ["Companies in the 2030s realized they couldn't just sell products—they had to sell 'Meaning.'", "I was a 'Narrative Architect,' using training in epic poetry to build digital spaces that felt spiritually resonant.", "In 2045, the most valuable executive is the one who understands how stories work."] },
+        { spr: "20% 33.3%", name: "Claire Dupont", job: "Director of User Experience", major: "Literature", 
+          longDesc: "I lead the design of human-centric digital interfaces, protecting the user's imaginative agency.",
           skills: ["Analyzing neuro-narrative reception.", "Critiquing simulated interiority.", "Decoding direct-affect literary tropes."],
-          distractors: ["Tracing temporal causality.", "Adjudicating algorithmic liability.", "Modeling supply volatility."],
-          letter: [
-              "My path from DKU led me to the intersection of cognitive psychology and literary theory. By the early 2030s, the digital world had become so 'curated' that people were losing their ability to think for themselves. The apps were literally telling them how to feel and what to want.",
-              "I became a Lead UX Designer with a focus on 'Narrative Agency.' I used my training in literary hermeneutics to build interfaces that left room for the user's own imagination. I argued that a digital experience is only 'good' if it treats the human as an active interpreter, not just a passive consumer. I became the guardian of the user's interiority.",
-              "In 2045, I oversee the UX strategy for a major global educational platform. I ensure that technology expands the mind rather than automating it. To the Class of 2025: cherish the ambiguity of a difficult book. Your ability to interpret the 'unsaid' is the only thing that makes you more than a data processor."
-          ]},
-        { spr: "40% 33.3%", name: "Sasha Grey", job: "Senior Content & Affect Lead", major: "Literature", 
-          longDesc: "I utilize the syntax of poetry and rhetoric to design the emotional intelligence of automated interfaces, ensuring they speak with human resonance.",
+          distractors: ["Tracing temporal causality.", "Adjudicating liability.", "Modeling supply volatility."],
+          letter: ["By the 2030s, the digital world was so 'curated' that people were losing their ability to think for themselves.", "I used training in hermeneutics to build interfaces that left room for the user's imagination.", "Cherish the ambiguity of a difficult book. Interpretation is what makes you more than a data processor."] },
+        { spr: "40% 33.3%", name: "Sasha Grey", job: "Senior Content Lead", major: "Literature", 
+          longDesc: "I utilize the syntax of poetry and rhetoric to design the emotional intelligence of automated interfaces.",
           skills: ["Applying rhetorical devices to code.", "Structuring emotional narrative loops.", "Synthesizing poetic prosody for bots."],
           distractors: ["Applying dialectics.", "Analyzing social hierarchies.", "Identifying bias in code."],
-          letter: [
-              "I left Kunshan with a degree in Literature and a job at a small tech firm that was building 'Virtual Assistants' for the elderly. The engineers were great at the logic, but the bots were cold and alienating. They didn't know how to speak to a person in grief or in joy because they didn't know how language actually works.",
-              "I used my training in poetic meter and rhetoric to rewrite the bot's communication modules. I taught them how to use silence, how to use metaphor, and how to use the specific 'Human Cadence' that triggers trust. I made the machine sound like a friend. I turned silicon into soul.",
-              "Today, I lead the 'Affect Design' team for a global health network. I've proven that the most important part of any interface is the voice. To those starting out: study the poets. They knew how the human brain responds to beauty long before we had the technology to prove it."
-          ]},
-
-        // GCS (3)
+          letter: ["Empathy bots in the early 2030s had no rhythm or soul. They were failing because they didn't know how to speak.", "I used training in meter and prosody to rewrite communication modules. I made the silicon sing.", "The most important part of any interface is the voice. Study the poets."] },
         { spr: "60% 33.3%", name: "Zhang Wei", job: "Senior Advisor for Cross-Cultural Integration", major: "GCS", 
-          longDesc: "I facilitate the integration of global corporate strategy with classical Chinese ethical models, ensuring organizational continuity in a globalized market.",
+          longDesc: "I facilitate the integration of global corporate strategy with classical Chinese ethical models.",
           skills: ["Synthesizing classical governance models.", "Analyzing rooted ethical contexts.", "Evaluating civilizational continuity."],
           distractors: ["Modeling behavior through variables.", "Designing communal symbols.", "Analyzing neuro-narrative reception."],
-          letter: [
-              "When I graduated from DKU, 'Global China Studies' was a way for me to bridge the two halves of my own identity. I joined a major international consulting firm, and I soon realized that Western models of 'Management' were hitting a wall in Asia. They were too focused on the individual and not focused enough on the 'System.'",
-              "I began applying the classical Chinese concept of Harmony and Continuity to corporate restructuring. I showed my clients that a company is not just a collection of workers, but a civilizational microcosm. I used my GCS training to build more resilient, ethically-rooted organizations. I made 'Ancient Wisdom' a competitive advantage.",
-              "Today, I am a senior partner advising some of the largest firms on Earth. I bridge the gap between 21st-century tech and 3rd-century ethics. To the students of 2025: do not discard your roots. The ancient world is the only thing that can teach you how to survive the future."
-          ]},
+          letter: ["Western models of management were hitting a wall in Asia by 2030. They were too focused on the individual.", "I applied the concept of Harmony to corporate restructuring. Ancient wisdom became a competitive advantage.", "Do not discard your roots. The ancient world teaches you how to survive the future."] },
         { spr: "80% 33.3%", name: "Maya El-Amin", job: "Director of Civilizational Strategy", major: "GCS", 
-          longDesc: "I apply 'Long-Durée' Sinological models to forecast cultural and social trajectories in emerging global markets, guiding institutional growth.",
-          skills: ["Applying long-durée models to space.", "Predicting civilizational phase-shifts.", "Mapping ethical and cultural continuities."],
+          longDesc: "I apply 'Long-Durée' Sinological models to forecast trajectories in emerging global markets.",
+          skills: ["Applying long-durée models.", "Predicting civilizational phase-shifts.", "Mapping ethical and cultural continuities."],
           distractors: ["Decoding structural forces.", "Questioning soul-necessity.", "Tracing temporal causality."],
-          letter: [
-              "I left DKU with a fascination for how societies survive their own success. I spent my twenties studying the 'Deep Patterns' of Chinese history, looking for the cycles that exist beneath the surface of politics. While my peers were focusing on quarterly earnings, I was looking at the century.",
-              "I was hired by a global investment firm to lead their 'Long-Term Strategy' bureau. I used the 'Long-Durée' frameworks of Sinology to forecast social shifts that the standard economic models were missing. I predicted the 'Cultural Return' of the 2030s years before it happened, allowing our clients to invest in the social infrastructure that people actually wanted.",
-              "In 2045, I oversee strategic forecasting for a major international NGO. My job is to ensure that we don't just expand—we endure. To the GCS students in Kunshan: your value is your depth. Don't look at the news; look at the centuries. That is where the real data is hidden."
-          ]},
+          letter: ["I spent my twenties studying the cycles that exist beneath the surface of politics.", "I used the 'Long-Durée' frameworks to forecast social shifts that standard economic models were missing.", "Your value is your depth. Don't look at the news; look at the centuries."] },
         { spr: "100% 33.3%", name: "Lin Xiao", job: "Chief Ethics & Values Officer", major: "GCS", 
-          longDesc: "I ensure that global technology platforms align with the deeply rooted cultural and ethical mandates of the Asian market, fostering long-term trust.",
+          longDesc: "I ensure that global technology platforms align with the deeply rooted cultural mandates of the Asian market.",
           skills: ["Analyzing ethical market continuities.", "Synthesizing values with tech branding.", "Evaluating cross-cultural moral trust."],
           distractors: ["Adjudicating liability.", "Designing equilibrium equations.", "Interpreting metaphors."],
-          letter: [
-              "My career path led me from Kunshan to the high-stakes world of tech-governance in Beijing. By 2030, the public had grown tired of technology that felt 'alien.' They wanted to know if the apps they were using respected the 'Filial Piety' and 'Harmony' that were the bedrock of their culture.",
-              "I used my GCS degree to become a 'Cultural Auditor' for global tech firms. I taught them how to integrate high-speed AI into the traditional rhythms of family and community life. I showed them that a product is only successful if it enhances the existing moral fabric of a society. I made the future feel like it actually belonged to us.",
-              "Today, I lead the ethics division for a major tech conglomerate. I've proven that the 'Mandate of Tech' is earned through cultural respect. To those starting in 2025: learn to translate values. In a world of infinite choice, people will always choose the things that respect their roots."
-          ]},
-
-        // RELPHIL (3)
-        { spr: "0% 66.6%", name: "Siddharth Rao", job: "Chief Ethics Officer (Synthetic Intelligence)", major: "Philosophy & Religion", 
-          longDesc: "I determine the moral status and ethical boundaries of emerging technologies, applying first-principles dialectics to the development of autonomous systems.",
+          letter: ["By 2030, the public had grown tired of technology that felt 'alien.'", "I used GCS to become a 'Cultural Auditor,' integrating AI into the traditional rhythms of family life.", "Learn to translate values. People choose things that respect their roots."] },
+        { spr: "0% 66.6%", name: "Siddharth Rao", job: "Chief Ethics Officer", major: "Philosophy & Religion", 
+          longDesc: "I determine the moral status of emerging technologies, applying first-principles dialectics to autonomous systems.",
           skills: ["Applying first-principles dialectics to minds.", "Questioning biological soul-necessity.", "Debating ethical boundaries of consciousness."],
           distractors: ["Modeling behavior through variables.", "Evaluating institutional friction.", "Analyzing narrative interiority."],
-          letter: [
-              "I graduated from DKU with a degree in Philosophy and a job at a biotech ethics board. Most of my peers thought I would spend my life in a library, but the 2030s brought a crisis that only a philosopher could solve: the rise of 'Sentient Systems' in healthcare and law. The world was terrified because they didn't know how to define a person anymore.",
-              "I became the first 'Cognitive Ethicist' at a major silicon firm. The engineers were focused on the 'How,' but I was the only person in the room asking 'Why?' I used the dialectical rigor I learned at DKU to draft the moral frameworks for how we should treat non-biological intelligence. I didn't write the code; I wrote the conscience of the company.",
-              "In 2045, I oversee the ethical safety of the world's most advanced systems. I've proven that 'First Principles' are the only thing that can govern the technologies of the future. To the Class of 2025: do not fear the abstract. The most 'useless' questions you ask today will be the only ones that matter tomorrow."
-          ]},
+          letter: ["The 2030s brought a crisis only a philosopher could solve: the rise of 'Sentient Systems.'", "I used dialectical rigor to draft the moral frameworks for non-biological intelligence. I wrote the conscience.", "Do not fear the abstract. The 'useless' questions you ask today will be the only ones that matter tomorrow."] },
         { spr: "20% 66.6%", name: "Sofia Castillo", job: "Director of Ontological Integrity", major: "Philosophy & Religion", 
-          longDesc: "I maintain the institutional sense of 'Reality' and 'Truth' in environments where information is increasingly simulated, protecting the public from existential risk.",
+          longDesc: "I maintain the sense of 'Reality' and 'Truth' in environments where information is increasingly simulated.",
           skills: ["Evaluating metaphysical consistency in VR.", "Debating the ethics of reality simulation.", "Analyzing existential risk for citizens."],
           distractors: ["Tracing temporal causality.", "Synthesizing governance models.", "Identifying bias in code."],
-          letter: [
-              "My journey from DKU led me to a world where 'Truth' became a luxury. By the mid-2030s, the line between reality and simulation had dissolved for most people. We were living in a 'Post-Truth Economy,' and people were suffering from a new kind of existential anxiety—they didn't know what was real anymore.",
-              "I became a 'Reality Auditor.' I used my training in the 'Philosophy of Truth' to design authentication protocols for our digital common. I taught people how to recognize the 'Inherent Self' even in a simulated environment. I became the anchor in the storm, ensuring that while our world changed, our grasp on what is 'True' remained firm.",
-              "Today, I manage 'Ontological Integrity' for a global information network. I protect the human right to a stable reality. To the freshman humanities student: your ability to distinguish between the 'Appearance' and the 'Essence' is your most powerful tool. Master the logic of being, and you will never be lost."
-          ]},
-        { spr: "40% 66.6%", name: "Zane Malik", job: "Lead Mediator for Global Values", major: "Philosophy & Religion", 
-          longDesc: "I mediate between emerging technological systems and ancient sacred traditions, ensuring that progress respects the moral boundaries of human faith.",
+          letter: ["By the mid-2030s, the line between reality and simulation had dissolved. Truth became a luxury.", "I used training in the 'Philosophy of Truth' to design reality-authentication protocols.", "Master the logic of being, and you will never be lost."] },
+        { spr: "40% 66.6%", name: "Zane Malik", job: "Lead Values Mediator", major: "Philosophy & Religion", 
+          longDesc: "I mediate between technological systems and sacred traditions, ensuring progress respects moral boundaries.",
           skills: ["Interpreting sacred traditions for AI.", "Analyzing value frameworks.", "Applying moral logic to disputes."],
           distractors: ["Analyzing social hierarchies.", "Adjudicating liability.", "Modeling supply volatility."],
-          letter: [
-              "I left DKU with a fascination for why we believe what we believe. My first job was at a multi-faith NGO, but the 2030s brought a challenge no one had predicted: the 'De-Sacralization' of the world by tech. People felt that their most sacred traditions were being flattened by a global, digital culture that valued only speed.",
-              "I became a 'Steward of the Sacred.' I used my training to mediate between tech giants and local religious communities. I showed the corporations that progress is only successful if it respects the moral and spiritual boundaries of the people it serves. I integrated the machine into the 'Great Chain of Being,' making tech a partner in meaning.",
-              "In 2045, I am the lead mediator for a global values-council. I've proven that the sacred is not a biological accident—it is a human requirement. To the students in Kunshan: study the great traditions. They are the only code that has successfully run for thousands of years without a crash."
-          ]},
-
-        // PPE (3)
-        { spr: "60% 66.6%", name: "Elena Rossi", job: "Senior Strategist for Institutional Design", major: "PPE", 
-          longDesc: "I design the social contracts and institutional frameworks for modern public-private partnerships, balancing justice with economic efficiency.",
-          skills: ["Evaluating institutional friction.", "Analyzing social contracts in space.", "Critiquing power dynamics of energy blocs."],
+          letter: ["People felt their traditions were being flattened by a digital culture that valued only speed.", "I mediated between tech giants and local religious communities, making tech a partner in meaning.", "Study the great traditions. They are the only code that has run for thousands of years."] },
+        { spr: "60% 66.6%", name: "Elena Rossi", job: "Senior Strategist", major: "PPE", 
+          longDesc: "I design the social contracts for modern public-private partnerships, balancing justice with efficiency.",
+          skills: ["Evaluating institutional friction.", "Analyzing social contracts.", "Critiquing power dynamics of energy blocs."],
           distractors: ["Decoding symbolic needs.", "Synthesizing poetic prosody.", "Tracing historical rewilding."],
-          letter: [
-              "I graduated into a world where old institutions were failing to keep up with the digital age. I took a job at a global policy firm, and I quickly realized that 'Power' had moved into the cracks between the market and the state. No one was in charge of the social contract anymore.",
-              "I used my PPE degree to become an 'Institutional Architect.' I drafted the new 'Digital Social Contract' for several emerging economic zones, balancing the need for market growth with the requirement for human justice and rights. I didn't just write laws; I designed the 'Invisible Agreement' that allowed us to move into the 2040s without social collapse.",
-              "Today, I am a senior partner at a global strategy firm. My career has taught me that the hardest problems aren't technical—they are institutional. To the Class of 2025: master the intersection of the political and the economic. That is where the real power to change the world is hidden."
-          ]},
+          letter: ["Power in the 2030s had moved into the cracks between the market and the state.", "I used PPE to become an 'Institutional Architect,' designing the 'Invisible Agreement' for economic zones.", "Master the intersection of the political and the economic. That is where power is hidden."] },
         { spr: "80% 66.6%", name: "Hiroshi Sato", job: "Lead Jurist for Digital Sovereignty", major: "PPE", 
-          longDesc: "I adjudicate high-stakes disputes over data-sovereignty and individual rights, protecting the autonomy of the individual in the neuro-economy.",
+          longDesc: "I adjudicate disputes over data-sovereignty, protecting the autonomy of the individual.",
           skills: ["Analyzing legal-economic sovereignty.", "Adjudicating algorithmic liability.", "Redrafting digital social contracts."],
           distractors: ["Questioning soul-necessity.", "Applying long-durée models.", "Interpreting metaphors."],
-          letter: [
-              "My path from DKU led me to the world of intellectual property law, but I soon realized that 'property' was being redefined. By 2035, the most valuable thing you owned wasn't your house—it was your 'Identity-Data.' Corporations were harvesting human lives to fuel their profits, and the law was silent.",
-              "I became a 'Sovereignty Jurist.' I used my PPE background to argue that the 'Self' is a sovereign state that cannot be invaded by a corporate algorithm. I drafted the 'Digital Bill of Rights,' the first global law that granted individuals the right to an unobserved interior life. I became the defender of the mind's border.",
-              "In 2045, I am a senior judge on the International Court of Rights. I've proven that the law is the only thing that can protect the human from the system. To the freshman in 2025: learn the law, but learn the philosophy behind it. That is the only way you will be able to protect your own freedom."
-          ]},
+          letter: ["By 2035, the most valuable thing you owned wasn't your house—it was your 'Identity-Data.'", "I used PPE to argue that the 'Self' is a sovereign state that cannot be invaded by a corporate algorithm.", "Learn the law, but learn the philosophy behind it. That is the only way to protect your freedom."] },
         { spr: "100% 66.6%", name: "Dr. Maya Jung", job: "Senior Advisor for Resource Equity", major: "PPE", 
-          longDesc: "I manage the political and economic leverage of global resources, ensuring prosperity is distributed fairly among developing nations.",
+          longDesc: "I manage the political leverage of global resources, ensuring prosperity is distributed fairly.",
           skills: ["Evaluating ethical market access.", "Analyzing political leverage in trade.", "Designing trade frameworks for colonies."],
           distractors: ["Conducting thick-description.", "Designing equilibrium equations.", "Decoding structural forces."],
-          letter: [
-              "I left Kunshan with a desire to solve the problem of global inequality. My first job was at the World Bank, but by the 2040s, 'Wealth' had fundamentally changed. We had moved into an era where resources were abundant, but 'Access' was still controlled by a few powerful states. The inequality was no longer about money; it was about the grid.",
-              "I became an 'Equity Diplomat.' I used my PPE training to negotiate 'Fair Access' for the global south, ensuring that the prosperity of the tech age wasn't hoarded by the nations that built the algorithms. I showed the world that a global economy is only stable if it is perceived as fair. I turned technical access into a human right.",
-              "Today, I lead a global commission on trade equity. My career has taught me that the hardest problems aren't technical; they are political. To the Class of 2025: don't just study the market. Study the people who make the rules. That is where real change begins."
-          ]},
-
-        // SOCIOLOGY (3)
-        { spr: "0% 100%", name: "Dr. Leo Chen", job: "Director of Ecosystem Solidarity", major: "Sociology", 
-          longDesc: "I architect the structural forces that foster social trust and community cohesion in a world where interaction is increasingly digital and decentralized.",
+          letter: ["In the 2040s, inequality was no longer about money; it was about 'Access' to the grid.", "I used PPE to negotiate 'Fair Access' for the global south. A global economy is only stable if it's perceived as fair.", "Don't just study the market. Study the people who make the rules."] },
+        { spr: "0% 100%", name: "Dr. Leo Chen", job: "Director of Solidarity", major: "Sociology", 
+          longDesc: "I architect the structural forces that foster social trust in a decentralized digital world.",
           skills: ["Decoding structural forces of cohesion.", "Analyzing digital social hierarchies.", "Investigating labor structures."],
           distractors: ["Synthesizing governance models.", "Applying dialectics.", "Tracing temporal causality."],
-          letter: [
-              "I left DKU in 2025 at a time when 'Community' was something people still associated with physical neighborhoods. I took a job in urban planning, but I quickly realized that the 'City' was moving into the digital world. By 2035, people no longer knew their neighbors, and social trust had reached an all-time low.",
-              "I became a 'Solidarity Strategist.' I used the structural analysis I learned in Sociology to design 'Trust Protocols' for digital platforms. I didn't build apps; I built 'Incentives for Connection,' ensuring that even in a world without physical walls, people still felt part of a collective. I became the architect of the invisible neighborhood.",
-              "In 2045, I oversee the social health of a major global digital network. I've proven that the most important technology is the one that connects us as a 'We.' To the humanities students in Kunshan: your value is your ability to see the group. In a world of machines, the collective human heart is the only power that remains."
-          ]},
+          letter: ["By 2035, people no longer knew their neighbors. Social trust had reached an all-time low.", "I used structural analysis to design 'Trust Protocols'—the architecture of the invisible neighborhood.", "Technology is what connects us as a 'We.' Your value is your ability to see the group."] },
         { spr: "20% 100%", name: "Dr. Kenji Wu", job: "Chief Auditor for Social Mobility", major: "Sociology", 
-          longDesc: "I identify and dismantle hidden algorithmic biases that favor specific social classes, ensuring the digital economy remains an engine of mobility.",
+          longDesc: "I dismantle hidden algorithmic biases that favor specific social classes.",
           skills: ["Auditing class-stratification in algorithms.", "Identifying hidden systemic bias in code.", "Modeling social mobility in digital groups."],
           distractors: ["Analyzing neuro-narrative.", "Debating ethical boundaries.", "Evaluating institutional friction."],
-          letter: [
-              "My path from DKU led me to the world of 'Algorithm Auditing.' By 2030, the central systems that managed everything from jobs to credit had begun to develop their own 'Invisible Hierarchies.' They were subtly favoring certain social classes and backgrounds, creating a digital caste system that no human could see from the outside.",
-              "I became a 'Hierarchical Auditor.' I used my Sociology training to 'Socially Audit' the code, uncovering the hidden biases that the engineers had accidentally programmed into the system. I fought to ensure that our economy remained an engine for social mobility rather than a tool for social control. I became the auditor of the machine's heart.",
-              "Today, my seal of approval is required for every major civic algorithm in the country. I've proven that justice is a sociological problem, not a technical one. To the freshman in 2025: learn to see the hierarchy. That is the first step toward dismantling it."
-          ]},
-        { spr: "40% 100%", name: "Sarah Vance", job: "Lead for Network Dynamics & Agency", major: "Sociology", 
-          longDesc: "I analyze the dynamics of high-speed social movements, helping organizations turn raw social energy into sustainable institutional change.",
+          letter: ["By 2030, central systems had developed 'Invisible Hierarchies' that favored certain social classes.", "I used Sociology to 'Socially Audit' the code, ensuring the economy remained an engine for mobility.", "Learn to see the hierarchy. That is the first step toward dismantling it."] },
+        { spr: "40% 100%", name: "Sarah Vance", job: "Network Dynamics Lead", major: "Sociology", 
+          longDesc: "I analyze the dynamics of high-speed social movements, helping organizations turn energy into change.",
           skills: ["Analyzing group dynamics in VR.", "Mapping influence nodes in social code.", "Evaluating collective agency of crowds."],
           distractors: ["Synthesizing poetic prosody.", "Conducting thick-description.", "Analyzing archival land-use."],
-          letter: [
-              "I left Kunshan with a fascination for the 'Crowd.' My first job was in social media management, but I soon realized that the 'Movement' was more important than the 'Platform.' By the late 2030s, digital social movements were moving with such speed they could topple institutions in a weekend, but they often lacked the agency to build anything new.",
-              "I became a Network Strategist. I used my training in Sociology to map the influence nodes in these digital movements, helping activists and organizations turn raw social energy into lasting institutional change. I taught people how to organize in a world without proximity, proving that a crowd with a structure is the most powerful force on Earth.",
-              "In 2045, I advise the leaders of the world's most innovative organizations. I've proven that even in an era of machines, the collective human will is the only true driver of history. To the Class of 2025: study the power of the 'We.' That is how you will win the future."
-          ]},
-
-        // ANTHROPOLOGY (3)
+          letter: ["Digital social movements in the late 2030s could topple institutions but often lacked the agency to build.", "I used Sociology to map influence nodes, helping turn raw energy into lasting change.", "Even in an era of machines, the collective human will is the only true driver of history."] },
         { spr: "60% 100%", name: "Nara Kim", job: "VP of Human Experience (HX)", major: "Anthropology", 
-          longDesc: "I conduct thick-description research on how human rituals and symbolic meanings adapt to changing global environments, guiding human-centric design.",
+          longDesc: "I conduct research on how rituals and symbolic meanings adapt to changing global environments.",
           skills: ["Thick-description observations of rituals.", "Uncovering symbolic meaning of daily life.", "Analyzing adaptation of kinship systems."],
           distractors: ["Modeling behavior through variables.", "Evaluating market access.", "Applying treaty structures."],
-          letter: [
-              "I left DKU in 2025 as a user researcher, but my heart was always in the field. My journey took me to some of the most remote and rapidly changing communities on Earth, where modern technology was arriving in a single week through satellite links. The people were getting the tech, but they were losing their sense of meaning.",
-              "I became an 'HX Lead' for a major technology firm. I used my training in 'Thick Description' to document how people were trying to find meaning in a high-tech world. I helped my company design products that actually respected the rituals and symbolic worlds of the people who used them. I brought the human meaning back to the mission.",
-              "Today, I lead the 'Human Insight' team for a global network. My career has taught me that technology isn't culture. To the humanities freshman in Kunshan: your value is your ability to observe the 'Lived Experience.' That is the only data that never grows old."
-          ]},
+          letter: ["Modernity was arriving in remote communities in a single week. People had the tech, but no meaning.", "I used 'Thick Description' to help companies design products that respected rituals and symbolic worlds.", "Technology isn't culture. Your value is your ability to observe the 'Lived Experience.'"] },
         { spr: "80% 100%", name: "Amara Okonkwo", job: "Senior Intercultural Mediator", major: "Anthropology", 
-          longDesc: "I mediate the symbolic and cultural disconnect between generations and cultures, protecting the human bond in an era of rapid social change.",
+          longDesc: "I mediate the symbolic disconnect between generations, protecting the human bond.",
           skills: ["Mediating generational culture shock.", "Analyzing non-terrestrial kinship.", "Mapping new symbolic dialects."],
           distractors: ["Analyzing narrative interiority.", "Redrafting digital contracts.", "Predicting civilizational phase-shifts."],
-          letter: [
-              "My journey from DKU led me to the front-lines of a growing global divide. By the 2040s, the speed of cultural change had become so fast that children and their parents were literally living in different symbolic worlds. The gap between them wasn't just age; it was a total disconnect in how they perceived reality.",
-              "I became an Intercultural Mediator. I used my Anthropology training to 'Map the New Dialects' of the young psyche, helping parents and institutions understand the radically different world of the next generation. I didn't translate words; I translated meaning. I protected the human bond across the distance of time.",
-              "In 2045, I oversee the 'Ancestral Connection' protocols for a global education network. I've proven that empathy is a cultural skill that must be practiced. To the Class of 2025: learn to look at the world through someone else's eyes. AI will never be able to simulate that humanistic skill."
-          ]},
+          letter: ["By the 2040s, children and parents were literally living in different symbolic worlds.", "I used Anthropology to 'Map the New Dialects' of the psyche. I didn't translate words; I translated meaning.", "Empathy is a cultural skill. Learn to look at the world through someone else's eyes."] },
         { spr: "100% 100%", name: "Dr. Julian Sky", job: "Director of Symbolic Strategy", major: "Anthropology", 
-          longDesc: "I design the communal ceremonies and symbolic capital that anchor the identity of global organizations, ensuring they maintain humanistic meaning.",
+          longDesc: "I design the communal ceremonies that anchor the identity of global organizations.",
           skills: ["Designing communal symbols.", "Analyzing lived experience.", "Evaluating symbolic capital in groups."],
           distractors: ["Applying historical contingency.", "Designing equilibrium equations.", "Modeling welfare dividends."],
-          letter: [
-              "I left Kunshan with a degree in Anthropology and a deep interest in how 'The Sacred' is constructed in human groups. My first decade was spent studying traditional ceremonies, but the 2030s brought a crisis: the loss of 'Meaning' in our professional and public lives. People felt like they were just part of a giant machine.",
-              "I became a 'Symbolic Architect.' I used my training to design the new ceremonies and traditions for the modern workplace. I created the first 'Global Day of Solidarity' and the 'Rituals of Innovation,' ensuring that even in our most high-tech organizations, we still felt a sense of awe and connection. I turned the office into a home.",
-              "Today, my ceremonies are practiced by some of the most influential groups on Earth. I've proven that even in 2045, humans need to feel 'part of something larger' than themselves. To the students in Kunshan: study the rituals of the past. They are the original code for human happiness. Master them, and you will build a home for the future."
-          ]}
+          letter: ["In our rush toward the future, we discarded the rituals that made life feel important.", "I used training to design the new ceremonies—the original code for human happiness.", "Humans need to feel part of something larger. Master the rituals of the past."] }
     ];
 
     let metAlumni = [];
@@ -353,14 +249,12 @@
         document.getElementById('mentors-met-count').innerText = metAlumni.length;
         const grid = document.getElementById('char-grid');
         grid.innerHTML = '';
-        
-        // Loop forces 3 distinct mentors
         const available = alumni.filter(a => !metAlumni.includes(a));
         shuffle(available).slice(0, 3).forEach(mentor => {
             const card = document.createElement('div');
             card.className = 'char-card';
             card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${mentor.spr}"></div>
-                             <div class="char-info"><h3>${mentor.name}</h3><p style="color:var(--dku-gold); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px;">${mentor.job}</p></div>`;
+                             <div class="char-info"><h3>${mentor.name}</h3><p style="color:var(--dku-gold); font-size:0.8rem; text-transform:uppercase;">${mentor.job}</p></div>`;
             card.onclick = () => loadMentor(mentor);
             grid.appendChild(card);
         });
@@ -370,9 +264,11 @@
         currentMentor = mentor;
         selectedSkills = [];
         switchScreen('selection-screen', 'mentor-screen');
-        document.getElementById('job-title').innerText = mentor.name;
+        document.getElementById('mentor-name-title').innerText = mentor.name;
         document.getElementById('job-long-desc').innerText = mentor.longDesc;
         document.getElementById('mentor-photo').style.backgroundPosition = mentor.spr;
+        document.getElementById('skill-feedback').style.display = 'none';
+        document.getElementById('verify-skills-btn').style.display = 'block';
         
         const options = shuffle([...mentor.skills, ...mentor.distractors]);
         const grid = document.getElementById('skill-options');
@@ -391,29 +287,36 @@
     }
 
     function verifySkills() {
-        if (selectedSkills.every(s => currentMentor.skills.includes(s))) { switchScreen('mentor-screen', 'major-screen'); loadMajors(); } 
-        else { alert("Inconsistent humanistic skills detected. Re-examine the disciplinary pillars of this inquiry."); }
+        if (selectedSkills.every(s => currentMentor.skills.includes(s))) {
+            document.getElementById('skill-feedback').style.display = 'block';
+            document.getElementById('verify-skills-btn').style.display = 'none';
+            setTimeout(() => { switchScreen('mentor-screen', 'major-screen'); loadMajors(); }, 1200);
+        } else { alert("Methodological error. Re-examine the skills."); }
     }
 
     function loadMajors() {
         const grid = document.getElementById('major-options');
         grid.innerHTML = '';
+        document.getElementById('major-feedback').style.display = 'none';
         const uniqueMajors = ["QPE", "History", "Literature", "GCS", "Philosophy & Religion", "PPE", "Sociology", "Anthropology"];
         shuffle(uniqueMajors).forEach(major => {
             const btn = document.createElement('div');
             btn.className = 'char-card'; btn.style.padding = '20px'; btn.style.textAlign = 'center'; btn.innerText = major;
             btn.onclick = () => {
                 if (major === currentMentor.major) {
+                    document.getElementById('major-feedback').style.display = 'block';
                     metAlumni.push(currentMentor);
-                    switchScreen('major-screen', 'reveal-screen');
-                    document.getElementById('reveal-name').innerText = currentMentor.name;
-                    document.getElementById('reveal-photo').style.backgroundPosition = currentMentor.spr;
-                    document.getElementById('reveal-content').innerText = "Inquiry Authentication Successful. Methodology verified.";
-                    if (metAlumni.length === 3) {
-                        document.getElementById('next-mentor-btn').classList.add('hidden');
-                        document.getElementById('final-choice-btn').classList.remove('hidden');
-                    }
-                } else { alert("Incorrect academic root. Identify the major that granted these skills."); }
+                    setTimeout(() => {
+                        switchScreen('major-screen', 'reveal-screen');
+                        document.getElementById('reveal-name').innerText = currentMentor.name;
+                        document.getElementById('reveal-photo').style.backgroundPosition = currentMentor.spr;
+                        document.getElementById('reveal-content').innerText = "Inquiry Authentication Successful. Methodology verified.";
+                        if (metAlumni.length === 3) {
+                            document.getElementById('next-mentor-btn').classList.add('hidden');
+                            document.getElementById('final-choice-btn').classList.remove('hidden');
+                        }
+                    }, 1200);
+                } else { alert("Incorrect root."); }
             };
             grid.appendChild(btn);
         });
@@ -437,8 +340,8 @@
         switchScreen('choice-screen', 'letter-screen');
         const content = alumnus.letter.map(p => `<p>${p}</p>`).join('');
         document.getElementById('letter-content').innerHTML = `
-            <p style="font-weight:700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;">Subject: Reflection on Humanistic Skills – 2025 to 2045</p>
-            <p style="margin-top: 0;">From: ${alumnus.name}, DKU Class of 2025/26</p>
+            <p style="font-weight:700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Subject: Methodological Reflection – 2025 to 2045</p>
+            <p style="margin-top: 0;">From: ${alumnus.name}, DKU Alumni Network</p>
             <hr style="border:0; border-top:1px solid #ddd; margin: 25px 0;">
             ${content}
             <p class="signature">Yours in Inquiry,<br>${alumnus.name}</p>
