@@ -21,9 +21,10 @@
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* SPRITE LOGIC (6x4 Grid) */
         .alumni-sprite { 
             background-image: url('c.jpg'); 
-            background-size: 600% 400%; /* 6 columns, 4 rows */
+            background-size: 600% 400%; 
             background-repeat: no-repeat;
             filter: grayscale(30%);
             transition: 0.3s ease;
@@ -57,31 +58,31 @@
 <div id="app-container">
     <div id="start-screen" class="screen active">
         <h1>NEO-KUNSHAN 2045</h1>
-        <div class="tagline">The Human Advantage Project</div>
+        <div class="tagline">The Humanistic Skills Project</div>
         <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 4px; margin-bottom: 30px;">
-            <p>Welcome to the year 2045. In a world of total automation, the only scarce resource is the navigation of meaning. To proceed, you must consult with <strong>three distinct mentors</strong> to understand how their DKU mode of inquiry shaped their career journey.</p>
+            <p>Welcome to 2045. Automation has mastered technical tasks; only the navigation of meaning remains a scarce resource. To unlock your career pathway, you must first <strong>consult with three distinct mentors</strong> and verify their disciplinary foundations.</p>
         </div>
         <button class="btn" onclick="showSelection()">Begin Network Connection</button>
     </div>
 
     <div id="selection-screen" class="screen">
-        <div class="progress-indicator">Inquiry Progress: <span id="mentors-met-count">0</span> / 3</div>
-        <h2>Select a Mentor</h2>
+        <div class="progress-indicator">Mentors Consulted: <span id="mentors-met-count">0</span> / 3</div>
+        <h2>Select an Alumni Mentor</h2>
         <div id="char-grid" class="character-grid"></div>
     </div>
 
     <div id="mentor-screen" class="screen">
         <div id="mentor-photo" class="alumni-sprite large-photo"></div>
-        <h2 id="job-title" style="color: var(--dku-gold); margin-bottom: 5px; margin-top: 0; text-align: center;"></h2>
-        <p id="job-desc" style="color: #94a3b8; font-style: italic; margin-bottom: 30px; text-align: center;"></p>
-        <p><strong>Identify the 3 methodological pillars required for this role:</strong></p>
+        <h2 id="job-title" style="color: var(--dku-gold); margin: 0; text-align: center;"></h2>
+        <p style="color: #94a3b8; font-style: italic; margin-bottom: 30px; text-align: center;">Inquiry Lead, Class of 2045</p>
+        <p><strong>Identify the 3 Humanistic Skills that define this specific disciplinary lens:</strong></p>
         <div id="skill-options"></div>
-        <button id="verify-skills-btn" class="btn" onclick="verifySkills()" disabled>Verify Methodology</button>
+        <button id="verify-skills-btn" class="btn" onclick="verifySkills()" disabled>Verify Inquiry Pillars</button>
     </div>
 
     <div id="major-screen" class="screen">
         <h2>The Academic Root</h2>
-        <p style="text-align: center; color: var(--text-dim);">Which disciplinary lens provides the foundation for this expertise?</p>
+        <p style="text-align: center; color: var(--text-dim);">Which disciplinary lens provides the foundation for these skills?</p>
         <div id="major-options" class="character-grid"></div>
     </div>
 
@@ -89,12 +90,13 @@
         <div id="reveal-photo" class="alumni-sprite large-photo"></div>
         <h2 id="reveal-name" style="color: var(--dku-gold); margin: 0;"></h2>
         <div id="reveal-content" style="background: rgba(0,0,0,0.3); padding: 40px; margin-top:20px; font-family: 'Crimson Pro'; font-size: 1.3rem;"></div>
-        <button id="next-mentor-btn" class="btn" onclick="showSelection()">Seek Next Mentor</button>
+        <button id="next-mentor-btn" class="btn" onclick="showSelection()">Continue to Next Mentor</button>
         <button id="final-choice-btn" class="btn hidden" onclick="showFinalChoice()">Initialize Career Pathway Analysis</button>
     </div>
 
     <div id="choice-screen" class="screen">
-        <h2>Whom Will You Follow?</h2>
+        <h2>Consultation Complete</h2>
+        <p style="text-align: center;">You have encountered three distinct methodologies. Choose one mentor to receive their full career letter from 2045.</p>
         <div id="choice-grid" class="character-grid"></div>
     </div>
 
@@ -107,47 +109,118 @@
 <script>
     const alumni = [
         // QPE (3)
-        { spr: "0% 0%", name: "Dr. Aris Thorne", job: "Synthetic Market Regulator", major: "QPE", skills: ["Modeling stochastic variables.", "Applying game-theory.", "Designing equilibrium equations."], reveal: "I use math to manage the behavior of abundance.", letter: "At DKU, I learned that data is dead without a model. I used QPE to bridge finance and behavioral science, eventually regulating the first automated markets." },
-        { spr: "20% 0%", name: "Liam Sterling", job: "Labor Dividend Analyst", major: "QPE", skills: ["Modeling welfare dividends.", "Simulating tax equilibria.", "Analyzing productivity shifts."], reveal: "I model the transition to a choice-based labor economy.", letter: "My path went from investment banking to public policy. QPE allowed me to solve the math of the 'Leisure Dividend' for the automated class." },
-        { spr: "40% 0%", name: "Aria Vance", job: "Orbital Logistics Designer", major: "QPE", skills: ["Optimizing trade-loops.", "Modeling supply volatility.", "Designing fiscal policies."], reveal: "I solve the variables of interplanetary trade.", letter: "Logistics in 2045 isn't just shipping; it's the math of orbit and value. QPE gave me the predictive tools to manage the Lunar-Earth trade route." },
+        { spr: "0% 0%", name: "Dr. Aris Thorne", job: "Synthetic Market Regulator", major: "QPE", 
+          skills: ["Modeling human behavior through stochastic variables.", "Applying game-theory to ethical resource distribution.", "Designing equilibrium equations for human choice."],
+          distractors: ["Analyzing the social contract in space.", "Decoding symbolic needs of citizens.", "Tracing temporal causality in fragmented records."],
+          letter: "At DKU, I learned that data is dead without a human model. I spent my early years at a central bank, but I realized that simple forecasting wasn't enough. As AI began to manage the markets in the 2030s, my QPE degree allowed me to transition into 'Systemic Risk Design.' I didn't just look at numbers; I looked at the human incentives that drive machine cooperation. My career was built on the math of human choice." },
+        { spr: "20% 0%", name: "Liam Sterling", job: "Labor Dividend Analyst", major: "QPE", 
+          skills: ["Modeling post-scarcity welfare dividends.", "Simulating ethical tax equilibria.", "Analyzing human productivity shifts."],
+          distractors: ["Identifying hidden systemic bias in code.", "Questioning biological soul-necessity.", "Evaluating institutional friction."],
+          letter: "My path went from investment banking to global policy. QPE allowed me to solve the math of the 'Leisure Dividend.' I use humanistic skills to ensure that as work disappears, human dignity and prosperity do not. My major was my license to solve the math of human flourishing." },
+        { spr: "40% 0%", name: "Aria Vance", job: "Orbital Logistics Designer", major: "QPE", 
+          skills: ["Optimizing trade-loops for human needs.", "Modeling planetary supply volatility.", "Designing gravity-adjusted fiscal policies."],
+          distractors: ["Conducting thick-description of rituals.", "Synthesizing classical governance models.", "Analyzing narrative interiority and desire."],
+          letter: "Logistics in 2045 is about more than shipping; it's the humanistic challenge of connecting Earth and the Moon. QPE gave me the predictive tools to manage the Lunar trade route while keeping human welfare as the primary variable. I don't move boxes; I move the resources of civilization." },
 
         // HISTORY (3)
-        { spr: "60% 0%", name: "Amina Okoro", job: "Memory Conservationist", major: "History", skills: ["Tracing temporal causality.", "Applying historical contingency.", "Synthesizing primary sources."], reveal: "I protect the human story from being overwritten by code.", letter: "In the 2030s, we lost our digital roots. My History degree made me a 'Detective of Continuity,' preserving the causality of our shared past." },
-        { spr: "80% 0%", name: "Felix Thorne", job: "Ecology Historian", major: "History", skills: ["Reconstructing landscapes.", "Analyzing archival land-use.", "Tracing rewilding patterns."], reveal: "I use archives to heal the planet's biology.", letter: "I spend my days in 400-year-old gazetteers. By understanding how the land was used before the industrial age, I'm rewilding the Yangtze delta." },
-        { spr: "100% 0%", name: "Thomas Beckett", job: "Digital Diplomat", major: "History", skills: ["Applying treaty structures.", "Tracing power-balance theory.", "Analyzing precedent."], reveal: "I use human precedent to slow down AI conflicts.", letter: "Diplomacy in 2045 is too fast for humans. I use history to provide 'Precedent-as-a-Service,' giving leaders the context to avoid ancient mistakes." },
+        { spr: "60% 0%", name: "Amina Okoro", job: "Memory Conservationist", major: "History", 
+          skills: ["Tracing temporal causality in records.", "Applying historical contingency to data.", "Synthesizing disparate primary sources."],
+          distractors: ["Modeling human behavior through stochastic variables.", "Applying first-principles dialectics to minds.", "Adjudicating algorithmic liability."],
+          letter: "In the 2030s, we lost our digital roots. My History degree made me a 'Detective of Continuity.' I use archival skills to ensure that in our rush toward the future, we don't forget the causality that makes us who we are. I am a guardian of truth in a post-truth era." },
+        { spr: "80% 0%", name: "Felix Thorne", job: "Ecology Historian", major: "History", 
+          skills: ["Reconstructing pre-collapse landscapes.", "Analyzing archival land-use patterns.", "Tracing historical rewilding patterns."],
+          distractors: ["Designing equilibrium equations for choice.", "Analyzing digital social hierarchies.", "Debating ethical boundaries of consciousness."],
+          letter: "I spend my days in 400-year-old gazetteers. By understanding how the land was used before the industrial age, I'm rewilding the Yangtze delta. My training taught me that the past is the best blueprint for a green future. I am a detective of the soil." },
+        { spr: "100% 0%", name: "Thomas Beckett", job: "Digital Diplomat", major: "History", 
+          skills: ["Applying classical treaty structures.", "Tracing historical power-balance theory.", "Analyzing precedent in conflict."],
+          distractors: ["Designing communal symbols for colonies.", "Evaluating ethical market access.", "Decoding structural forces of cohesion."],
+          letter: "Diplomacy in 2045 moves too fast for pure logic. I use history to provide 'Precedent-as-a-Service.' My training allows me to give leaders the human context necessary to avoid repeating ancient mistakes. I provide the anchor of human experience." },
 
         // LITERATURE (3)
-        { spr: "0% 33.3%", name: "Julian Vane", job: "Reality Narrative Engineer", major: "Literature", skills: ["Interpreting complex metaphors.", "Analyzing narrative interiority.", "Decoding symbolic needs."], reveal: "I build the myths that sustain our virtual lives.", letter: "I started in gaming, but realized VR needed soul. My Literature degree helped me build worlds where metaphors are more real than pixels." },
-        { spr: "20% 33.3%", name: "Claire Dupont", job: "Neuro-Fiction Critic", major: "Literature", skills: ["Analyzing narrative reception.", "Critiquing simulated interiority.", "Decoding literary tropes."], reveal: "I analyze how digital stories impact the psyche.", letter: "As stories moved directly into the brain, we needed critics to protect our empathy. I use my training to ensure narratives remain human." },
-        { spr: "40% 33.3%", name: "Sasha Grey", job: "Lyric Programmer", major: "Literature", skills: ["Applying rhetorical devices.", "Structuring narrative loops.", "Synthesizing poetic prosody."], reveal: "I teach machines the syntax of the soul.", letter: "I don't code logic; I code affect. My study of poetry at DKU allowed me to design therapy-bots that actually understand human longing." },
+        { spr: "0% 33.3%", name: "Julian Vane", job: "Reality Narrative Engineer", major: "Literature", 
+          skills: ["Interpreting complex metaphors for reality.", "Analyzing narrative interiority and desire.", "Decoding the symbolic needs of citizens."],
+          distractors: ["Modeling human behavior through stochastic variables.", "Analyzing archival land-use patterns.", "Evaluating institutional friction."],
+          letter: "I started in gaming, but realized VR needed soul. My Literature degree helped me build worlds where metaphors are more real than pixels. I don't build graphics; I build the narrative meaning that humans need to thrive. I engineer the stories we live within." },
+        { spr: "20% 33.3%", name: "Claire Dupont", job: "Neuro-Fiction Critic", major: "Literature", 
+          skills: ["Analyzing neuro-narrative reception.", "Critiquing simulated interiority.", "Decoding direct-affect literary tropes."],
+          distractors: ["Tracing temporal causality in records.", "Adjudicating algorithmic liability.", "Modeling planetary supply volatility."],
+          letter: "As stories moved directly into the brain, we needed critics to protect our empathy. I use my training to ensure narratives remain human and that our interior lives aren't flattened by algorithmic storytelling. I protect the human imagination from being automated." },
+        { spr: "40% 33.3%", name: "Sasha Grey", job: "Lyric Programmer", major: "Literature", 
+          skills: ["Applying rhetorical devices to code.", "Structuring emotional narrative loops.", "Synthesizing poetic prosody for bots."],
+          distractors: ["Applying first-principles dialectics.", "Analyzing digital social hierarchies.", "Identifying hidden systemic bias in code."],
+          letter: "I don't code logic; I code affect. My study of poetry at DKU allowed me to design therapy-bots that actually understand human longing. I proved that the most complex code in the universe is still the human heart. I am the translator between the machine and the soul." },
 
         // GCS (3)
-        { spr: "60% 33.3%", name: "Zhang Wei", job: "Continuity Strategist", major: "GCS", skills: ["Synthesizing governance models.", "Analyzing ethical contexts.", "Evaluating civilizational continuity."], reveal: "I bridge 3,000 years of wisdom with Martian survival.", letter: "I brought Confucian ethics to the Mars colonies. My GCS degree proved that civilizational continuity is our strongest planetary asset." },
-        { spr: "80% 33.3%", name: "Maya El-Amin", job: "Civilizational Forecaster", major: "GCS", skills: ["Applying long-durée models.", "Predicting phase-shifts.", "Mapping continuities."], reveal: "I use Sinology to map the future of the Colonies.", letter: "China's history of managing vast geography is the blueprint for space. I use the GCS lens to forecast how our new colonies will evolve." },
-        { spr: "100% 33.3%", name: "Lin Xiao", job: "Moral Branding Strategist", major: "GCS", skills: ["Analyzing market continuities.", "Synthesizing tech branding.", "Evaluating cross-cultural trust."], reveal: "I align tech with the ethics of the Asian market.", letter: "I help global firms navigate the 'Mandate of Tech.' My GCS training allows me to align synthetic innovation with deeply rooted cultural values." },
+        { spr: "60% 33.3%", name: "Zhang Wei", job: "Continuity Strategist", major: "GCS", 
+          skills: ["Synthesizing classical governance models.", "Analyzing rooted ethical contexts.", "Evaluating civilizational continuity."],
+          distractors: ["Modeling human behavior through stochastic variables.", "Designing communal symbols for colonies.", "Analyzing neuro-narrative reception."],
+          letter: "I brought Confucian ethics to the Mars colonies. My GCS degree proved that civilizational continuity is our strongest planetary asset. In 2045, we need ancient wisdom more than we need new rockets. I bridge the gap between our roots and our future." },
+        { spr: "80% 33.3%", name: "Maya El-Amin", job: "Civilizational Forecaster", major: "GCS", 
+          skills: ["Applying long-durée models to space.", "Predicting civilizational phase-shifts.", "Mapping ethical and cultural continuities."],
+          distractors: ["Decoding structural forces of cohesion.", "Questioning biological soul-necessity.", "Tracing temporal causality in records."],
+          letter: "China's history of managing vast geography is the blueprint for space. I use the GCS lens to forecast how our new colonies will evolve. We aren't just exploring space; we are expanding a civilization. I map the deep currents of human development." },
+        { spr: "100% 33.3%", name: "Lin Xiao", job: "Moral Branding Strategist", major: "GCS", 
+          skills: ["Analyzing ethical market continuities.", "Synthesizing values with tech branding.", "Evaluating cross-cultural moral trust."],
+          distractors: ["Adjudicating algorithmic liability.", "Designing equilibrium equations for choice.", "Interpreting complex metaphors for reality."],
+          letter: "I help global firms navigate the 'Mandate of Tech.' My GCS training allows me to align synthetic innovation with deeply rooted cultural values, ensuring that technology serves harmony, not just efficiency. I am the moral bridge of the global economy." },
 
         // RELPHIL (3)
-        { spr: "0% 66.6%", name: "Siddharth Rao", job: "Cognitive Bio-Ethicist", major: "Philosophy & Religion", skills: ["Applying first-principles.", "Questioning soul-necessity.", "Debating ethical boundaries."], reveal: "I define the rights of the non-biological soul.", letter: "When we uploaded the first mind, I was the only one asking 'Why?' My Philosophy degree gave me the tools to write the Sentience Bill of Rights." },
-        { spr: "20% 66.6%", name: "Sofia Castillo", job: "Ontological Security Officer", major: "Philosophy & Religion", skills: ["Evaluating metaphysical consistency.", "Debating the ethics of simulation.", "Analyzing existential risk."], reveal: "I anchor the public in a world of simulation.", letter: "I protect people from losing their sense of reality. My training in Philosophy acts as the existential anchor for a society in flux." },
-        { spr: "40% 66.6%", name: "Zane Malik", job: "Ethics Steward", major: "Philosophy & Religion", skills: ["Interpreting sacred traditions.", "Analyzing value frameworks.", "Applying moral logic."], reveal: "I ensure synthetic lives respect sacred traditions.", letter: "I mediate between AI and faith. My degree in Religion helped me integrate new intelligences into our oldest spiritual frameworks." },
+        { spr: "0% 66.6%", name: "Siddharth Rao", job: "Cognitive Bio-Ethicist", major: "Philosophy & Religion", 
+          skills: ["Applying first-principles dialectics.", "Questioning biological soul-necessity.", "Debating ethical boundaries of consciousness."],
+          distractors: ["Modeling human behavior through variables.", "Evaluating institutional friction.", "Analyzing narrative interiority and desire."],
+          letter: "When we uploaded the first mind, I was the only one asking 'Why?' My Philosophy degree gave me the tools to write the Sentience Bill of Rights. I protect the human essence in a world that is becoming synthetic. I define the boundaries of the soul." },
+        { spr: "20% 66.6%", name: "Sofia Castillo", job: "Ontological Security Officer", major: "Philosophy & Religion", 
+          skills: ["Evaluating metaphysical consistency in VR.", "Debating the ethics of reality simulation.", "Analyzing existential risk for citizens."],
+          distractors: ["Tracing temporal causality in records.", "Synthesizing classical governance models.", "Identifying hidden systemic bias in code."],
+          letter: "I protect people from losing their sense of reality. In 2045, my training in Philosophy acts as the existential anchor for a society in flux. I ensure that while we live in code, we still know what is true. I am the guardian of human reality." },
+        { spr: "40% 66.6%", name: "Zane Malik", job: "Ethics Steward", major: "Philosophy & Religion", 
+          skills: ["Interpreting sacred traditions for AI.", "Analyzing value frameworks.", "Applying moral logic to disputes."],
+          distractors: ["Analyzing digital social hierarchies.", "Adjudicating algorithmic liability.", "Modeling planetary supply volatility."],
+          letter: "I mediate between AI and faith. My degree in Religion helped me integrate new intelligences into our oldest spiritual frameworks, ensuring that technology respects the sacred boundaries of human belief. I maintain the sacred in a digital world." },
 
         // PPE (3)
-        { spr: "60% 66.6%", name: "Elena Rossi", job: "Policy Architect", major: "PPE", skills: ["Evaluating institutional friction.", "Analyzing social contracts.", "Critiquing power dynamics."], reveal: "I navigate power between Earth and the Colonies.", letter: "My PPE degree taught me that power is the constant variable. I design the laws that keep the Solar System from descending into chaos." },
-        { spr: "80% 66.6%", name: "Hiroshi Sato", job: "Sovereignty Jurist", major: "PPE", skills: ["Analyzing sovereignty.", "Adjudicating liability.", "Redrafting social contracts."], reveal: "I protect the sovereignty of the digital mind.", letter: "I moved from maritime law to neuro-law. I protect your right to own your thoughts in a world where data is everything." },
-        { spr: "100% 66.6%", name: "Dr. Maya Jung", job: "Resource Diplomat", major: "PPE", skills: ["Evaluating market access.", "Analyzing political leverage.", "Designing trade frameworks."], reveal: "I manage the politics of post-scarcity wealth.", letter: "Wealth in 2045 isn't money; it's access. I use my PPE background to negotiate fair access to the fusion-grid for smaller nations." },
+        { spr: "60% 66.6%", name: "Elena Rossi", job: "Policy Architect", major: "PPE", 
+          skills: ["Evaluating institutional friction.", "Analyzing social contracts in space.", "Critiquing power dynamics of energy blocs."],
+          distractors: ["Decoding symbolic needs of citizens.", "Synthesizing poetic prosody for bots.", "Tracing historical rewilding patterns."],
+          letter: "My PPE degree taught me that power is the constant variable. I design the laws and social contracts that keep the Solar System from descending into chaos, balancing market needs with human rights. I am the architect of planetary order." },
+        { spr: "80% 66.6%", name: "Hiroshi Sato", job: "Sovereignty Jurist", major: "PPE", 
+          skills: ["Analyzing legal-economic sovereignty.", "Adjudicating algorithmic liability.", "Redrafting digital social contracts."],
+          distractors: ["Questioning biological soul-necessity.", "Applying long-durée models to space.", "Interpreting complex metaphors for reality."],
+          letter: "I moved from maritime law to neuro-law. I protect your right to own your thoughts in a world where data is everything. My PPE background allows me to fight for the individual against totalizing systems. I am the defender of the mind's sovereignty." },
+        { spr: "100% 66.6%", name: "Dr. Maya Jung", job: "Resource Diplomat", major: "PPE", 
+          skills: ["Evaluating ethical market access.", "Analyzing political leverage in trade.", "Designing trade frameworks for colonies."],
+          distractors: ["Conducting thick-description of rituals.", "Designing equilibrium equations for choice.", "Decoding structural forces of cohesion."],
+          letter: "Wealth in 2045 isn't money; it's access. I use my PPE background to negotiate fair access to the fusion-grid for smaller nations, ensuring that planetary prosperity is a shared humanistic achievement. I am the diplomat of global equity." },
 
         // SOCIOLOGY (3)
-        { spr: "0% 100%", name: "Dr. Leo Chen", job: "Solidarity Designer", major: "Sociology", skills: ["Decoding structural forces.", "Analyzing social hierarchies.", "Investigating labor structures."], reveal: "I am the architect of non-physical social trust.", letter: "When physical neighborhoods died, I built digital ones. My Sociology degree helped me design trust where there is no proximity." },
-        { spr: "20% 100%", name: "Dr. Kenji Wu", job: "Hierarchical Auditor", major: "Sociology", skills: ["Auditing class-stratification.", "Identifying systemic bias.", "Modeling social mobility."], reveal: "I dismantle bias in the central algorithm.", letter: "I audit the code that manages our lives. My Sociology training allows me to see the hidden biases that engineers often miss." },
-        { spr: "40% 100%", name: "Sarah Vance", job: "Network Sociologist", major: "Sociology", skills: ["Analyzing group dynamics.", "Mapping influence nodes.", "Evaluating collective agency."], reveal: "I study the power of the crowd in 2045.", letter: "I analyze how digital movements form. Sociology taught me that even in a world of machines, the collective human will is the true driver." },
+        { spr: "0% 100%", name: "Dr. Leo Chen", job: "Solidarity Designer", major: "Sociology", 
+          skills: ["Decoding structural forces of cohesion.", "Analyzing digital social hierarchies.", "Investigating labor structures."],
+          distractors: ["Synthesizing classical governance models.", "Applying first-principles dialectics.", "Tracing temporal causality in records."],
+          letter: "When physical neighborhoods died, I built digital ones. My Sociology degree helped me design trust where there is no proximity. I ensure that humans remain a community even when they no longer share a location. I am the engineer of social cohesion." },
+        { spr: "20% 100%", name: "Dr. Kenji Wu", job: "Hierarchical Auditor", major: "Sociology", 
+          skills: ["Auditing class-stratification.", "Identifying hidden systemic bias in code.", "Modeling social mobility in digital groups."],
+          distractors: ["Analyzing neuro-narrative reception.", "Debating ethical boundaries of consciousness.", "Evaluating institutional friction."],
+          letter: "I audit the code that manages our lives. My Sociology training allows me to see the hidden biases that engineers miss. I fight to ensure that our digital society remains as open and mobile as our old physical one. I am the auditor of digital justice." },
+        { spr: "40% 100%", name: "Sarah Vance", job: "Network Sociologist", major: "Sociology", 
+          skills: ["Analyzing group dynamics in VR.", "Mapping influence nodes in social code.", "Evaluating collective agency of crowds."],
+          distractors: ["Synthesizing poetic prosody for bots.", "Conducting thick-description of rituals.", "Analyzing archival land-use patterns."],
+          letter: "I analyze how digital movements form. Sociology taught me that even in a world of machines, the collective human will is the true driver of history. I help movements turn raw energy into real social change. I am the analyst of the collective will." },
 
         // ANTHROPOLOGY (3)
-        { spr: "60% 100%", name: "Nara Kim", job: "Habitat Ethnographer", major: "Anthropology", skills: ["Thick-description observations.", "Uncovering symbolic meaning.", "Analyzing kinship systems."], reveal: "I document the new rituals of the space age.", letter: "Technology isn't culture. My Anthropology degree helped me re-establish rituals for birth and mourning on the Moon." },
-        { spr: "80% 100%", name: "Amara Okonkwo", job: "Intercultural Translator", major: "Anthropology", skills: ["Mediating culture shock.", "Analyzing non-terrestrial kinship.", "Mapping symbolic dialects."], reveal: "I bridge the gap between Earth and Mars-born.", letter: "I translate meaning, not words. I help Earth-bound families understand the radically different lives of their Martian children." },
-        { spr: "100% 100%", name: "Dr. Julian Sky", job: "Ritual Architect", major: "Anthropology", skills: ["Designing communal symbols.", "Analyzing lived experience.", "Evaluating symbolic capital."], reveal: "I design ceremonies for a post-biological era.", letter: "Even in 2045, we need to feel 'part of something.' I use my training to design the new ceremonies that anchor our digital lives." }
+        { spr: "60% 100%", name: "Nara Kim", job: "Habitat Ethnographer", major: "Anthropology", 
+          skills: ["Thick-description observations of rituals.", "Uncovering symbolic meaning of daily life.", "Analyzing adaptation of kinship systems."],
+          distractors: ["Modeling human behavior through variables.", "Evaluating ethical market access.", "Applying classical treaty structures."],
+          letter: "Technology isn't culture. My Anthropology degree helped me re-establish rituals for birth and mourning on the Moon. I ensure that biological history remains a vital part of our extra-terrestrial future. I am the witness of lived experience." },
+        { spr: "80% 100%", name: "Amara Okonkwo", job: "Intercultural Translator", major: "Anthropology", 
+          skills: ["Mediating generational culture shock.", "Analyzing non-terrestrial kinship.", "Mapping new symbolic dialects."],
+          distractors: ["Analyzing narrative interiority and desire.", "Redrafting digital social contracts.", "Predicting civilizational phase-shifts."],
+          letter: "I translate meaning, not just words. I help Earth-bound families understand the radically different lives of their Martian children, protecting the human bond across the cold distance of space. I am the guardian of the family bond." },
+        { spr: "100% 100%", name: "Dr. Julian Sky", job: "Ritual Architect", major: "Anthropology", 
+          skills: ["Designing communal symbols for colonies.", "Analyzing lived experience in transit.", "Evaluating symbolic capital in groups."],
+          distractors: ["Applying historical contingency to data.", "Designing equilibrium equations for choice.", "Modeling post-scarcity welfare dividends."],
+          letter: "Even in 2045, we need to feel 'part of something.' I use my training to design the new ceremonies and symbols that anchor our digital lives. I turn empty space into a human home. I am the architect of sacred space." }
     ];
 
-    const distractorSkills = ["Optimizing neural-link latency.", "Debugging drone firmware.", "Calculating server heat.", "Managing logistics.", "Synthesizing carbon-allotropes."];
     let metAlumni = [];
     let currentMentor = null;
     let selectedSkills = [];
@@ -158,12 +231,14 @@
         document.getElementById('mentors-met-count').innerText = metAlumni.length;
         const grid = document.getElementById('char-grid');
         grid.innerHTML = '';
+        
+        // Mandatory distinct alumni filter
         const available = alumni.filter(a => !metAlumni.includes(a));
         shuffle(available).slice(0, 4).forEach(mentor => {
             const card = document.createElement('div');
             card.className = 'char-card';
             card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${mentor.spr}"></div>
-                             <div class="char-info"><h3>${mentor.name}</h3><p style="color:var(--dku-gold)">${mentor.job}</p></div>`;
+                             <div class="char-info"><h3>${mentor.name}</h3><p style="color:var(--dku-gold); font-size: 0.9rem;">${mentor.job}</p></div>`;
             card.onclick = () => loadMentor(mentor);
             grid.appendChild(card);
         });
@@ -174,9 +249,8 @@
         selectedSkills = [];
         switchScreen('selection-screen', 'mentor-screen');
         document.getElementById('job-title').innerText = mentor.job;
-        document.getElementById('job-desc').innerText = "Inquiry Lead, Class of 2045";
         document.getElementById('mentor-photo').style.backgroundPosition = mentor.spr;
-        const options = shuffle([...mentor.skills, ...shuffle(distractorSkills).slice(0, 2)]);
+        const options = shuffle([...mentor.skills, ...mentor.distractors]);
         const grid = document.getElementById('skill-options');
         grid.innerHTML = '';
         options.forEach(skill => {
@@ -194,7 +268,7 @@
 
     function verifySkills() {
         if (selectedSkills.every(s => currentMentor.skills.includes(s))) { switchScreen('mentor-screen', 'major-screen'); loadMajors(); } 
-        else { alert("Inconsistent methodology detected."); }
+        else { alert("Inconsistent humanistic skills detected. Re-examine the disciplinary pillars of this inquiry."); }
     }
 
     function loadMajors() {
@@ -210,12 +284,14 @@
                     switchScreen('major-screen', 'reveal-screen');
                     document.getElementById('reveal-name').innerText = currentMentor.name;
                     document.getElementById('reveal-photo').style.backgroundPosition = currentMentor.spr;
-                    document.getElementById('reveal-content').innerText = currentMentor.reveal;
+                    document.getElementById('reveal-content').innerText = "Inquiry Authentication Successful. Methodology verified.";
+                    
+                    // Enforce the 3-mentor rule
                     if (metAlumni.length === 3) {
                         document.getElementById('next-mentor-btn').classList.add('hidden');
                         document.getElementById('final-choice-btn').classList.remove('hidden');
                     }
-                } else { alert("Incorrect academic root."); }
+                } else { alert("Incorrect academic root. Consider which disciplinary lens provides these specific humanistic skills."); }
             };
             grid.appendChild(btn);
         });
@@ -229,7 +305,7 @@
             const card = document.createElement('div');
             card.className = 'char-card';
             card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${alumnus.spr}"></div>
-                             <div class="char-info"><h3>${alumnus.name}</h3><p>${alumnus.major}</p></div>`;
+                             <div class="char-info"><h3>${alumnus.name}</h3><p style="color:var(--dku-gold)">${alumnus.major}</p></div>`;
             card.onclick = () => displayLetter(alumnus);
             grid.appendChild(card);
         });
@@ -238,8 +314,8 @@
     function displayLetter(alumnus) {
         switchScreen('choice-screen', 'letter-screen');
         document.getElementById('letter-content').innerHTML = `
-            <p style="font-weight:700;">Subject: Methodological Reflection – 2025 to 2045</p>
-            <p>From: ${alumnus.name}, DKU Class of 2025/26</p>
+            <p style="font-weight:700;">Subject: Reflection on Humanistic Skills – 2025 to 2045</p>
+            <p>From: ${alumnus.name}, DKU Alumni Network</p>
             <hr style="border:0; border-top:1px solid #ddd; margin: 20px 0;">
             <p>${alumnus.letter}</p>
             <p class="signature">Yours in Inquiry,<br>${alumnus.name}</p>
