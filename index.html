@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DKU Alumni 2050 | Verified Inquiry</title>
+    <title>DKU Alumni 2050 | Global Leadership Inquiry</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -33,24 +33,21 @@
         }
         .photo-frame { width: 100%; height: 280px; border-bottom: 3px solid var(--dku-blue); }
         .char-card:hover .alumni-sprite { filter: grayscale(0%); border-bottom-color: var(--dku-gold); }
-        .large-photo { width: 320px; height: 320px; margin: 0 auto 30px; border: 2px solid var(--dku-gold); }
+        .large-photo { width: 300px; height: 300px; margin: 0 auto 30px; border: 2px solid var(--dku-gold); }
         
-        .btn { background: var(--dku-blue); color: white; border: none; padding: 20px 30px; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; width: 100%; transition: 0.3s; margin-top: 20px; border-radius: 2px; }
+        .btn { background: var(--dku-blue); color: white; border: none; padding: 20px 30px; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; width: 100%; transition: 0.3s; border-radius: 2px; }
         .btn:hover:not(:disabled) { background: #002366; transform: translateY(-2px); }
         .btn:disabled { background: #1e293b; color: #475569; cursor: not-allowed; }
         
         .character-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 30px; }
-        .char-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; text-align: left; border-radius: 4px; overflow: hidden; }
+        .char-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; text-align: left; overflow: hidden; border-radius: 4px; }
         .char-card:hover { border-color: var(--dku-gold); transform: translateY(-8px); }
         
         .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .skill-btn { background: transparent; border: 1px solid #334155; color: var(--text-light); padding: 18px; text-align: left; cursor: pointer; font-size: 0.95rem; border-radius: 4px; transition: 0.2s; line-height: 1.4; }
         .skill-btn.selected { border-color: var(--dku-gold); background: rgba(226, 173, 53, 0.15); }
         
-        .feedback-toast { display: none; background: var(--success); color: white; padding: 15px; text-align: center; border-radius: 4px; margin: 20px 0; font-weight: 600; letter-spacing: 1px; animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .rationale-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 25px; margin: 25px 0; color: var(--text-light); }
+        .feedback-toast { display: none; background: var(--success); color: white; padding: 15px; text-align: center; border-radius: 4px; margin: 20px 0; font-weight: 600; letter-spacing: 1px; }
 
         .dashboard { display: flex; gap: 40px; margin-top: 30px; text-align: left; }
         .letter-column { flex: 2; background: #fffdfc; color: #1a1a1a; padding: 50px; font-family: 'Crimson Pro', serif; border: 1px solid #d4d4d4; }
@@ -61,7 +58,7 @@
         .cv-item { margin-bottom: 20px; font-size: 0.95rem; border-left: 2px solid var(--dku-blue); padding-left: 15px; }
         .cv-year { font-weight: bold; color: var(--dku-gold); font-size: 0.85rem; display: block; margin-bottom: 4px; }
         .letter-column h2 { color: var(--dku-blue); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-top: 0; }
-        .letter-column p { line-height: 1.8; font-size: 1.25rem; margin-bottom: 25px; }
+        .letter-column p { line-height: 1.8; font-size: 1.2rem; margin-bottom: 25px; }
         .signature { margin-top: 40px; font-style: italic; font-weight: bold; font-size: 1.4rem; color: var(--dku-blue); }
 
         @media (max-width: 900px) { .dashboard { flex-direction: column; } .sidebar-column { order: -1; } .character-grid { grid-template-columns: 1fr; } .skill-grid { grid-template-columns: 1fr; } }
@@ -74,10 +71,10 @@
         <h1>DKU ALUMNI 2050</h1>
         <div class="tagline">The Human Advantage Inquiry</div>
         <div style="background: rgba(255,255,255,0.03); padding: 40px; border-radius: 4px; margin-bottom: 30px;">
-            <p>Welcome to 2050. Technology has automated routine tasks, but the ability to solve complex human problems is the ultimate advantage.</p>
-            <p><strong>Decryption Protocol:</strong> Authenticate 3 alumni by identifying their skills and academic roots to unlock their 25-year trajectory.</p>
+            <p>Welcome to 2050. Technical tasks are automated. Your ability to lead, persuade, and solve complex human problems is the ultimate advantage.</p>
+            <p><strong>Protocol:</strong> Authenticate 3 alumni by identifying their skills and majors to unlock their career history.</p>
         </div>
-        <button class="btn" onclick="showSelection()">Initialize Inquiry</button>
+        <button class="btn" onclick="showSelection()">Initialize Protocol</button>
     </div>
 
     <div id="selection-screen" class="screen">
@@ -90,7 +87,6 @@
         <div id="mentor-photo" class="alumni-sprite large-photo"></div>
         <h2 id="mentor-name-title" style="color: var(--dku-gold); margin: 0;"></h2>
         <div id="job-long-desc" style="color: #94a3b8; margin: 20px auto 40px; text-align: left; padding: 0 40px; font-size: 1.1rem; line-height: 1.6;"></div>
-        <p style="text-align:center; font-size: 0.8rem; color: var(--dku-gold); letter-spacing: 1px;">IDENTIFY 3 CORE SKILLS FOR THIS ROLE:</p>
         <div id="skill-options" class="skill-grid"></div>
         <div id="skill-feedback" class="feedback-toast">✓ EXCELLENT: Humanistic toolkit authenticated.</div>
         <button id="verify-skills-btn" class="btn" onclick="verifySkills()" disabled>Verify Skills</button>
@@ -98,22 +94,21 @@
 
     <div id="major-screen" class="screen">
         <h2>Disciplinary Root</h2>
-        <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Identify the major that provided the foundation for these skills:</p>
         <div id="major-options" class="character-grid"></div>
-        <div id="major-feedback" class="feedback-toast">✓ OUTSTANDING: Disciplinary foundation confirmed.</div>
+        <div id="major-feedback" class="feedback-toast">✓ OUTSTANDING: Major confirmed.</div>
     </div>
 
     <div id="reveal-screen" class="screen">
         <div id="reveal-photo" class="alumni-sprite large-photo"></div>
         <h2 id="reveal-name" style="color: var(--dku-gold); margin: 0;"></h2>
         <div id="reveal-rationale" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 25px; margin: 25px 0; color: var(--text-light);"></div>
-        <button id="next-mentor-btn" class="btn" onclick="showSelection()">Consult Next Mentor</button>
-        <button id="final-choice-btn" class="btn hidden" onclick="showFinalChoice()">Initialize Decryption</button>
+        <button id="next-mentor-btn" class="btn" onclick="showSelection()">Seek Next Mentor</button>
+        <button id="final-choice-btn" class="btn hidden" onclick="showFinalChoice()">Decrypt Career Trajectory</button>
     </div>
 
     <div id="choice-screen" class="screen">
         <h2>Authentication Complete</h2>
-        <p style="text-align: center; margin-bottom: 40px;">Choose one mentor to decrypt their full career reflection (2025-2050).</p>
+        <p style="text-align: center; margin-bottom: 40px;">Choose one mentor to decrypt their full history.</p>
         <div id="choice-grid" class="character-grid"></div>
     </div>
 
@@ -125,200 +120,212 @@
 
 <script>
     const majorExplanations = {
-        "QPE": "QPE is the 'Math of Choice.' It uses data to predict how human feelings affect the economy and designs rules that help big groups cooperate fairly.",
-        "History": "History is about 'Root Causes.' It trains you to be a detective who figures out why things are stuck today by looking at what happened years ago.",
-        "Literature": "Literature is about 'Hidden Meanings.' It teaches you how to decode influential messages and master powerful storytelling.",
-        "GCS": "GCS is about 'Global Context.' It provides a long-term view of cultures so global ideas can respect local values.",
-        "Philosophy & Religion": "This major is about 'Big Truths.' It solves 'Right vs. Right' dilemmas when ethics and reality become confusing.",
-        "PPE": "PPE is about 'The Rules of the Game.' It gives you tools to fix organizations and design social contracts.",
-        "Sociology": "Sociology is about 'Invisible Patterns.' It sees hidden hierarchies in a group to build trust and community spirit.",
-        "Anthropology": "Anthropology is about 'The Human Vibe.' It pays attention to unwritten rules to design things people actually love."
+        "QPE": "QPE is the 'Math of Choice.' It uses data to predict how human feelings affect the economy and designs rules that help groups cooperate fairly.",
+        "History": "History is about 'Root Causes.' It trains you to be a detective who figures out why things are stuck by looking at the past.",
+        "Literature": "Literature is about 'Hidden Meanings.' It teaches you how to decode stories to build trust through storytelling.",
+        "GCS": "GCS is about 'Global Context.' It gives you a long-term view of how different cultures see the world.",
+        "Philosophy & Religion": "This major is about 'Big Truths.' It solves 'Right vs. Right' dilemmas and finds clarity in ethics.",
+        "PPE": "PPE is about 'The Rules of the Game.' It fixes broken organizations and design social contracts.",
+        "Sociology": "Sociology is about 'Invisible Patterns.' It sees hidden hierarchies and builds community trust.",
+        "Anthropology": "Anthropology is about 'The Human Vibe.' It pays attention to unwritten rules to design things people love."
     };
 
     const alumni = [
-        // QPE (3)
-        { spr: "0% 0%", name: "Dr. Aris Thorne", job: "Director of Market Integrity, Ant Group", major: "QPE", 
-          longDesc: "I lead the risk-management unit at Ant Group. I monitor high-frequency digital payments to spot patterns of economic panic or machine-driven bias. I design the mathematical guardrails that prevent financial crashes during automated trade wars.",
-          skills: ["Predicting how feelings affect trends.", "Finding patterns in social datasets.", "Designing cooperation rules."],
-          distractors: ["Analyzing poem meanings.", "Checking old facts.", "Observing group vibes."],
-          research: "Consumer Trust in Micro-Lending. I proved that social trust levels are better predictors of loan repayment than raw income, teaching me that financial models must account for human psychology.",
-          timeline: [["2025", "Grad DKU QPE; Junior Quant, Shanghai"], ["2035", "Lead Scientist, IMF Stability"], ["2048", "Director of Integrity, Ant Group"]],
-          letter: ["I left DKU in 2025 when raw data was king. I realized early that machines were missing the human hope and fear that actually drive money. My major let me model the 'why' behind the numbers.", "By 2038, I moved to Ant Group to design Human Guardrails. I didn't just use math for profit; I used it for fairness, ensuring machines trade for human welfare.", "Don't just master the code—master the behavior the code captures. That is the only way to manage the machines of 2050."] },
-        { spr: "20% 0%", name: "Liam Sterling", job: "Senior Economic Monitor, IMF", major: "QPE", 
-          longDesc: "I work for the IMF as a lead monitor for market stability. I analyze how national economies adapt when automation replaces traditional service jobs. I advise world leaders on designing tax rules that keep a society of leisure fair.",
-          skills: ["Predicting reactions to tax rules.", "Using game-theory for fairness.", "Modeling how cities adapt."],
-          distractors: ["Analyzing symbolic rituals.", "Fixing red tape.", "Spotting media bias."],
-          research: "Adaptive Game Theory in Post-Work Communities. I modeled how neighbors cooperate without 9-to-5 jobs, providing the blueprint for global Leisure Dividend policies.",
-          timeline: [["2025", "Grad DKU QPE; Policy Intern, OECD"], ["2033", "Regional Director, EU Automation"], ["2047", "Senior Monitor, IMF"]],
-          letter: ["In 2025, a society without work was a radical dream. My research gave me the data to show skeptics that people don't get lazy—they get creative. I turned a theory into a reality.", "I spent my thirties in the G20, designing the math for a fair automated economy. QPE gave me the power to argue for the vulnerable using the language of the powerful: math.", "Every variable in your model is a human life. If you forget that, your model will eventually fail. Master the data, but keep the soul."] },
-        { spr: "40% 0%", name: "Aria Vance", job: "Global Supply Strategist, Alibaba Cloud", major: "QPE", 
-          longDesc: "I work for Alibaba Cloud Logistics, managing the supply grid for Southeast Asia. I use big data to solve shipping bottlenecks by predicting local political risks. I design systems that ensure resource access is a human right.",
-          skills: ["Solving shipping bottlenecks.", "Spotting economic risks.", "Designing resource systems."],
-          distractors: ["Fact-checking history.", "Solving philosophical dilemmas.", "Designing office traditions."],
-          research: "The Topology of Essential Flow. I mapped how medical supplies moved during the 2020s and found that resilience comes from decentralized networks.",
-          timeline: [["2025", "Grad DKU QPE; Analyst, JD.com"], ["2036", "Director, UN Humanitarian Supply"], ["2049", "Chief Strategist, Alibaba Cloud"]],
-          letter: ["The world of 2050 is a series of pipes, and I am the plumber. My research into 'Essential Flow' is now the standard model for preventing regional famines during climate shocks.", "While others optimized for speed, I optimized for resilience. I used my QPE background to prove that a slower system that doesn't break is more valuable than a fast one that crashes.", "Systems thinking is your greatest weapon. Learn to see the network, not just the nodes. The future belongs to those who manage the flow."] },
+        // ROW 1: QPE (1-3) & HISTORY (4-6)
+        { spr: "0% 0%", name: "Zhao Wei", job: "Director of Market Integrity, Ant Group", major: "QPE", 
+          longDesc: "I lead risk-management at Ant Group. I monitor high-frequency payments to spot economic panic. I design mathematical guardrails to prevent financial crashes during trade wars.",
+          skills: ["Predicting trends from feelings.", "Finding patterns in data.", "Designing cooperation rules."],
+          distractors: ["Decoding brand messages.", "Solving moral dilemmas.", "Investigating failed deals."],
+          research: "Consumer trust in Micro-Lending. I proved that trust levels predict loan repayment better than income, showing that data needs a human soul.",
+          timeline: [["2025", "Grad DKU; Analyst, ICBC"], ["2036", "Lead Scientist, IMF"], ["2048", "Director, Ant Group"]],
+          letter: ["I left DKU in 2025 when raw data was king. I realized machines were missing the hope and fear that drive money.", "In 2038, I moved to Ant Group to design Human Guardrails. I ensured machines trade for human welfare, not just profit.", "If you understand why people choose, you will manage the future."] },
+        
+        { spr: "20% 0%", name: "Amara Okafor", job: "Senior Economic Monitor, IMF", major: "QPE", 
+          longDesc: "I work for the IMF monitoring global stability. I analyze how economies adapt when automation replaces service jobs. I advise on tax rules for a society of leisure.",
+          skills: ["Predicting tax rule reactions.", "Using game-theory for fairness.", "Modeling city adaptations."],
+          distractors: ["Analyzing digital emotions.", "Rewriting rules for offices.", "Checking archive evidence."],
+          research: "Post-Work Communities. I modeled how neighbors cooperate without 9-to-5 jobs, which provided the blueprint for current global policies.",
+          timeline: [["2025", "Grad DKU; Intern, OECD"], ["2034", "Director, EU Automation"], ["2047", "Senior Monitor, IMF"]],
+          letter: ["In 2025, UBI was a radical dream. My research proved people get creative, not lazy.", "I spent my thirties in the G20, designing math for a fair economy using the language of the powerful.", "Every variable is a human life. Master the data, but keep the soul."] },
 
-        // HISTORY (3)
-        { spr: "60% 0%", name: "Amina Okoro", job: "Information Integrity Lead, Xinhua News", major: "History", 
-          longDesc: "I lead the Veracity Unit at Xinhua News Agency. My team fact-checks digital history to stop AI from rewriting past events. We corroborate paper archives against digital counterparts to ensure shared memory is accurate.",
+        { spr: "40% 0%", name: "Sun Li", job: "Supply-Chain Strategist, Alibaba Cloud", major: "QPE", 
+          longDesc: "I work for Alibaba Cloud managing the supply grid for Southeast Asia. I solve shipping bottlenecks by predicting political risks. I ensure resource access is a human right.",
+          skills: ["Solving shipping bottlenecks.", "Spotting economic risks.", "Designing resource systems."],
+          distractors: ["Solving clashes of faiths.", "Investigating history roots.", "Critiquing app manipulation."],
+          research: "Topology of Flow. I mapped how medical supplies moved in the 2020s and found that resilience comes from decentralized networks.",
+          timeline: [["2025", "Grad DKU; Analyst, JD.com"], ["2036", "Director, UN Supply"], ["2049", "Chief Strategist, Alibaba"]],
+          letter: ["The world is a series of pipes, and I am the plumber. My research is now the standard for preventing regional famines.", "While others optimized for speed, I optimized for resilience. A slower, unbreakable system is better.", "Systems thinking is your greatest weapon. Learn to see the flow."] },
+
+        { spr: "60% 0%", name: "Dr. Julian Voss", job: "Information Integrity Lead, Xinhua News", major: "History", 
+          longDesc: "I lead the Veracity Unit at Xinhua. My team fact-checks digital history to stop AI rewriting past events. We corroborate paper archives against digital counterparts.",
           skills: ["Investigating root causes.", "Fact-checking against evidence.", "Figuring out why things are stuck."],
-          distractors: ["Designing financial rules.", "Managing social vibes.", "Building data models."],
-          research: "The Reconstruction of Erased Records. I studied how physical records suppress local histories and developed a method to reconstruct timelines using causal tracing.",
-          timeline: [["2025", "Grad DKU History; Researcher, National Archives"], ["2030", "Truth Lead, Global Media"], ["2045", "Lead, Xinhua Veracity Unit"]],
-          letter: ["In 2030, the world entered the Deepfake Crisis. I realized that my History major wasn't about the past—it was the world's most powerful armor for the present.", "I track stories back to their physical origin. If there is no physical paper or witness, the story is a lie. I turned a love for books into a digital shield.", "History is the infrastructure of truth. If you can verify why something happened, you become the anchor of your generation. Never trust a record you haven't sourced."] },
-        { spr: "80% 0%", name: "Felix Thorne", job: "VP of Organizational Heritage, Nike Global", major: "History", 
-          longDesc: "I am the senior heritage officer for Nike Global. I analyze design trends from the 1970s and 1980s to predict what retro experiences will resonate with 2050 users. I find the root causes of success.",
+          distractors: ["Designing cooperation rules.", "Designing brand personality.", "Building predictive models."],
+          research: "Erased Records. I studied how physical records suppress local histories and developed a method to find 'ghost traces' of truth.",
+          timeline: [["2025", "Grad DKU; National Archives"], ["2032", "Truth Lead, Global Media"], ["2045", "Lead, Xinhua Unit"]],
+          letter: ["In 2030, the Deepfake Crisis hit. I realized History wasn't about the past—it was the most powerful armor for the present.", "I track stories back to physical origins. If there is no witness, the story is a lie.", "History is the infrastructure of truth. Never trust a record you haven't sourced."] },
+
+        { spr: "80% 0%", name: "Chen Ming", job: "VP of Heritage, Nike Global", major: "History", 
+          longDesc: "I am the heritage officer for Nike. I analyze design trends from the 1980s to predict what retro experiences will resonate in 2050. I find causes of brand success.",
           skills: ["Spotting patterns across decades.", "Finding causes of success.", "Organizing messy data."],
           distractors: ["Solving moral dilemmas.", "Predicting stock bubbles.", "Fixing algorithmic bias."],
-          research: "The Semiotics of Athleisure. I researched how sports clothing became a symbol of status in the 20th century, which taught me that products are historical symbols.",
-          timeline: [["2025", "Grad DKU History; Brand Assistant, LVMH"], ["2038", "Director of Heritage, Adidas"], ["2050", "VP of Heritage, Nike Global"]],
-          letter: ["Companies that forget their history lose their customers. I spend my life reminding Nike who they are. I use my degree to find the 'Soul' of the brand in old sketches.", "In 2042, a trend for 'Original Authenticity' hit the market. Because I had spent my years studying 20th-century symbols, I was the only person who knew what people actually wanted.", "History is the user manual for the world. If you know how the system was built, you're the only one who can fix it. Don't let the present distract you from the foundation."] },
-        { spr: "100% 0%", name: "Thomas Beckett", job: "Senior Precedent Advisor, Reuters", major: "History", 
-          longDesc: "I work for Reuters as a lead strategic analyst. I analyze historical events like the Cold War to find strategies for de-escalating modern cyber-crises. I explain how current tensions follow 20th-century patterns.",
+          research: "Semiotics of Athleisure. I researched how sports clothing became a symbol of status, teaching me that products are historical symbols.",
+          timeline: [["2025", "Grad DKU; Assistant, LVMH"], ["2038", "Director, Adidas"], ["2050", "VP, Nike Global"]],
+          letter: ["Companies that forget history lose their customers. I find the 'Soul' of the brand in old sketches.", "In 2042, the 'Authenticity' trend hit. I knew exactly what people wanted because I studied 20th-century symbols.", "History is the user manual for the world. If you know how it was built, you can fix it."] },
+
+        { spr: "100% 0%", name: "Elena Rodriguez", job: "Senior Advisor, AIIB", major: "History", 
+          longDesc: "I work for the AIIB in Beijing. I analyze historical border disputes to advise on rail networks. I explain how current tensions follow 20th-century patterns.",
           skills: ["Applying past rules to new problems.", "Explaining crises via old patterns.", "Investigating failed deals."],
           distractors: ["Designing brand stories.", "Predicting supply shortages.", "Decoding hierarchies."],
-          research: "Diplomatic Failure in the 1930s. I identified specific shifts in language that lead to war, which is now used by AI bots to detect escalation in global communication.",
-          timeline: [["2025", "Grad DKU History; Junior Analyst, UN"], ["2035", "Crisis Manager, Red Cross"], ["2049", "Lead Analyst, Reuters Strategy"]],
-          letter: ["World leaders always make 'new' mistakes that are actually old. I am the person in the room who says, 'Wait, we tried this in 1962.' I provide the brakes for the world.", "My DKU research taught me that peace is a fragile pattern. I spend my days protecting that pattern. I turned a History degree into a high-stakes peacekeeping career.", "Master the patterns. In a world of infinite speed, the historian is the only person who knows how to look back. If you don't know the past, you're just driving blind."] },
+          research: "Diplomatic Failure. I identified specific language shifts that lead to war, which AI bots now use to detect escalation.",
+          timeline: [["2025", "Grad DKU; Analyst, UN"], ["2035", "Crisis Manager, Red Cross"], ["2049", "Lead Analyst, AIIB"]],
+          letter: ["World leaders always make 'new' mistakes that are old. I provide the brakes for the world.", "My research taught me that peace is a fragile pattern. I turned a History degree into high-stakes peacekeeping.", "Master the patterns. In a world of infinite speed, the historian is the only one who looks back."] },
 
-        // LITERATURE (3)
-        { spr: "0% 33.3%", name: "Julian Vane", job: "VP of Narrative Strategy, Bilibili", major: "Literature", 
-          longDesc: "I am a creative executive at Bilibili Immersive, building deep lore for 3D fan-worlds. I design character archetypes that resonate with diverse audiences in China and the West.",
+        // ROW 2: LITERATURE (7-9) & GCS (10-12)
+        { spr: "0% 33.3%", name: "Wang Xi", job: "VP of Narrative Strategy, Bilibili", major: "Literature", 
+          longDesc: "I am a creative executive at Bilibili. I build lore for virtual fan-worlds and design archetypes. I figure out the unsaid symbolic needs of our users.",
           skills: ["Decoding influential stories.", "Analyzing persuasion tactics.", "Figuring out unsaid needs."],
           distractors: ["Modeling economic data.", "Fact-checking documents.", "Fixing red tape."],
-          research: "Metaphorical Construction of National Identity. I analyzed how stories shape political beliefs, which taught me that metaphors run the human mind.",
-          timeline: [["2025", "Grad DKU Lit; Copywriter, Ogilvy"], ["2035", "Lore Lead, Tencent Metaverse"], ["2050", "VP Narrative, Bilibili"]],
-          letter: ["The engineers build the pixels, but they can't build the 'Meaning.' My success comes from DKU seminars where we learned that every word carries hidden weight.", "In 2040, people stopped buying products and started buying 'Destinies.' Because I understood how epics work, I was able to build virtual worlds that people felt they belonged to.", "Literature is the study of how we dream. Study the architects of dreams. Your job will be to make sure the digital world still has a human heart. Learn the architecture of meaning."] },
-        { spr: "20% 33.3%", name: "Claire Dupont", job: "Director of User Experience, Apple", major: "Literature", 
-          longDesc: "I lead the UX Narrative team at Apple. I critique our software to ensure it doesn't manipulate users into passive habits. I design spaces that encourage Narrative Agency.",
+          research: "Identity Construction. I analyzed how stories shape real political beliefs, which taught me that metaphors run the mind.",
+          timeline: [["2025", "Grad DKU; Copywriter, Ogilvy"], ["2035", "Lore Lead, Tencent"], ["2050", "VP, Bilibili"]],
+          letter: ["Engineers build pixels, but they can't build 'Meaning.' My success comes from DKU seminars on the weight of words.", "In 2040, people started buying 'Destinies.' Because I understood epics, I built worlds people belonged to.", "Literature is the study of how we dream. Master the architecture of meaning."] },
+
+        { spr: "20% 33.3%", name: "Arthur Miller", job: "Director of UX, Apple", major: "Literature", 
+          longDesc: "I lead the UX team at Apple. I critique software to ensure it doesn't manipulate users into passive habits. I design spaces that encourage Narrative Agency.",
           skills: ["Analyzing digital emotions.", "Critiquing manipulation.", "Decoding user needs."],
           distractors: ["Tracing history roots.", "Solving math problems.", "Predicting tax changes."],
-          research: "Hermeneutics of the Interface. I analyzed how buttons on a screen affect our sense of agency. This led to the Humanistic Interface Design standards used globally.",
-          timeline: [["2025", "Grad DKU Lit; UX Intern, ByteDance"], ["2034", "Design Lead, Xiaomi"], ["2048", "UX Director, Apple"]],
-          letter: ["By 2038, the digital world was so curated that people lost their ability to choose. I used my Lit major to fight back and build agency.", "I build interfaces that leave room for the user's imagination. I became the guardian of human interiority. I treat the user as a thinker, not just a data source.", "Cherish the ambiguity of a difficult book. Interpretation is the only thing that makes you more than a processor. Never let a machine tell you what a metaphor means."] },
-        { spr: "40% 33.3%", name: "Sasha Grey", job: "Senior Affect Lead, Baidu AI", major: "Literature", 
-          longDesc: "I work for Baidu Empathy AI, training machine assistants to sound truly human. I apply the rhythm of poetry to AI speech-bots so they can communicate with sincerity.",
+          research: "Interface Hermeneutics. I analyzed how buttons on a screen affect agency. This led to Apple's Humanistic Design standards.",
+          timeline: [["2025", "Grad DKU; UX Intern, ByteDance"], ["2034", "Lead, Xiaomi"], ["2048", "UX Director, Apple"]],
+          letter: ["By 2038, digital worlds were so curated that people lost choice. I used Lit to fight back.", "I built interfaces that left room for imagination. I became the guardian of human interiority.", "Interpretation is what makes you more than a processor. Never let a machine define a metaphor."] },
+
+        { spr: "40% 33.3%", name: "He Jing", job: "Senior Affect Lead, Baidu AI", major: "Literature", 
+          longDesc: "I work for Baidu AI training machine assistants to sound human. I apply the rhythm of poetry to speech-bots to communicate with sincerity.",
           skills: ["Poetry rhythm for AI.", "Tech kindness via stories.", "Designing brand personality."],
           distractors: ["Solving logic puzzles.", "Analyzing social classes.", "Checking evidence."],
-          research: "The Phonetics of Empathy. I mapped how modernist poetry triggers emotional responses, which is now the core code for the world's kindest machine assistants.",
-          timeline: [["2025", "Grad DKU Lit; Voice Script, iFLYTEK"], ["2035", "Designer, Samsung"], ["2047", "Senior Lead, Baidu AI"]],
-          letter: ["Empathy bots in 2032 sounded like microwaves. They failed because they didn't know how to speak to a heart in pain. I used meter and prosody to rewrite their modules.", "I taught machines how to use silence and metaphor to trigger human trust. I made the silicon sing. I proved that the most important part of any interface is the voice.", "Study the poets. They knew how the brain responds to beauty long before we had the technology to scan a cortex. Poetry is the original code for the human soul."] },
+          research: "Phonetics of Empathy. I mapped how modernist poetry triggers emotional responses, now the core code for Baidu's AI.",
+          timeline: [["2025", "Grad DKU; iFLYTEK"], ["2035", "Designer, Samsung"], ["2047", "Lead, Baidu AI"]],
+          letter: ["Empathy bots in 2032 sounded like microwaves. I used meter and prosody to rewrite their modules.", "I taught machines silence and cadence to trigger trust. I made the silicon sing.", "Poets knew how the brain responds to beauty. Poetry is the original code for the soul."] },
 
-        // GCS (3)
-        { spr: "60% 33.3%", name: "Zhang Wei", job: "Senior Cross-Cultural Advisor, Tencent", major: "GCS", 
-          longDesc: "I work at Tencent Global Strategy, facilitating expansion into African markets. I explain cultural context to global leadership, ensuring business models respect local values.",
+        { spr: "60% 33.3%", name: "Sofia Ibrahim", job: "Senior Advisor, Tencent Global", major: "GCS", 
+          longDesc: "I work at Tencent facilitation expansion into African markets. I explain cultural context to leadership, ensuring respect for local values.",
           skills: ["Explaining cultural context.", "Mixing tradition with business.", "Spotting cultural trends."],
-          distractors: ["Predicting stock fluctuations.", "Designing brand ceremonies.", "Investigating old causes."],
-          research: "Contemporary Confucianism in Digital Workplaces. I researched how hierarchies adapted to remote work, teaching me to look for the 'local heartbeat.'",
-          timeline: [["2025", "Grad DKU GCS; Analyst, Alibaba"], ["2038", "Director, ByteDance Africa"], ["2050", "Senior Advisor, Tencent"]],
-          letter: ["I am a translator—not of words, but of values. In 2030, global business models crashed because they assumed everyone wanted the same thing. My research showed that respect comes first.", "My major allowed me to see the 'Long-Durée.' While others were chasing trends, I was looking at patterns that have existed for a thousand years. That depth is why I am in the boardroom.", "Never apologize for your roots. Your heritage is your greatest asset in a flat world. Learn to translate your depth into their language and lead from where you stand."] },
-        { spr: "80% 33.3%", name: "Maya El-Amin", job: "Cultural Policy Director, UNESCO", major: "GCS", 
-          longDesc: "I work for UNESCO, protecting cultural diversity in an era of global AI. I look at 100-year patterns to plan how to protect traditions that are being digitized.",
+          distractors: ["Predicting fluctuations.", "Designing brand ceremonies.", "Investigating old causes."],
+          research: "Confucianism in Workplaces. I interviewed professionals to see how traditional hierarchies adapted to remote work.",
+          timeline: [["2025", "Grad DKU; Analyst, Alibaba"], ["2038", "Director, ByteDance Africa"], ["2050", "Senior Advisor, Tencent"]],
+          letter: ["I am a translator of values. In 2030, global models crashed because they ignored respect.", "My major allowed me to see the 'Long-Durée.' I looked at patterns that have existed for a thousand years.", "Your heritage is your greatest asset. Learn to translate your depth into leadership."] },
+
+        { spr: "80% 33.3%", name: "Lin Yu", job: "Policy Director, UNESCO", major: "GCS", 
+          longDesc: "I work for UNESCO protecting cultural diversity. I look at 100-year patterns in Chinese history to protect digitized traditions.",
           skills: ["Spotting 100-year patterns.", "Predicting cultural shifts.", "Mapping global ideas."],
-          distractors: ["Decoding group hierarchies.", "Using social datasets.", "Defining moral rights."],
-          research: "The Silk Road as a Narrative Network. I studied how trade routes carry myths as well as goods, which gave me the framework for protecting culture today.",
-          timeline: [["2025", "Grad DKU GCS; Intern, UN"], ["2036", "Policy Advisor, EU"], ["2048", "Global Director, UNESCO"]],
-          letter: ["I spent my twenties studying the cycles beneath the surface of politics. While my peers looked at earnings, I looked at the next two hundred years of the story.", "I predicted the 'Return to Values' of the 2040s. I used the 'Long-Durée' lens to save traditions from being automated. I saved the un-digital.", "Your value is your depth of field. Don't look at the news; look at the centuries. That is where the real data about the future is hidden. Master the deep patterns of history."] },
-        { spr: "100% 33.3%", name: "Lin Xiao", job: "Ethics & Cultural Auditor, Huawei", major: "GCS", 
-          longDesc: "I work for Huawei Smart Device in Shenzhen. I audit all products to ensure their AI assistants respect family values and traditions. I train teams on harmonious design.",
-          skills: ["Checking product/value alignment.", "Explaining cultural do's/don'ts.", "Making tech feel familiar."],
+          distractors: ["Decoding hierarchies.", "Using social datasets.", "Defining moral rights."],
+          research: "Silk Road Narratives. I studied how trade routes carry myths, which gave me the framework for protecting culture today.",
+          timeline: [["2025", "Grad DKU; Intern, UN"], ["2036", "Advisor, EU"], ["2048", "Director, UNESCO"]],
+          letter: ["I spent my twenties studying politics' surface cycles. I looked at the next two hundred years.", "I used the 'Long-Durée' lens to save traditions from automation. I saved the un-digital.", "Don't look at the news; look at the centuries. That is where real data is hidden."] },
+
+        { spr: "100% 33.3%", name: "Marcus Thorne", job: "Cultural Auditor, Huawei", major: "GCS", 
+          longDesc: "I work for Huawei Smart Device. I audit products to ensure assistants respect family values and traditions.",
+          skills: ["Checking value alignment.", "Explaining cultural do's/don'ts.", "Making tech feel familiar."],
           distractors: ["Solving legal disputes.", "Designing stock rules.", "Interpreting poems."],
-          research: "Filial Piety in the Algorithmic Age. I researched how smart-home tech can strengthen family bonds, which is now the foundation for all Huawei smart designs.",
-          timeline: [["2025", "Grad DKU GCS; researcher, OPPO"], ["2034", "Director, Baidu UX"], ["2049", "Chief Auditor, Huawei"]],
-          letter: ["By 2030, people were tired of technology that felt 'alien.' My GCS major gave me the moral compass to guide engineers.", "I taught teams how to integrate AI into the traditional rhythms of family life. I showed them that a product is only successful if it enhances the moral fabric.", "Learn to translate values. In a world of infinite choice, people will always choose things that respect where they came from. Respect the roots."] },
+          research: "Filial Piety in algorithms. I researched how smart-home tech strengthens family bonds, now the foundation for Huawei.",
+          timeline: [["2025", "Grad DKU; researcher, OPPO"], ["2034", "Director, Baidu"], ["2049", "Chief Auditor, Huawei"]],
+          letter: ["By 2030, people were tired of 'alien' tech. My major gave me the moral compass to guide engineers.", "I taught teams to integrate AI into family rhythms. I made the future belong to us.", "In a world of choice, people choose what respects where they came from. Respect the roots."] },
 
-        // RELPHIL (3)
-        { spr: "0% 66.6%", name: "Siddharth Rao", job: "Chief Ethics Officer, ByteDance AI", major: "Philosophy & Religion", 
-          longDesc: "I adjudicate the Human-Machine Ethics Code at ByteDance. I solve high-stakes dilemmas that arise as we build recommendation engines. I find the ground truth for our users.",
-          skills: ["Finding ground truth.", "Solving Right vs. Right dilemmas.", "Defining a meaningful life."],
+        // ROW 3: RELPHIL (13-15) & PPE (16-18)
+        { spr: "0% 66.6%", name: "Professor Tang Bo", job: "Chief Ethics Officer, ByteDance AI", major: "Philosophy & Religion", 
+          longDesc: "I adjudicate the AI Ethics Code at ByteDance. I solve dilemmas that arise as we build recommendation engines.",
+          skills: ["Finding ground truth.", "Solving Right vs. Right dilemmas.", "Defining meaningful life."],
           distractors: ["Predicting market trends.", "Fixing bureaucracy.", "Decoding brand stories."],
-          research: "Digital Virtue Ethics. I applied 2,000-year-old philosophical frameworks to social media algorithms, giving me the muscles to argue for human rights.",
-          timeline: [["2025", "Grad DKU RelPhil; NGO Researcher"], ["2035", "Safety Lead, OpenAI"], ["2048", "Chief Ethics Officer, ByteDance"]],
-          letter: ["When the Sentience Crisis hit in 2041, I was ready. My research had already forced me to ask: What constitutes a 'Self'? I didn't solve the problem with code; I solved it with logic.", "Philosophy is the most practical skill. It allows you to say 'No' to a bad idea by proving why it's inconsistent with human dignity. I define the values the machine is allowed to have.", "Don't be afraid of the 'useless' questions. The harder the question is to answer, the more money someone will pay you to solve it in twenty years. Logic is timeless."] },
-        { spr: "20% 66.6%", name: "Sofia Castillo", job: "Director of Digital Truth, OpenAI", major: "Philosophy & Religion", 
-          longDesc: "I work for OpenAI ensuring models provide logical consistency. I use philosophy to check if virtual worlds make sense and help people find meaning in digital spaces.",
-          skills: ["Checking virtual logic.", "Finding meaning in digital spaces.", "Verifying facts using philosophy."],
-          distractors: ["Investigating history roots.", "Designing government rules.", "Spotting social bias."],
-          research: "The Ontology of the Avatar. I explored how our sense of reality changes in digital bodies. This research now forms the basis for reality authentication protocols.",
-          timeline: [["2025", "Grad DKU RelPhil; Auditor, Google"], ["2037", "Consultant, NASA"], ["2050", "Director, OpenAI"]],
-          letter: ["By 2035, reality and simulation had dissolved into each other. Society was fragmenting because our metaphysical anchor was gone. I used my degree to rebuild that anchor.", "I became a 'Reality Auditor.' I used epistemology to design authentication protocols, teaching people how to recognize the 'Inherent Self' in simulated spaces.", "Your ability to distinguish 'Appearance' from 'Essence' is your tool. Master logic, and you won't be lost in the code. The truth still exists; it's just harder to find."] },
-        { spr: "40% 66.6%", name: "Zane Malik", job: "Lead Values Mediator, Amity Foundation", major: "Philosophy & Religion", 
-          longDesc: "I bridge the gap between global technology and traditional faith groups in China. I ensure medical AI and relief drones respect religious boundaries.",
-          skills: ["Solving worldview clashes.", "Explaining tradition to tech teams.", "Applying moral logic to disputes."],
-          distractors: ["Analyzing group dynamics.", "Fixing liability laws.", "Predicting shipping delays."],
-          research: "The Sacrality of the Algorithm. I studied how different cultures view machines as either soulless or spirit-filled, which helps me mediate between tech and communities.",
-          timeline: [["2025", "Grad DKU RelPhil; Field Mediator"], ["2038", "Consultant, Microsoft"], ["2049", "Lead Mediator, Amity Foundation"]],
-          letter: ["By the 2040s, traditions were being flattened by digital culture. I became a 'Steward of the Sacred,' protecting human meaning from the machine and ensuring respect.", "I show tech companies that progress only works if it respects the spiritual boundaries of the people it serves. I integrated machines into the 'Great Chain of Being.'", "Study the great traditions. They are the only code that has run for thousands of years without a single crash. Learn from the survivors and apply their wisdom to the silicon."] },
+          research: "Virtue Ethics. I applied 2,000-year-old frameworks to modern algorithms, giving me muscles for human rights.",
+          timeline: [["2025", "Grad DKU; NGO Researcher"], ["2035", "Safety Lead, OpenAI"], ["2048", "CEO, ByteDance Ethics"]],
+          letter: ["When the Sentience Crisis hit, I was ready. I didn't solve the problem with code; I solved it with logic.", "Philosophy is the most practical skill. It allows you to say 'No' to a bad idea by proving inconsistency.", "Don't be afraid of 'useless' questions. The harder the answer, the more valuable your logic is."] },
 
-        // PPE (3)
-        { spr: "60% 66.6%", name: "Elena Rossi", job: "Senior Institutional Strategist, PwC China", major: "PPE", 
-          longDesc: "I am a senior consultant specializing in organizational design. I fix red tape and internal friction, rewriting rules to ensure power is shared fairly.",
+        { spr: "20% 66.6%", name: "Isabella Costa", job: "Director of Truth, OpenAI", major: "Philosophy & Religion", 
+          longDesc: "I work for OpenAI ensuring logical consistency. I use philosophy to check if virtual worlds make sense.",
+          skills: ["Checking virtual logic.", "Finding digital meaning.", "Verifying facts with philosophy."],
+          distractors: ["Investigating history roots.", "Designing government rules.", "Spotting social bias."],
+          research: "Avatar Ontology. I explored how our sense of reality changes in digital bodies. This research is now protocol.",
+          timeline: [["2025", "Grad DKU; Auditor, Google"], ["2037", "Consultant, NASA"], ["2050", "Director, OpenAI"]],
+          letter: ["By 2035, reality and simulation dissolved into each other. I used my degree to rebuild the anchor.", "I designed authentication protocols teaching people how to recognize the 'Inherent Self.'", "Master logic, and you won't be lost in the code. The truth still exists."] },
+
+        { spr: "40% 66.6%", name: "Guo Yan", job: "Values Mediator, Amity Foundation", major: "Philosophy & Religion", 
+          longDesc: "I bridge the gap between global tech and faith groups in China. I ensure drones respect religious boundaries.",
+          skills: ["Solving worldview clashes.", "Explaining tradition to tech.", "Applying moral logic."],
+          distractors: ["Analyzing group dynamics.", "Fixing liability laws.", "Predicting shipping delays."],
+          research: "Sacrality of AI. I studied how different cultures view machines as soulless or spirit-filled.",
+          timeline: [["2025", "Grad DKU; Field Mediator"], ["2038", "Consultant, Microsoft"], ["2049", "Lead Mediator, Amity"]],
+          letter: ["By 2040, digital culture flattened traditions. I became a 'Steward of the Sacred,' protecting human meaning.", "Progress only works if it respects the spiritual boundaries of the people it serves.", "Study great traditions. They are the code that has run for thousands of years without a crash."] },
+
+        { spr: "60% 66.6%", name: "Kenji Tanaka", job: "Senior Strategist, PwC Strategy&", major: "PPE", 
+          longDesc: "I am a senior consultant specializing in organizational design. I fix red tape to ensure power is shared fairly.",
           skills: ["Fixing red tape and friction.", "Rewriting 'rules of the game'.", "Figuring out who has influence."],
           distractors: ["Decoding brand rituals.", "Writing poetic bot code.", "Restoring old forests."],
-          research: "The Friction of the Firm. I analyzed why large bureaucracies fail and developed a model for Incentive Alignment that is now standard in Chinese corporate strategy.",
-          timeline: [["2025", "Grad DKU PPE; Assoc, PwC HK"], ["2035", "Policy Lead, Shanghai Zone"], ["2047", "Senior Strategist, PwC China"]],
-          letter: ["I graduated into a world where old institutions were failing. Power had moved into the cracks between the market and the state. I used PPE to become an 'Institutional Architect.'", "I spent my thirties drafting the new 'Digital Social Contract' for economic zones. I balanced market growth with human justice. I fixed the systems that were breaking society.", "The hardest problems aren't technical; they are institutional. Master the intersection of policy and economics; that is where power hides. If you don't design the system, it designs you."] },
-        { spr: "80% 66.6%", name: "Hiroshi Sato", job: "Lead Jurist, ICBC", major: "PPE", 
-          longDesc: "I work for ICBC Global Digital Rights. I protect your right to own your financial data and personal neural records. I design new financial laws and solve disputes.",
-          skills: ["Analyzing fairness in data trade.", "Designing digital human rights laws.", "Solving ownership disputes."],
+          research: "Friction of the Firm. I analyzed why bureaucracies fail and developed Incentive Alignment models.",
+          timeline: [["2025", "Grad DKU; Associate, PwC"], ["2035", "Policy Lead, Shanghai"], ["2047", "Senior Strategist, PwC"]],
+          letter: ["Institutions were failing to keep up with power. I used PPE to become an 'Architect.'", "I drafted the 'Digital Social Contract' for economic zones, balancing growth with justice.", "Master the intersection where power hides. If you don't design the system, it designs you."] },
+
+        { spr: "80% 66.6%", name: "Liu Feng", job: "Lead Jurist, ICBC", major: "PPE", 
+          longDesc: "I work for ICBC Global Digital Rights. I protect your right to own personal neural records. I design financial laws.",
+          skills: ["Analyzing fairness in data.", "Designing digital human rights.", "Solving ownership disputes."],
           distractors: ["Defining the soul.", "Spotting 100-year trends.", "Interpreting metaphors."],
-          research: "The Political Economy of Personal Data. I argued that data is labor that should be paid for, which led to the 2040 Data-Worker Rights laws.",
-          timeline: [["2025", "Grad DKU PPE; Legal Asst, KWM"], ["2038", "Justice, Court of Data Rights"], ["2049", "Lead Jurist, ICBC"]],
-          letter: ["By 2035, your most valuable asset was your Identity-Data. Corporations were harvesting human lives for profit. I used my PPE background to argue that the 'Self' is sovereign.", "I drafted the 'Digital Bill of Rights,' the first law protecting the right to an unobserved life. I defended the border of the mind. I made sure people still had a home.", "Learn the law, but learn the philosophy behind it. That is the only way to protect your own freedom. In 2050, the law is the only shield the human has left."] },
-        { spr: "100% 66.6%", name: "Dr. Maya Jung", job: "Senior Equity Advisor, Gates Foundation", major: "PPE", 
-          longDesc: "I work at the Gates Foundation, managing the politics behind global resource deals. I make sure breakthroughs are shared fairly with the Global South.",
-          skills: ["Checking fair access to resources.", "Managing trade politics.", "Designing rules for poorer nations."],
-          distractors: ["Doing cultural observations.", "Predicting market bubbles.", "Decoding hidden hierarchies."],
-          research: "The Leverage of Scarcity. I researched how small nations can band together to negotiate better deals for resources like lithium and clean water.",
-          timeline: [["2025", "Grad DKU PPE; Analyst, World Bank"], ["2034", "Director, Resource NGO"], ["2048", "Senior Advisor, Gates Foundation"]],
-          letter: ["I left DKU wanting to solve inequality. In the 2040s, wealth became about 'Access' rather than just money. I became an 'Equity Diplomat' to ensure no one was left in the dark.", "I showed the world that a global economy is only stable if it is perceived as fair by every nation. I turned technical access into a fundamental human right.", "Don't study the market; study the people who make the rules of the market. That is where real change begins. Master the politics of equity and you will lead the global table."] },
+          research: "Personal Data Economy. I argued that data is labor that should be paid for, leading to the 2040 laws.",
+          timeline: [["2025", "Grad DKU; Legal Asst, KWM"], ["2038", "Justice, Data Court"], ["2049", "Lead Jurist, ICBC"]],
+          letter: ["By 2035, corporations were harvesting lives. I used PPE to argue the 'Self' is sovereign.", "I drafted the 'Digital Bill of Rights' protecting the unobserved life. I defended the border of the mind.", "Learn the philosophy behind the law. That is the only way to protect your freedom."] },
 
-        // SOCIOLOGY (3)
-        { spr: "0% 100%", name: "Dr. Leo Chen", job: "Director of Solidarity, LinkedIn China", major: "Sociology", 
-          longDesc: "I work at LinkedIn China building community spirit for virtual companies. I spend my time seeing the invisible ceilings that stop remote workers from being promoted.",
-          skills: ["Seeing 'invisible ceilings'.", "Building trust in virtual groups.", "Investigating why groups fall apart."],
+        { spr: "100% 66.6%", name: "Clara van der Berg", job: "Equity Advisor, Gates Foundation", major: "PPE", 
+          longDesc: "I work at the Gates Foundation managing politics of global resource deals. I ensure breakthroughs are shared.",
+          skills: ["Checking resource access.", "Managing trade politics.", "Designing rules for poorer nations."],
+          distractors: ["Doing observations.", "Predicting market bubbles.", "Decoding hidden hierarchies."],
+          research: "Leverage of Scarcity. I researched how small nations band together to negotiate for resources like water.",
+          timeline: [["2025", "Grad DKU; Analyst, World Bank"], ["2034", "Director, Resource NGO"], ["2048", "Senior Advisor, Gates"]],
+          letter: ["Wealth became about 'Access' rather than just money. I became an 'Equity Diplomat' for the dark.", "Economy is only stable if it's fair. I turned access into a fundamental human right.", "Don't study the market; study the people who make the rules. That is where change begins."] },
+
+        // ROW 4: SOCIOLOGY (19-21) & ANTHROPOLOGY (22-24)
+        { spr: "0% 100%", name: "Zhang Mei", job: "Director of Solidarity, LinkedIn China", major: "Sociology", 
+          longDesc: "I work at LinkedIn China building community spirit for virtual companies. I investigate why groups fall apart.",
+          skills: ["Seeing 'invisible ceilings'.", "Building trust in virtual groups.", "Investigating group decay."],
           distractors: ["Fixing government rules.", "Solving logic puzzles.", "Investigating old causes."],
-          research: "The Sociology of Virtual Trust. I found that group cohesion depends on shared struggle and developed protocols to prevent isolation in remote offices.",
-          timeline: [["2025", "Grad DKU Sociology; Tencent"], ["2036", "Director, Virtual Urban Lab"], ["2050", "Director, LinkedIn China"]],
-          letter: ["By 2040, the 'City' was digital and trust was at an all-time low. I used my DKU training to design 'Trust Protocols' for the internet city.", "I became the architect of the 'Invisible Neighborhood.' I build incentives for connection that replaced the office. I made sure people still felt part of a 'We.'", "The most important technology is the one that connects us as a human group. Your value is your ability to see the group and keep it healthy. Sociology is the science of belonging."] },
-        { spr: "20% 100%", name: "Dr. Kenji Wu", job: "Chief Auditor of Social Mobility, Deloitte", major: "Sociology", 
-          longDesc: "I work for Deloitte Global auditing the hiring algorithms of companies to check for class bias. I interview employees to understand hidden hierarchies.",
-          skills: ["Spotting hidden bias in code.", "Checking background fairness.", "Seeing how social groups interact."],
-          distractors: ["Analyzing user emotions.", "Solving moral dilemmas.", "Fixing office red tape."],
-          research: "The Algorithm's Class. I proved that hiring AI was using home addresses as a secret way to reject low-income applicants, forcing a change in AI law.",
-          timeline: [["2025", "Grad DKU Sociology; Ping An"], ["2035", "Lead Auditor, Civic Rights"], ["2049", "Chief Auditor, Deloitte"]],
-          letter: ["My path led to 'Algorithm Auditing.' By 2035, systems managing jobs developed hierarchies that favored the wealthy. I used my major to socially audit the machine.", "I uncovered the biases the engineers missed. I fought to ensure the digital economy remained an engine for mobility, not a tool for control.", "Learn to see the hierarchy, then dismantle it. Justice is a sociological problem, not a technical one. Your degree is a magnifying glass for the invisible rules of power."] },
-        { spr: "40% 100%", name: "Sarah Vance", job: "Network Dynamics Lead, Amnesty Int'l", major: "Sociology", 
-          longDesc: "I work for Amnesty International analyzing how viral social movements start online. I map influence nodes in networks to help activists turn raw energy into change.",
-          skills: ["Analyzing online group work.", "Spotting influential people.", "Measuring group trust levels."],
-          distractors: ["Writing poetry.", "Observing unwritten rules.", "Fact-checking old records."],
-          research: "The Lifecycle of the Viral Protest. I identified the tipping point where a hashtag turns into a real organization or disappears into noise.",
-          timeline: [["2025", "Grad DKU Sociology; Greenpeace"], ["2034", "Director, Social Agency Lab"], ["2050", "Lead, Amnesty Global"]],
-          letter: ["I was fascinated by the 'Crowd.' In the 2030s, movements could topple institutions in a weekend but couldn't build new ones. I became a Network Strategist to help them build.", "I map influence nodes to help activists turn raw energy into institutional change. I taught people how to organize without proximity.", "Even in an era of machines, the collective will is the only driver of history. Study the power of the 'We' to win the future. Sociology is the fuel for collective change."] },
+          research: "Virtual Trust. I found that cohesion depends on shared struggle and developed remote office protocols.",
+          timeline: [["2025", "Grad DKU; Tencent"], ["2036", "Director, Virtual Urban Lab"], ["2050", "Director, LinkedIn"]],
+          letter: ["By 2040, the City was digital and trust was low. I designed 'Trust Protocols' for the internet city.", "I became the architect of the 'Invisible Neighborhood,' building incentives for connection.", "Your value is your ability to see the group and keep it healthy. Belonging is a science."] },
 
-        // ANTHROPOLOGY (3)
-        { spr: "60% 100%", name: "Nara Kim", job: "VP of Human Experience, Pop Mart", major: "Anthropology", 
-          longDesc: "I lead the HX unit at Pop Mart Global, observing how young people collect objects across cultures. I uncover unwritten rules of play and habits into new product designs.",
+        { spr: "20% 100%", name: "David O'Sullivan", job: "Auditor of Social Mobility, Deloitte", major: "Sociology", 
+          longDesc: "I work for Deloitte auditing hiring algorithms for class bias. I interview employees to understand hierarchies.",
+          skills: ["Spotting bias in code.", "Checking background fairness.", "Seeing group interactions."],
+          distractors: ["Analyzing emotions.", "Solving moral dilemmas.", "Fixing office red tape."],
+          research: "Algorithm's Class. I proved hiring AI was using home addresses to reject applicants, forcing law changes.",
+          timeline: [["2025", "Grad DKU; Ping An"], ["2035", "Lead Auditor, Civic Rights"], ["2049", "Chief Auditor, Deloitte"]],
+          letter: ["Hiring systems developed hierarchies favoring the wealthy. I used my major to socially audit the machine.", "I uncovered biases engineers missed. I ensured the digital economy remained an engine for mobility.", "Learn to see the hierarchy, then dismantle it. Sociology is a magnifying glass for power."] },
+
+        { spr: "40% 100%", name: "Yang Guang", job: "Network Dynamics Lead, Amnesty Int'l", major: "Sociology", 
+          longDesc: "I work for Amnesty analyzing viral movements. I map influence nodes to help activists turn energy into change.",
+          skills: ["Analyzing online group work.", "Spotting influential people.", "Measuring group trust."],
+          distractors: ["Writing poetry.", "Observing unwritten rules.", "Fact-checking old records."],
+          research: "Viral Protests. I identified the tipping point where a hashtag turns into a real organization.",
+          timeline: [["2025", "Grad DKU; Greenpeace"], ["2034", "Director, Social Agency"], ["2050", "Lead, Amnesty Global"]],
+          letter: ["Movements toppled institutions but couldn't build new ones. I became a Network Strategist to help them build.", "I map influence nodes to turn raw energy into change. I taught people how to organize without proximity.", "The collective will is the driver of history. Study the power of the 'We' to win the future."] },
+
+        { spr: "60% 100%", name: "Fatima Al-Sayed", job: "VP of Human Experience, Pop Mart", major: "Anthropology", 
+          longDesc: "I lead the HX unit at Pop Mart Global observing object ritualization. I translate unwritten rules into designs.",
           skills: ["Paying attention to unwritten rules.", "Uncovering tradition importance.", "Seeing how people adapt."],
-          distractors: ["Predicting stock market trends.", "Evaluating trade deals.", "Using diplomatic rules."],
-          research: "Ritualized Collecting. I found that people buy objects to feel connected to a tribe, which is now the core strategy of Pop Mart.",
-          timeline: [["2025", "Grad DKU Anth; LEGO"], ["2038", "Director, Play Habitus"], ["2050", "VP Human Experience, Pop Mart"]],
-          letter: ["I left DKU as a user researcher. My journey took me to remote communities where technology arrived in a week. I used 'Thick Description' to find human meaning again.", "I document how people find meaning in a high-tech world. I help firms design products that respect ancient rituals. I saved the culture from being automated.", "Technology isn't culture. Your value is observing the 'Lived Experience'—the only data that never grows old. Listen to the stories that aren't being told. Be the person who hears."] },
-        { spr: "80% 100%", name: "Amara Okonkwo", job: "Senior Intercultural Mediator, Pfizer", major: "Anthropology", 
-          longDesc: "I work at Pfizer Global helping our medical teams understand local views on wellness. I map how different family structures affect health habits.",
-          skills: ["Helping generations understand each other.", "Seeing digital family shifts.", "Explaining vibe shifts."],
+          distractors: ["Predicting market trends.", "Evaluating trade deals.", "Using diplomatic rules."],
+          research: "Ritualized Collecting. I found that people buy objects to feel connected to a tribe, which is now strategy.",
+          timeline: [["2025", "Grad DKU; LEGO"], ["2038", "Director, Play Habitus"], ["2050", "VP Human Experience, Pop Mart"]],
+          letter: ["People had tech, but were losing meaning. I used 'Thick Description' to find human meaning again.", "I document how people find meaning and help firms design products respecting rituals.", "Technology isn't culture. Your value is observing 'Lived Experience'—the data that never grows old."] },
+
+        { spr: "80% 100%", name: "Xu Ping", job: "Senior Mediator, Pfizer", major: "Anthropology", 
+          longDesc: "I work at Pfizer helping medical teams understand wellness. I map how family structures affect health habits.",
+          skills: ["Helping generations understand.", "Seeing family shifts.", "Explaining vibe shifts."],
           distractors: ["Analyzing brand stories.", "Rewriting legal contracts.", "Spotting long-term shifts."],
-          research: "Kinship and Health. I found that medical advice is only followed if the 'family head' trusts it, which changed how Pfizer designs rural outreach.",
-          timeline: [["2025", "Grad DKU Anth; Field Researcher"], ["2037", "Director, Health Anth"], ["2049", "Senior Mediator, Pfizer"]],
-          letter: ["By 2040, cultural change was so fast that generations lived in different worlds. I became an Intercultural Mediator to protect the human bond across those worlds.", "I used Anthropology to 'Map the New Dialects' of the young psyche. I didn't translate words; I translated meaning and emotion. I saved the bond across distance and time.", "Empathy is a cultural skill that must be practiced like a language. Learn to look through someone else's eyes—AI will never simulate that. Protect the human connection."] },
-        { spr: "100% 100%", name: "Dr. Julian Sky", job: "Director of Symbolic Strategy, LEGO", major: "Anthropology", 
-          longDesc: "I work for LEGO as the lead designer of internal culture. I design the traditions and events that turn employees into a supportive tribe.",
-          skills: ["Designing traditions that bond teams.", "Prioritizing how products feel.", "Evaluating brand status."],
-          distractors: ["Checking old history facts.", "Designing stock market rules.", "Predicting tax changes."],
-          research: "Anthropology of the Office Ritual. I studied why morning coffee and Friday chats are vital for trust, now the LEGO Solidarity Code used globally.",
-          timeline: [["2025", "Grad DKU Anth; Culture Intern, Google"], ["2035", "Director, Organizational Tribe"], ["2048", "Director of Symbolics, LEGO"]],
-          letter: ["I was interested in how 'The Sacred' is constructed. In the 2030s, we had a crisis: the loss of 'Meaning' in professional life. I used my major to fix the spirit of work.", "I became a 'Symbolic Architect,' designing new ceremonies for the digital workplace. I created the 'Day of Solidarity,' ensuring tech firms felt connected.", "Humans need to feel 'part of something larger.' Study the rituals of the past; they are the code for human happiness. Master them, and you will build a home for the future."] }
+          research: "Kinship and Health. I found that medical advice is only followed if the family head trusts it.",
+          timeline: [["2025", "Grad DKU; MSF"], ["2037", "Director, Health Anth"], ["2049", "Senior Mediator, Pfizer"]],
+          letter: ["By 2040, cultural change was so fast that generations lived in different worlds. I protected the human bond.", "I used Anthropology to Map the New Dialects of the young psyche, translating meaning and emotion.", "Empathy must be practiced like a language. Learn to look through eyes AI will never simulate."] },
+
+        { spr: "100% 100%", name: "Lucas Bernard", job: "Director of Symbolic Strategy, LEGO", major: "Anthropology", 
+          longDesc: "I work for LEGO as designer of internal culture. I design the events that turn employees into a tribe.",
+          skills: ["Designing traditions that bond.", "Prioritizing how products feel.", "Evaluating brand status."],
+          distractors: ["Checking history facts.", "Designing market rules.", "Predicting tax changes."],
+          research: "Office Rituals. I studied why morning coffee is vital for trust, now the LEGO Solidarity Code.",
+          timeline: [["2025", "Grad DKU; Culture Intern, Google"], ["2035", "Director, Organizational Tribe"], ["2048", "Director of Symbolics, LEGO"]],
+          letter: ["In the 2030s, we had a crisis: the loss of 'Meaning' in work. I used my major to fix the spirit of work.", "I became a 'Symbolic Architect,' designing ceremonies for the workplace. I turned the office into a home.", "Humans need to feel part of something larger. Study rituals; they are the code for human happiness."] }
     ];
 
     let metAlumni = [];
@@ -342,7 +349,7 @@
         shuffle(available).slice(0, 3).forEach(mentor => {
             const card = document.createElement('div'); card.className = 'char-card';
             card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${mentor.spr}"></div>
-                             <div class="char-info" style="padding:20px"><h3>${mentor.name}</h3><p style="color:var(--dku-gold); text-transform:uppercase; font-size:0.75rem; font-weight:bold;">${mentor.job}</p></div>`;
+                             <div style="padding:20px"><h3>${mentor.name}</h3><p style="color:var(--dku-gold); text-transform:uppercase; font-size:0.75rem; font-weight:bold;">${mentor.job}</p></div>`;
             card.onclick = () => loadMentor(mentor);
             grid.appendChild(card);
         });
@@ -354,8 +361,6 @@
         document.getElementById('mentor-name-title').innerText = mentor.name;
         document.getElementById('job-long-desc').innerHTML = `<p>${mentor.longDesc}</p>`;
         document.getElementById('mentor-photo').style.backgroundPosition = mentor.spr;
-        document.getElementById('skill-feedback').style.display = 'none';
-        document.getElementById('verify-skills-btn').style.display = 'block';
         document.getElementById('verify-skills-btn').disabled = true;
         const opts = shuffle([...mentor.skills, ...mentor.distractors]);
         const grid = document.getElementById('skill-options'); grid.innerHTML = '';
@@ -371,15 +376,18 @@
     }
 
     function verifySkills() {
-        const incorrectSkills = selectedSkills.filter(s => !currentMentor.skills.includes(s));
-        if (incorrectSkills.length === 0) {
+        const incorrect = selectedSkills.filter(s => !currentMentor.skills.includes(s));
+        if (incorrect.length === 0) {
             document.getElementById('skill-feedback').style.display = 'block';
-            document.getElementById('verify-skills-btn').style.display = 'none';
-            setTimeout(() => { switchScreen('mentor-screen', 'major-screen'); loadMajors(); }, 1200);
+            setTimeout(() => { 
+                document.getElementById('skill-feedback').style.display = 'none';
+                switchScreen('mentor-screen', 'major-screen'); 
+                loadMajors(); 
+            }, 1200);
         } else { 
-            let msg = "Verification failed.\n\nIncorrect skills for this role:\n";
-            incorrectSkills.forEach(s => msg += `• ${s}\n`);
-            alert(msg + "\nRe-examine the job description to identify the methodology this leader uses daily.");
+            let msg = "Incorrect choices detected:\n";
+            incorrect.forEach(s => msg += `• ${s}\n`);
+            alert(msg + "\nRe-read the job profile to identify the leadership edge.");
             selectedSkills = [];
             document.querySelectorAll('.skill-btn').forEach(b => b.classList.remove('selected'));
             document.getElementById('verify-skills-btn').disabled = true;
@@ -388,7 +396,6 @@
 
     function loadMajors() {
         const grid = document.getElementById('major-options'); grid.innerHTML = '';
-        document.getElementById('major-feedback').style.display = 'none';
         const uniqueMajors = ["QPE", "History", "Literature", "GCS", "Philosophy & Religion", "PPE", "Sociology", "Anthropology"];
         shuffle(uniqueMajors).forEach(major => {
             const btn = document.createElement('div'); btn.className = 'char-card'; btn.style.padding = '25px'; btn.style.textAlign = 'center'; btn.innerText = major;
@@ -397,6 +404,7 @@
                     document.getElementById('major-feedback').style.display = 'block';
                     metAlumni.push(currentMentor);
                     setTimeout(() => {
+                        document.getElementById('major-feedback').style.display = 'none';
                         switchScreen('major-screen', 'reveal-screen');
                         document.getElementById('reveal-name').innerText = currentMentor.name;
                         document.getElementById('reveal-photo').style.backgroundPosition = currentMentor.spr;
@@ -404,12 +412,9 @@
                         if (metAlumni.length === 3) {
                             document.getElementById('next-mentor-btn').classList.add('hidden');
                             document.getElementById('final-choice-btn').classList.remove('hidden');
-                        } else {
-                            document.getElementById('next-mentor-btn').classList.remove('hidden');
-                            document.getElementById('final-choice-btn').classList.add('hidden');
                         }
                     }, 1200);
-                } else { alert("Academic root mismatch. Select the major that provides this specific research toolkit."); }
+                } else { alert("Academic root mismatch. Identify the discipline that provided this research toolkit."); }
             };
             grid.appendChild(btn);
         });
@@ -421,7 +426,7 @@
         metAlumni.forEach(alumnus => {
             const card = document.createElement('div'); card.className = 'char-card';
             card.innerHTML = `<div class="alumni-sprite photo-frame" style="background-position: ${alumnus.spr}"></div>
-                             <div class="char-info" style="padding:20px"><h3>${alumnus.name}</h3><p style="color:var(--dku-gold)">${alumnus.major}</p></div>`;
+                             <div style="padding:20px"><h3>${alumnus.name}</h3><p style="color:var(--dku-gold)">${alumnus.major}</p></div>`;
             card.onclick = () => displayLetter(alumnus);
             grid.appendChild(card);
         });
@@ -441,7 +446,7 @@
                 <div class="signature">Yours in Inquiry,<br>${alumnus.name}</div>
             </div>
             <div class="sidebar-column">
-                <div class="cv-card"><h4>Professional Milestones</h4>${timelineHTML}</div>
+                <div class="cv-card"><h4>Milestones</h4>${timelineHTML}</div>
             </div>
         `;
     }
